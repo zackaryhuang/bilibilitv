@@ -159,8 +159,13 @@ struct AreaLiveRoom: DisplayData, Codable, PlayableData {
     var avatar: URL? { face }
     var cid: Int { 0 }
     var aid: Int { 0 }
+    var watched_show: LiveRoomExtra?
 
     func toLiveRoom() -> LiveRoom {
         return LiveRoom(title: title, room_id: roomid, uname: uname, keyframe: system_cover, face: face, cover_from_user: user_cover)
+    }
+
+    struct LiveRoomExtra: Codable, Hashable {
+        var num: Int
     }
 }

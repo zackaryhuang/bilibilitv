@@ -258,6 +258,10 @@ enum ApiRequest {
             let cover: String
             let goto: String
             let rcmd_reason: String?
+            let desc: String?
+            let cover_left_text_1: String?
+            let cover_left_text_2: String?
+            let cover_right_text: String?
 
             var ownerName: String {
                 return args.up_name ?? ""

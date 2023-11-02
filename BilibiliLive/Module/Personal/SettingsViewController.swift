@@ -35,9 +35,9 @@ class SettingsViewController: UIViewController {
 
     func setupData() {
         cellModels.removeAll()
-        let directlyVideo = CellModel(title: "直接进入视频", desp: Settings.direatlyEnterVideo ? "开" : "关") {
+        let directlyVideo = CellModel(title: "直接进入视频", desp: Settings.playVideoDirectly ? "开" : "关") {
             [weak self] in
-            Settings.direatlyEnterVideo.toggle()
+            Settings.playVideoDirectly.toggle()
             self?.setupData()
         }
         cellModels.append(directlyVideo)

@@ -8,6 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		2DBE4C4D2628818F00D20413 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE4C4C2628818F00D20413 /* HistoryViewController.swift */; };
+		3006A95D2AE7FFD200DB0EE5 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3006A95C2AE7FFD200DB0EE5 /* Tools.swift */; };
+		3006A9602AE808D700DB0EE5 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 3006A95F2AE808D700DB0EE5 /* loading.json */; };
+		3006A9632AE8093600DB0EE5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3006A9622AE8093600DB0EE5 /* Lottie */; };
+		3006A9652AE80A1B00DB0EE5 /* login_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 3006A9642AE80A1B00DB0EE5 /* login_loading.json */; };
+		3006A9672AE8128900DB0EE5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3006A9662AE8128900DB0EE5 /* MainViewController.swift */; };
+		3006A9692AE8129800DB0EE5 /* SidePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3006A9682AE8129800DB0EE5 /* SidePanel.swift */; };
+		3006A96B2AE8155600DB0EE5 /* SidePanelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3006A96A2AE8155600DB0EE5 /* SidePanelItemView.swift */; };
+		3006A96F2AE82ED400DB0EE5 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3006A96E2AE82ED400DB0EE5 /* VideoCell.swift */; };
+		304F07112AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F07102AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift */; };
+		304F07132AEFF6DE00ED4FD7 /* LivesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F07122AEFF6DE00ED4FD7 /* LivesCollectionViewController.swift */; };
+		304F07152AEFF6F000ED4FD7 /* HotsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F07142AEFF6F000ED4FD7 /* HotsCollectionViewController.swift */; };
+		304F07172AEFF6F600ED4FD7 /* RanksCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F07162AEFF6F600ED4FD7 /* RanksCollectionViewController.swift */; };
+		304F07192AEFF70100ED4FD7 /* FollowersCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F07182AEFF70100ED4FD7 /* FollowersCollectionViewController.swift */; };
+		304F071B2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F071A2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift */; };
+		304F071D2AF08CC500ED4FD7 /* LiveCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F071C2AF08CC500ED4FD7 /* LiveCategoryCell.swift */; };
+		304F07212AF14EAC00ED4FD7 /* lottie_empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 304F07202AF14EAC00ED4FD7 /* lottie_empty.json */; };
+		30EAEC252AEAA45700BB3410 /* SubSidePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EAEC242AEAA45700BB3410 /* SubSidePanel.swift */; };
+		30EAEC272AEAA8C700BB3410 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EAEC262AEAA8C700BB3410 /* SettingCell.swift */; };
 		490425F729AB54B200CDBC60 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490425F629AB54B200CDBC60 /* CategoryViewController.swift */; };
 		49078E47291BEA2400F556BD /* PocketSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 49078E46291BEA2400F556BD /* PocketSVG */; };
 		490EC3E7290CC8F8001E00B6 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EC3E6290CC8F8001E00B6 /* RankingViewController.swift */; };
@@ -106,6 +124,23 @@
 
 /* Begin PBXFileReference section */
 		2DBE4C4C2628818F00D20413 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		3006A95C2AE7FFD200DB0EE5 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		3006A95F2AE808D700DB0EE5 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		3006A9642AE80A1B00DB0EE5 /* login_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login_loading.json; sourceTree = "<group>"; };
+		3006A9662AE8128900DB0EE5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		3006A9682AE8129800DB0EE5 /* SidePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidePanel.swift; sourceTree = "<group>"; };
+		3006A96A2AE8155600DB0EE5 /* SidePanelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidePanelItemView.swift; sourceTree = "<group>"; };
+		3006A96E2AE82ED400DB0EE5 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		304F07102AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsCollectionViewController.swift; sourceTree = "<group>"; };
+		304F07122AEFF6DE00ED4FD7 /* LivesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivesCollectionViewController.swift; sourceTree = "<group>"; };
+		304F07142AEFF6F000ED4FD7 /* HotsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotsCollectionViewController.swift; sourceTree = "<group>"; };
+		304F07162AEFF6F600ED4FD7 /* RanksCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanksCollectionViewController.swift; sourceTree = "<group>"; };
+		304F07182AEFF70100ED4FD7 /* FollowersCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCollectionViewController.swift; sourceTree = "<group>"; };
+		304F071A2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
+		304F071C2AF08CC500ED4FD7 /* LiveCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCategoryCell.swift; sourceTree = "<group>"; };
+		304F07202AF14EAC00ED4FD7 /* lottie_empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_empty.json; sourceTree = "<group>"; };
+		30EAEC242AEAA45700BB3410 /* SubSidePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSidePanel.swift; sourceTree = "<group>"; };
+		30EAEC262AEAA8C700BB3410 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		490425F629AB54B200CDBC60 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		490EC3E6290CC8F8001E00B6 /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
 		490EC3E8290CE23E001E00B6 /* BLSettingLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLSettingLineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -190,6 +225,7 @@
 				49078E47291BEA2400F556BD /* PocketSVG in Frameworks */,
 				499C76162931A7AE003160FB /* SwiftyXMLParser in Frameworks */,
 				49508E112943420100D26812 /* CocoaLumberjackSwift in Frameworks */,
+				3006A9632AE8093600DB0EE5 /* Lottie in Frameworks */,
 				F927ED65260F917D00EAB8E3 /* Gzip in Frameworks */,
 				49735024290D0E8A0045C26B /* Fuzi in Frameworks */,
 				F9171D5F2900FCFB002868C7 /* SnapKit in Frameworks */,
@@ -237,6 +273,24 @@
 				F927ED672610113A00EAB8E3 /* LiveDanMuProvider.swift */,
 			);
 			path = Live;
+			sourceTree = "<group>";
+		};
+		3006A95B2AE7FFC200DB0EE5 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				3006A95C2AE7FFD200DB0EE5 /* Tools.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		3006A95E2AE808C900DB0EE5 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				304F07202AF14EAC00ED4FD7 /* lottie_empty.json */,
+				3006A9642AE80A1B00DB0EE5 /* login_loading.json */,
+				3006A95F2AE808D700DB0EE5 /* loading.json */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		49389D5D28AFE6DC00B9DAFD /* Video */ = {
@@ -321,6 +375,17 @@
 				2D3CD4002635BE7C00191419 /* Live */,
 				AEA6AB1428FFE48B007CE72E /* Personal */,
 				2D3CD3F52635BD1100191419 /* ViewController */,
+				3006A9662AE8128900DB0EE5 /* MainViewController.swift */,
+				304F071A2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift */,
+				304F07102AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift */,
+				304F07122AEFF6DE00ED4FD7 /* LivesCollectionViewController.swift */,
+				304F07142AEFF6F000ED4FD7 /* HotsCollectionViewController.swift */,
+				304F07162AEFF6F600ED4FD7 /* RanksCollectionViewController.swift */,
+				304F07182AEFF70100ED4FD7 /* FollowersCollectionViewController.swift */,
+				3006A9682AE8129800DB0EE5 /* SidePanel.swift */,
+				30EAEC242AEAA45700BB3410 /* SubSidePanel.swift */,
+				30EAEC262AEAA8C700BB3410 /* SettingCell.swift */,
+				304F071C2AF08CC500ED4FD7 /* LiveCategoryCell.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -403,6 +468,8 @@
 		F9B57352260F5F7400771ED5 /* BilibiliLive */ = {
 			isa = PBXGroup;
 			children = (
+				3006A95E2AE808C900DB0EE5 /* Resource */,
+				3006A95B2AE7FFC200DB0EE5 /* Tools */,
 				49389D6028AFE91E00B9DAFD /* Extensions */,
 				49D39F26263AD3F100F14497 /* Request */,
 				AEA6AB1228FFE45A007CE72E /* Component */,
@@ -411,6 +478,8 @@
 				F9B57357260F5F7400771ED5 /* Main.storyboard */,
 				F927ED8C2610A5A800EAB8E3 /* LoginViewController.swift */,
 				F9B9EAE6261AC6F80045C2C6 /* BLTabBarViewController.swift */,
+				3006A96A2AE8155600DB0EE5 /* SidePanelItemView.swift */,
+				3006A96E2AE82ED400DB0EE5 /* VideoCell.swift */,
 				F927ED6A2610391000EAB8E3 /* Vendor */,
 				2D3CD3F72635BD7000191419 /* Supporting Files */,
 				496400D22943431E0098ACA6 /* Logger.swift */,
@@ -451,6 +520,7 @@
 				499C76152931A7AE003160FB /* SwiftyXMLParser */,
 				49508E0E2943420100D26812 /* CocoaLumberjack */,
 				49508E102943420100D26812 /* CocoaLumberjackSwift */,
+				3006A9622AE8093600DB0EE5 /* Lottie */,
 			);
 			productName = BilibiliLive;
 			productReference = F9B57350260F5F7400771ED5 /* BilibiliLive.app */;
@@ -495,6 +565,7 @@
 				499C76112931A780003160FB /* XCRemoteSwiftPackageReference "swifter" */,
 				499C76142931A7AE003160FB /* XCRemoteSwiftPackageReference "SwiftyXMLParser" */,
 				49508E0D2943420100D26812 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				3006A9612AE8093600DB0EE5 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = F9B57351260F5F7400771ED5 /* Products */;
 			projectDirPath = "";
@@ -510,11 +581,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3006A9652AE80A1B00DB0EE5 /* login_loading.json in Resources */,
 				49F918702931E473001D3EC3 /* NirvanaControl.xml in Resources */,
 				49F918722931E927001D3EC3 /* AvTransportScpd.xml in Resources */,
 				F9B5735E260F5F7600771ED5 /* LaunchScreen.storyboard in Resources */,
 				F9B5735B260F5F7600771ED5 /* Assets.xcassets in Resources */,
+				3006A9602AE808D700DB0EE5 /* loading.json in Resources */,
 				49F9186E2931E3C9001D3EC3 /* DLNAInfo.xml in Resources */,
+				304F07212AF14EAC00ED4FD7 /* lottie_empty.json in Resources */,
 				F9B57359260F5F7400771ED5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -552,6 +626,7 @@
 				4973502B29161B770045C26B /* WeeklyWatchViewController.swift in Sources */,
 				AE7A3B20290298BE006FEBB0 /* Colors.swift in Sources */,
 				49FB8EC0291F4C520045D5DE /* VMaskProvider.swift in Sources */,
+				30EAEC252AEAA45700BB3410 /* SubSidePanel.swift in Sources */,
 				49E5F85028AF73C500FAA3CE /* BilibiliVideoResourceLoaderDelegate.swift in Sources */,
 				494741C82902C45D005D6885 /* Array+..swift in Sources */,
 				AEA6AB1628FFE951007CE72E /* SettingsViewController.swift in Sources */,
@@ -568,9 +643,11 @@
 				AE2B41552912706700BF2B0B /* SearchResultViewController.swift in Sources */,
 				499C75EE29305A1E003160FB /* BiliBiliUpnpDMR.swift in Sources */,
 				4947423B2906B308005D6885 /* BLTextOnlyCollectionViewCell.swift in Sources */,
+				304F07132AEFF6DE00ED4FD7 /* LivesCollectionViewController.swift in Sources */,
 				F927ED8D2610A5A800EAB8E3 /* LoginViewController.swift in Sources */,
 				F9B9EAEA261B15020045C2C6 /* FeedCollectionViewController.swift in Sources */,
 				490425F729AB54B200CDBC60 /* CategoryViewController.swift in Sources */,
+				304F07172AEFF6F600ED4FD7 /* RanksCollectionViewController.swift in Sources */,
 				4973502D29162A6D0045C26B /* StandardVideoCollectionViewController.swift in Sources */,
 				F927ED752610395300EAB8E3 /* DanmakuAsyncLayer.swift in Sources */,
 				49389D6228AFEA2900B9DAFD /* VideoDanmuProvider.swift in Sources */,
@@ -580,6 +657,7 @@
 				F927ED742610395300EAB8E3 /* DanmakuView.swift in Sources */,
 				F927ED782610395300EAB8E3 /* DanmakuTrack.swift in Sources */,
 				499C760F2930E068003160FB /* NVASocket.swift in Sources */,
+				3006A96F2AE82ED400DB0EE5 /* VideoCell.swift in Sources */,
 				494742112905053E005D6885 /* BLMotionCollectionViewCell.swift in Sources */,
 				494741E7290391A7005D6885 /* BLButton.swift in Sources */,
 				F927ED992610AD8D00EAB8E3 /* LiveViewController.swift in Sources */,
@@ -592,24 +670,34 @@
 				494741C6290177BB005D6885 /* UpSpaceViewController.swift in Sources */,
 				49DA01A0296C466C00EEAE15 /* AVInfoPanelCollectionViewThumbnailCell+Hook.swift in Sources */,
 				492731EE29096677005F5B0A /* HotViewController.swift in Sources */,
+				304F07112AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift in Sources */,
 				F927ED8926103CFB00EAB8E3 /* DanmakuTextCellModel.swift in Sources */,
 				49D39F28263AD40000F14497 /* WebRequest.swift in Sources */,
 				498DB1DF291BC24700F95607 /* BMaskProvider.swift in Sources */,
 				494741C029002797005D6885 /* UserDefault+..swift in Sources */,
 				F99D28E12619591300F8E66A /* CommonPlayerViewController.swift in Sources */,
+				304F071B2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift in Sources */,
 				AE4889B228FE55DA00E8C5CD /* FavoriteViewController.swift in Sources */,
+				304F071D2AF08CC500ED4FD7 /* LiveCategoryCell.swift in Sources */,
+				304F07152AEFF6F000ED4FD7 /* HotsCollectionViewController.swift in Sources */,
 				F9B57356260F5F7400771ED5 /* LivePlayerViewController.swift in Sources */,
 				490EC3EB290CFEBD001E00B6 /* Anime1ViewController.swift in Sources */,
 				F99D28F72619F5F000F8E66A /* FollowsViewController.swift in Sources */,
 				F9D382B426359EF90070508F /* ApiRequest.swift in Sources */,
 				490EC3E9290CE23E001E00B6 /* BLSettingLineCollectionViewCell.swift in Sources */,
+				3006A9672AE8128900DB0EE5 /* MainViewController.swift in Sources */,
+				3006A9692AE8129800DB0EE5 /* SidePanel.swift in Sources */,
+				30EAEC272AEAA8C700BB3410 /* SettingCell.swift in Sources */,
 				F9B57354260F5F7400771ED5 /* AppDelegate.swift in Sources */,
 				F9EDADD3262AA421007CB99F /* VideoDetailViewController.swift in Sources */,
 				496400D32943431E0098ACA6 /* Logger.swift in Sources */,
 				F927ED8826103CFB00EAB8E3 /* DanmakuTextCell.swift in Sources */,
 				F9171D6429010DF1002868C7 /* FeedCollectionViewCell.swift in Sources */,
+				3006A95D2AE7FFD200DB0EE5 /* Tools.swift in Sources */,
 				F927ED902610A5E900EAB8E3 /* CookieManager.swift in Sources */,
 				F927ED792610395400EAB8E3 /* DanmakuCellModel.swift in Sources */,
+				304F07192AEFF70100ED4FD7 /* FollowersCollectionViewController.swift in Sources */,
+				3006A96B2AE8155600DB0EE5 /* SidePanelItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,7 +850,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MEWHFZ92DY;
+				DEVELOPMENT_TEAM = V75YC5AZ2H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BilibiliLive/Vendor",
@@ -777,7 +865,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/BilibiliLive/Vendor",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.etan.tv.BilibiliLive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.etan.tv.BilibiliLive2233;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BilibiliLive/Supporting Files/BilibiliLive-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -794,7 +882,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MEWHFZ92DY;
+				DEVELOPMENT_TEAM = V75YC5AZ2H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BilibiliLive/Vendor",
@@ -809,7 +897,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/BilibiliLive/Vendor",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.etan.tv.BilibiliLive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.etan.tv.BilibiliLive2233;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BilibiliLive/Supporting Files/BilibiliLive-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -842,6 +930,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3006A9612AE8093600DB0EE5 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.3;
+			};
+		};
 		49078E45291BEA2400F556BD /* XCRemoteSwiftPackageReference "PocketSVG" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pocketsvg/PocketSVG.git";
@@ -949,6 +1045,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3006A9622AE8093600DB0EE5 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3006A9612AE8093600DB0EE5 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
 		49078E46291BEA2400F556BD /* PocketSVG */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 49078E45291BEA2400F556BD /* XCRemoteSwiftPackageReference "PocketSVG" */;

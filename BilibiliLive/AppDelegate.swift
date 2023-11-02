@@ -29,9 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 ApiRequest.refreshToken()
             }
-            window?.rootViewController = BLTabBarViewController()
+            window?.rootViewController = MainViewController()
         } else {
-            window?.rootViewController = LoginViewController.create()
+            window?.rootViewController = LoginViewController()
         }
         window?.makeKeyAndVisible()
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
@@ -39,11 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func showLogin() {
-        window?.rootViewController = LoginViewController.create()
+        window?.rootViewController = LoginViewController()
     }
 
     func showTabBar() {
-        window?.rootViewController = BLTabBarViewController()
+        window?.rootViewController = MainViewController()
     }
 
     static var shared: AppDelegate {

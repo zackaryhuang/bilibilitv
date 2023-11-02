@@ -443,6 +443,12 @@ struct VideoDetail: Codable, Hashable {
         let ugc_season: UgcSeason?
         let redirect_url: URL?
         let stat: Stat
+        let rcmd_reason: RCMReason?
+
+        struct RCMReason: Codable, Hashable {
+            let content: String
+        }
+
         struct Stat: Codable, Hashable {
             let favorite: Int
             let coin: Int
@@ -450,6 +456,38 @@ struct VideoDetail: Codable, Hashable {
             let share: Int
             let danmaku: Int
             let view: Int
+
+            var playCountString: String {
+                if view > 10000 {
+                    let format = NumberFormatter()
+                    format.numberStyle = .decimal
+                    format.minimumFractionDigits = 0 // 最少小数位
+                    format.maximumFractionDigits = 1 // 最多小数位
+                    format.formatterBehavior = .default
+                    format.roundingMode = .down // 小数位以截取方式。不同枚举的截取方式不同
+                    if let str = format.string(from: NSNumber(value: view / 10000)) {
+                        return "\(str)万"
+                    }
+                    return "\(view)"
+                }
+                return "\(view)"
+            }
+
+            var danmakuCountString: String {
+                if danmaku > 10000 {
+                    let format = NumberFormatter()
+                    format.numberStyle = .decimal
+                    format.minimumFractionDigits = 0 // 最少小数位
+                    format.maximumFractionDigits = 1 // 最多小数位
+                    format.formatterBehavior = .default
+                    format.roundingMode = .down // 小数位以截取方式。不同枚举的截取方式不同
+                    if let str = format.string(from: NSNumber(value: danmaku / 10000)) {
+                        return "\(str)万"
+                    }
+                    return "\(danmaku)"
+                }
+                return "\(danmaku)"
+            }
         }
 
         struct UgcSeason: Codable, Hashable {

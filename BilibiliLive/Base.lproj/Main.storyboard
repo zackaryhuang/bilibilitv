@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="21507" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="22155" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="appleTV" appearance="dark"/>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,94 +12,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Login-->
-        <scene sceneID="11u-Mq-xF4">
-            <objects>
-                <viewController storyboardIdentifier="Login" id="9Nq-28-bVW" customClass="LoginViewController" customModule="BilibiliLive" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aZr-WT-3VC"/>
-                        <viewControllerLayoutGuide type="bottom" id="NZK-r0-GVR"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="oNF-CR-TuM">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wfd-58-Enl" userLabel="LeftContainer">
-                                <rect key="frame" x="0.0" y="60" width="960" height="1020"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="FQz-pV-fZB">
-                                        <rect key="frame" x="210" y="172" width="540" height="676"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ynK-6Y-WHQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="540" height="540"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="ynK-6Y-WHQ" secondAttribute="height" id="0Vl-La-tHh"/>
-                                                    <constraint firstAttribute="width" constant="540" id="u4C-rt-ArV"/>
-                                                </constraints>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AnH-0K-2tX">
-                                                <rect key="frame" x="96" y="590" width="348" height="86"/>
-                                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                                                <state key="normal" title="重新生成二维码"/>
-                                                <connections>
-                                                    <action selector="actionStart:" destination="9Nq-28-bVW" eventType="primaryActionTriggered" id="ivC-uh-JUj"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="FQz-pV-fZB" firstAttribute="centerY" secondItem="Wfd-58-Enl" secondAttribute="centerY" id="HJg-Vb-toz"/>
-                                    <constraint firstItem="FQz-pV-fZB" firstAttribute="centerX" secondItem="Wfd-58-Enl" secondAttribute="centerX" id="lHB-7C-w3v"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LE2-W0-d4f" userLabel="line">
-                                <rect key="frame" x="959" y="60" width="2" height="960"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="2" id="pfN-Ec-inW"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账号登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Gh-Tr-lhk">
-                                <rect key="frame" x="1061" y="180" width="306" height="91"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 请打开BiliBili官方手机客户端扫码登录  2. 如果登录失败尝试点击重新生成二维码" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1r-RI-xZ8">
-                                <rect key="frame" x="1061" y="321" width="688" height="138"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="WhP-MT-vJ1"/>
-                        <constraints>
-                            <constraint firstItem="C1r-RI-xZ8" firstAttribute="top" secondItem="0Gh-Tr-lhk" secondAttribute="bottom" constant="50" id="64D-Hm-kzz"/>
-                            <constraint firstItem="C1r-RI-xZ8" firstAttribute="leading" secondItem="LE2-W0-d4f" secondAttribute="trailing" constant="100" id="Ayi-66-98d"/>
-                            <constraint firstItem="LE2-W0-d4f" firstAttribute="centerX" secondItem="oNF-CR-TuM" secondAttribute="centerX" id="FmX-lj-r2r"/>
-                            <constraint firstItem="LE2-W0-d4f" firstAttribute="top" secondItem="WhP-MT-vJ1" secondAttribute="top" id="HCQ-vl-PFe"/>
-                            <constraint firstAttribute="bottom" secondItem="Wfd-58-Enl" secondAttribute="bottom" id="KoN-XF-jsV"/>
-                            <constraint firstItem="0Gh-Tr-lhk" firstAttribute="leading" secondItem="LE2-W0-d4f" secondAttribute="trailing" constant="100" id="P16-nL-kHD"/>
-                            <constraint firstItem="Wfd-58-Enl" firstAttribute="leading" secondItem="oNF-CR-TuM" secondAttribute="leading" id="bTz-QW-sdi"/>
-                            <constraint firstItem="0Gh-Tr-lhk" firstAttribute="top" secondItem="WhP-MT-vJ1" secondAttribute="top" constant="120" id="dWe-au-ZGx"/>
-                            <constraint firstItem="Wfd-58-Enl" firstAttribute="top" secondItem="WhP-MT-vJ1" secondAttribute="top" id="drs-SB-Rg7"/>
-                            <constraint firstItem="Wfd-58-Enl" firstAttribute="width" secondItem="oNF-CR-TuM" secondAttribute="width" multiplier="0.5" id="sSS-F4-bUc"/>
-                            <constraint firstItem="LE2-W0-d4f" firstAttribute="bottom" secondItem="WhP-MT-vJ1" secondAttribute="bottom" id="zNA-PP-Dza"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <tabBarItem key="tabBarItem" title="Login" id="Alt-lD-Xfg"/>
-                    <navigationItem key="navigationItem" id="GB8-yO-zxU"/>
-                    <connections>
-                        <outlet property="qrcodeImageView" destination="ynK-6Y-WHQ" id="eS8-Yh-5IU"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0tk-OC-TZf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="38" y="1499"/>
-        </scene>
         <!--Personal View Controller-->
         <scene sceneID="9YZ-Di-4Eg">
             <objects>
@@ -936,7 +848,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

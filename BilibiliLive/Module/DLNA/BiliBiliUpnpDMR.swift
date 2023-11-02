@@ -265,10 +265,10 @@ class BiliBiliUpnpDMR: NSObject {
         }
         if let _ = AppDelegate.shared.window!.rootViewController?.presentedViewController {
             AppDelegate.shared.window!.rootViewController?.dismiss(animated: false) {
-                player.present(from: UIViewController.topMostViewController(), direatlyEnterVideo: true)
+                player.present(from: UIViewController.topMostViewController(), playVideoDirectly: true)
             }
         } else {
-            player.present(from: topMost, direatlyEnterVideo: true)
+            player.present(from: topMost, playVideoDirectly: true)
         }
     }
 
