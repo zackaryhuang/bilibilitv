@@ -10,6 +10,8 @@ import UIKit
 class LivesCollectionViewController: BaseCollectionViewController {
     var currentLiveCategory: LiveCategory? {
         didSet {
+            dataArray = []
+            collectionView.reloadData()
             Task {
                 await loadData()
             }

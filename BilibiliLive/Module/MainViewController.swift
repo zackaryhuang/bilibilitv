@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
     var subViewControllers = [BaseCollectionViewController]()
 
     var liveVC: LivesCollectionViewController!
+    var rankVC: RanksCollectionViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +39,11 @@ class MainViewController: UIViewController {
         liveVC.type = .live
         let hots = HotsCollectionViewController()
         hots.type = .hot
-        let ranks = RanksCollectionViewController()
-        ranks.type = .rank
+        rankVC = RanksCollectionViewController()
+        rankVC.type = .rank
         let followers = FollowersCollectionViewController()
         followers.type = .follow
-        subViewControllers = [feeds, liveVC, hots, ranks, followers]
+        subViewControllers = [feeds, liveVC, hots, rankVC, followers]
         subViewControllers.forEach { subVC in
             addChild(subVC)
         }
@@ -114,12 +115,14 @@ extension MainViewController: SidePanelDelegate {
     }
 
     func sidePanelDidFocus(sidePanel: SidePanel, focusType: CurrentFocusType) {
-        if focusType == .setting || focusType == .live {
+        if focusType == .setting || focusType == .live || focusType == .rank {
             subPanel.isHidden = false
             UIView.animate(withDuration: 0.3) {
                 self.subPanel.snp.updateConstraints { make in
                     if focusType == .live {
                         make.width.equalTo(300)
+                    } else if focusType == .rank {
+                        make.width.equalTo(200)
                     } else {
                         make.width.equalTo(400)
                     }
@@ -157,5 +160,9 @@ extension MainViewController: SideSubPanelDelegate {
             }
             self.view.layoutIfNeeded()
         }
+    }
+
+    func sideSubPanelDidFocus(on category: RankCategoryInfo) {
+        rankVC.currentRankCategory = category
     }
 }

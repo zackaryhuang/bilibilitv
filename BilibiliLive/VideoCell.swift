@@ -155,6 +155,57 @@ class VideoCell: UICollectionViewCell {
             uperIcon.layer.cornerRadius = 17.5
             uperIcon.contentMode = .scaleAspectFill
             uperIcon.kf.setImage(with: areaLiveRoom.face)
+        } else if let liveRoom = display.data as? LiveRoom {
+            coverImageView.kf.setImage(with: liveRoom.pic)
+            titleLabel.text = liveRoom.title
+            uperNameLabel.text = liveRoom.ownerName
+            if let watchedCount = liveRoom.online {
+                playCountLabel.text = "\(watchedCount.numberString())"
+            }
+            uperIcon.snp.makeConstraints { make in
+                make.width.height.equalTo(35)
+            }
+            danmakuCountIcon.isHidden = true
+            durationLabel.text = liveRoom.area_name
+            uperIcon.clipsToBounds = true
+            uperIcon.layer.cornerRadius = 17.5
+            uperIcon.contentMode = .scaleAspectFill
+            uperIcon.kf.setImage(with: liveRoom.face)
+        } else if let season = display.data as? Season {
+            coverImageView.kf.setImage(with: season.pic)
+            titleLabel.text = season.title
+            uperNameLabel.text = season.ownerName
+            danmakuCountIcon.isHidden = true
+        } else if let info = display.data as? VideoDetail.Info {
+            update(with: info)
+        } else if let feed = display.data as? FeedData {
+            coverImageView.kf.setImage(with: feed.pic)
+            titleLabel.text = feed.title
+            playCountLabel.text = feed.stat?.playCountString
+            danmakuCountLabel.text = feed.stat?.danmakuCountString
+            durationLabel.text = feed.duration?.durationString
+            recommendLabel.isHidden = true
+            uperIcon.isHidden = false
+            uperIcon.snp.makeConstraints { make in
+                make.width.height.equalTo(35)
+            }
+            danmakuCountIcon.isHidden = feed.stat?.danmaku == nil
+            playCountIcon.isHidden = feed.stat?.view == nil
+            uperIcon.clipsToBounds = true
+            uperIcon.layer.cornerRadius = 17.5
+            uperIcon.contentMode = .scaleAspectFill
+            uperIcon.kf.setImage(with: feed.avatar)
+
+            uperNameLabel.snp.remakeConstraints { make in
+                if uperIcon.isHidden {
+                    make.leading.equalTo(recommendLabel.snp.trailing).offset(10)
+                } else {
+                    make.leading.equalTo(uperIcon.snp.trailing).offset(10)
+                }
+                make.centerY.equalTo(uperIcon)
+                make.trailing.lessThanOrEqualTo(coverImageView).offset(-5)
+            }
+            uperNameLabel.text = feed.ownerName
         }
     }
 

@@ -9,6 +9,7 @@ import UIKit
 
 protocol SideSubPanelDelegate: NSObjectProtocol {
     func sideSubPanelDidFocus(on category: LiveCategory)
+    func sideSubPanelDidFocus(on category: RankCategoryInfo)
     func sideSubPanelDidBecomeUnFocused(sideSubPanel: SubSidePanel)
 }
 
@@ -87,7 +88,7 @@ class SubSidePanel: UIView {
             case .hot:
                 titleLabel.text = "热门"
             case .rank:
-                titleLabel.text = "排行"
+                titleLabel.text = "排行榜"
             case .follow:
                 titleLabel.text = "关注"
             case .setting:
@@ -168,6 +169,8 @@ extension SubSidePanel: UITableViewDelegate, UITableViewDataSource {
             return settingItems.count
         case .live:
             return liveItems.count
+        case .rank:
+            return RankCategoryInfo.all.count
         default:
             return 0
         }
@@ -186,14 +189,25 @@ extension SubSidePanel: UITableViewDelegate, UITableViewDataSource {
             }
             return cell!
         case .live:
-            var cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(LiveCategoryCell.self))
+            var cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(CategoryCell.self))
             if cell == nil {
-                cell = LiveCategoryCell(style: .default, reuseIdentifier: NSStringFromClass(LiveCategoryCell.self))
+                cell = CategoryCell(style: .default, reuseIdentifier: NSStringFromClass(CategoryCell.self))
             }
-            if let liveItemCell = cell as? LiveCategoryCell {
+            if let liveItemCell = cell as? CategoryCell {
                 liveItemCell.delegate = self
                 let liveItem = liveItems[indexPath.row]
                 liveItemCell.update(with: liveItem)
+            }
+            return cell!
+        case .rank:
+            var cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(CategoryCell.self))
+            if cell == nil {
+                cell = CategoryCell(style: .default, reuseIdentifier: NSStringFromClass(CategoryCell.self))
+            }
+            if let rankItemCell = cell as? CategoryCell {
+                rankItemCell.delegate = self
+                let rankItem = RankCategoryInfo.all[indexPath.row]
+                rankItemCell.update(with: rankItem)
             }
             return cell!
         default:
@@ -293,7 +307,7 @@ extension SubSidePanel: UITableViewDelegate, UITableViewDataSource {
     }
 
     override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        if context.nextFocusedView is SettingCell || context.nextFocusedView is LiveCategoryCell ||
+        if context.nextFocusedView is SettingCell || context.nextFocusedView is CategoryCell ||
             context.nextFocusedView is SidePanel ||
             context.nextFocusedView is SidePanelItemView
         {
@@ -304,8 +318,12 @@ extension SubSidePanel: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension SubSidePanel: LiveCategoryCellDelegate {
-    func liveCategoryCellDidBecomeFocused(category: LiveCategory) {
+extension SubSidePanel: CategoryCellDelegate {
+    func categoryCellDidBecomeFocused(category: LiveCategory) {
+        delegate?.sideSubPanelDidFocus(on: category)
+    }
+
+    func categoryCellDidBecomeFocused(category: RankCategoryInfo) {
         delegate?.sideSubPanelDidFocus(on: category)
     }
 }

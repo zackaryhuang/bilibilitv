@@ -42,6 +42,7 @@ class SidePanel: UIView {
             switch response {
             case let .success(json):
                 self?.userItemView.imageView.kf.setImage(with: URL(string: json["face"].stringValue))
+                let labelUrl = json["vip_label"]["img_label_uri_hans_static"]
                 self?.userItemView.label.text = json["uname"].stringValue
             case .failure:
                 break

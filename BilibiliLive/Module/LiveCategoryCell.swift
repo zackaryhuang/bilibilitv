@@ -7,14 +7,16 @@
 
 import UIKit
 
-protocol LiveCategoryCellDelegate: NSObjectProtocol {
-    func liveCategoryCellDidBecomeFocused(category: LiveCategory)
+protocol CategoryCellDelegate: NSObjectProtocol {
+    func categoryCellDidBecomeFocused(category: LiveCategory)
+    func categoryCellDidBecomeFocused(category: RankCategoryInfo)
 }
 
-class LiveCategoryCell: UITableViewCell {
+class CategoryCell: UITableViewCell {
     var titleLabel: UILabel!
-    weak var delegate: LiveCategoryCellDelegate?
+    weak var delegate: CategoryCellDelegate?
     var liveCategory: LiveCategory?
+    var rankCategory: RankCategoryInfo?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -44,6 +46,11 @@ class LiveCategoryCell: UITableViewCell {
         liveCategory = category
     }
 
+    func update(with category: RankCategoryInfo) {
+        titleLabel.text = category.title
+        rankCategory = category
+    }
+
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if context.nextFocusedView == self {
             coordinator.addCoordinatedAnimations({ () in
@@ -51,7 +58,10 @@ class LiveCategoryCell: UITableViewCell {
                 self.titleLabel.textColor = .black
             }, completion: nil)
             if let currentCategory = liveCategory {
-                delegate?.liveCategoryCellDidBecomeFocused(category: currentCategory)
+                delegate?.categoryCellDidBecomeFocused(category: currentCategory)
+            }
+            if let currentRankCategory = rankCategory {
+                delegate?.categoryCellDidBecomeFocused(category: currentRankCategory)
             }
         } else if context.previouslyFocusedView == self {
             coordinator.addCoordinatedAnimations({ () in

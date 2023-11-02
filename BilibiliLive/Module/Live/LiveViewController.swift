@@ -90,6 +90,8 @@ struct LiveRoom: DisplayData, Codable {
     let keyframe: URL
     let face: URL?
     let cover_from_user: URL?
+    var online: Int?
+    var area_name: String?
 
     var ownerName: String { uname }
     var pic: URL? { keyframe }

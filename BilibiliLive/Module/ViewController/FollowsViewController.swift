@@ -24,7 +24,7 @@ class FollowsViewController: StandardVideoCollectionViewController<FeedData> {
                 let ep = bangumi["new_ep"]
                 let title = "第" + ep["index"].stringValue + "集 - " + ep["index_title"].stringValue
                 let episode = ep["episode_id"].intValue
-                return FeedData(title: title, cid: 0, aid: 0, isbangumi: true, season: season, episode: episode, ownerName: owner, pic: pic, avatar: nil, date: date)
+                return FeedData(title: title, cid: 0, aid: 0, isbangumi: true, season: season, episode: episode, ownerName: owner, duration: nil, pic: pic, avatar: nil, date: date, stat: nil)
             }
             let avid = data["id"].intValue
             let archive = data["archive"]
@@ -33,7 +33,17 @@ class FollowsViewController: StandardVideoCollectionViewController<FeedData> {
             let owner = archive["owner"]["name"].stringValue
             let avatar = archive["owner"]["face"].url
             let pic = archive["pic"].url!
-            return FeedData(title: title, cid: cid, aid: avid, isbangumi: false, season: nil, episode: nil, ownerName: owner, pic: pic, avatar: avatar, date: date)
+
+            let duration = archive["duration"].intValue
+            let danmaku = archive["stat"]["danmaku"].intValue
+            let view = archive["stat"]["view"].intValue
+            let favorite = archive["stat"]["favorite"].intValue
+            let coin = archive["stat"]["coin"].intValue
+            let like = archive["stat"]["like"].intValue
+            let share = archive["stat"]["share"].intValue
+            let stat = Stat(favorite: favorite, coin: coin, like: like, share: share, danmaku: danmaku, view: view)
+
+            return FeedData(title: title, cid: cid, aid: avid, isbangumi: false, season: nil, episode: nil, ownerName: owner, duration: duration, pic: pic, avatar: avatar, date: date, stat: stat)
         }
         return datas
     }
@@ -58,7 +68,9 @@ struct FeedData: PlayableData {
     let season: Int?
     let episode: Int?
     let ownerName: String
+    let duration: Int?
     let pic: URL?
     let avatar: URL?
     let date: String?
+    let stat: Stat?
 }

@@ -18,4 +18,11 @@ extension Int {
         }
         return String(self)
     }
+
+    var durationString: String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .brief
+        return formatter.string(from: TimeInterval(self)) ?? ""
+    }
 }
