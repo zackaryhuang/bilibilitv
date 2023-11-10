@@ -22,8 +22,10 @@
 		304F07172AEFF6F600ED4FD7 /* RanksCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F07162AEFF6F600ED4FD7 /* RanksCollectionViewController.swift */; };
 		304F07192AEFF70100ED4FD7 /* FollowersCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F07182AEFF70100ED4FD7 /* FollowersCollectionViewController.swift */; };
 		304F071B2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F071A2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift */; };
-		304F071D2AF08CC500ED4FD7 /* LiveCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F071C2AF08CC500ED4FD7 /* LiveCategoryCell.swift */; };
+		304F071D2AF08CC500ED4FD7 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F071C2AF08CC500ED4FD7 /* CategoryCell.swift */; };
 		304F07212AF14EAC00ED4FD7 /* lottie_empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 304F07202AF14EAC00ED4FD7 /* lottie_empty.json */; };
+		305F0A672AFB12290029422F /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305F0A662AFB12290029422F /* PersonalInfoViewController.swift */; };
+		305FB6F02AFD326B00D0CA85 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FB6EF2AFD326B00D0CA85 /* FollowerCell.swift */; };
 		30EAEC252AEAA45700BB3410 /* SubSidePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EAEC242AEAA45700BB3410 /* SubSidePanel.swift */; };
 		30EAEC272AEAA8C700BB3410 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EAEC262AEAA8C700BB3410 /* SettingCell.swift */; };
 		490425F729AB54B200CDBC60 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490425F629AB54B200CDBC60 /* CategoryViewController.swift */; };
@@ -137,8 +139,10 @@
 		304F07162AEFF6F600ED4FD7 /* RanksCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanksCollectionViewController.swift; sourceTree = "<group>"; };
 		304F07182AEFF70100ED4FD7 /* FollowersCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCollectionViewController.swift; sourceTree = "<group>"; };
 		304F071A2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
-		304F071C2AF08CC500ED4FD7 /* LiveCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCategoryCell.swift; sourceTree = "<group>"; };
+		304F071C2AF08CC500ED4FD7 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		304F07202AF14EAC00ED4FD7 /* lottie_empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_empty.json; sourceTree = "<group>"; };
+		305F0A662AFB12290029422F /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
+		305FB6EF2AFD326B00D0CA85 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		30EAEC242AEAA45700BB3410 /* SubSidePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSidePanel.swift; sourceTree = "<group>"; };
 		30EAEC262AEAA8C700BB3410 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		490425F629AB54B200CDBC60 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -293,6 +297,36 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		305F0A642AFB0F800029422F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F927ED8C2610A5A800EAB8E3 /* LoginViewController.swift */,
+				3006A9662AE8128900DB0EE5 /* MainViewController.swift */,
+				304F071A2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift */,
+				304F07102AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift */,
+				304F07122AEFF6DE00ED4FD7 /* LivesCollectionViewController.swift */,
+				304F07142AEFF6F000ED4FD7 /* HotsCollectionViewController.swift */,
+				304F07162AEFF6F600ED4FD7 /* RanksCollectionViewController.swift */,
+				304F07182AEFF70100ED4FD7 /* FollowersCollectionViewController.swift */,
+				305F0A662AFB12290029422F /* PersonalInfoViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		305F0A652AFB0F8F0029422F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3006A9682AE8129800DB0EE5 /* SidePanel.swift */,
+				30EAEC242AEAA45700BB3410 /* SubSidePanel.swift */,
+				30EAEC262AEAA8C700BB3410 /* SettingCell.swift */,
+				304F071C2AF08CC500ED4FD7 /* CategoryCell.swift */,
+				3006A96A2AE8155600DB0EE5 /* SidePanelItemView.swift */,
+				3006A96E2AE82ED400DB0EE5 /* VideoCell.swift */,
+				305FB6EF2AFD326B00D0CA85 /* FollowerCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		49389D5D28AFE6DC00B9DAFD /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,21 +405,12 @@
 		AEA6AB1328FFE47F007CE72E /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				305F0A652AFB0F8F0029422F /* Views */,
+				305F0A642AFB0F800029422F /* Controllers */,
 				499C76172931A833003160FB /* DLNA */,
 				2D3CD4002635BE7C00191419 /* Live */,
 				AEA6AB1428FFE48B007CE72E /* Personal */,
 				2D3CD3F52635BD1100191419 /* ViewController */,
-				3006A9662AE8128900DB0EE5 /* MainViewController.swift */,
-				304F071A2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift */,
-				304F07102AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift */,
-				304F07122AEFF6DE00ED4FD7 /* LivesCollectionViewController.swift */,
-				304F07142AEFF6F000ED4FD7 /* HotsCollectionViewController.swift */,
-				304F07162AEFF6F600ED4FD7 /* RanksCollectionViewController.swift */,
-				304F07182AEFF70100ED4FD7 /* FollowersCollectionViewController.swift */,
-				3006A9682AE8129800DB0EE5 /* SidePanel.swift */,
-				30EAEC242AEAA45700BB3410 /* SubSidePanel.swift */,
-				30EAEC262AEAA8C700BB3410 /* SettingCell.swift */,
-				304F071C2AF08CC500ED4FD7 /* LiveCategoryCell.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -476,10 +501,7 @@
 				AEA6AB1328FFE47F007CE72E /* Module */,
 				F9B57353260F5F7400771ED5 /* AppDelegate.swift */,
 				F9B57357260F5F7400771ED5 /* Main.storyboard */,
-				F927ED8C2610A5A800EAB8E3 /* LoginViewController.swift */,
 				F9B9EAE6261AC6F80045C2C6 /* BLTabBarViewController.swift */,
-				3006A96A2AE8155600DB0EE5 /* SidePanelItemView.swift */,
-				3006A96E2AE82ED400DB0EE5 /* VideoCell.swift */,
 				F927ED6A2610391000EAB8E3 /* Vendor */,
 				2D3CD3F72635BD7000191419 /* Supporting Files */,
 				496400D22943431E0098ACA6 /* Logger.swift */,
@@ -626,6 +648,7 @@
 				4973502B29161B770045C26B /* WeeklyWatchViewController.swift in Sources */,
 				AE7A3B20290298BE006FEBB0 /* Colors.swift in Sources */,
 				49FB8EC0291F4C520045D5DE /* VMaskProvider.swift in Sources */,
+				305F0A672AFB12290029422F /* PersonalInfoViewController.swift in Sources */,
 				30EAEC252AEAA45700BB3410 /* SubSidePanel.swift in Sources */,
 				49E5F85028AF73C500FAA3CE /* BilibiliVideoResourceLoaderDelegate.swift in Sources */,
 				494741C82902C45D005D6885 /* Array+..swift in Sources */,
@@ -678,7 +701,7 @@
 				F99D28E12619591300F8E66A /* CommonPlayerViewController.swift in Sources */,
 				304F071B2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift in Sources */,
 				AE4889B228FE55DA00E8C5CD /* FavoriteViewController.swift in Sources */,
-				304F071D2AF08CC500ED4FD7 /* LiveCategoryCell.swift in Sources */,
+				304F071D2AF08CC500ED4FD7 /* CategoryCell.swift in Sources */,
 				304F07152AEFF6F000ED4FD7 /* HotsCollectionViewController.swift in Sources */,
 				F9B57356260F5F7400771ED5 /* LivePlayerViewController.swift in Sources */,
 				490EC3EB290CFEBD001E00B6 /* Anime1ViewController.swift in Sources */,
@@ -698,6 +721,7 @@
 				F927ED792610395400EAB8E3 /* DanmakuCellModel.swift in Sources */,
 				304F07192AEFF70100ED4FD7 /* FollowersCollectionViewController.swift in Sources */,
 				3006A96B2AE8155600DB0EE5 /* SidePanelItemView.swift in Sources */,
+				305FB6F02AFD326B00D0CA85 /* FollowerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

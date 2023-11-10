@@ -28,6 +28,8 @@ class PersonalViewController: UIViewController, BLTabBarContentVCProtocol {
     @IBOutlet var leftCollectionView: UICollectionView!
     weak var currentViewController: UIViewController?
 
+    var type = CurrentFocusType.none
+
     var cellModels = [CellModel]()
     override func viewDidLoad() {
         super.viewDidLoad()

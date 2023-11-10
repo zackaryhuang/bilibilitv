@@ -21,7 +21,7 @@ class MainViewController: UIViewController {
     var sidePanel: SidePanel!
     var currentPageType = CurrentFocusType.recommend
     var subPanel: SubSidePanel!
-    var subViewControllers = [BaseCollectionViewController]()
+    var subViewControllers = [UIViewController]()
 
     var liveVC: LivesCollectionViewController!
     var rankVC: RanksCollectionViewController!
@@ -33,6 +33,8 @@ class MainViewController: UIViewController {
     }
 
     private func configSubViewControllers() {
+        let personal = PersonalInfoViewController()
+        personal.type = .userInfo
         let feeds = FeedsCollectionViewController()
         feeds.type = .recommend
         liveVC = LivesCollectionViewController()
@@ -43,7 +45,7 @@ class MainViewController: UIViewController {
         rankVC.type = .rank
         let followers = FollowersCollectionViewController()
         followers.type = .follow
-        subViewControllers = [feeds, liveVC, hots, rankVC, followers]
+        subViewControllers = [personal, feeds, liveVC, hots, rankVC, followers]
         subViewControllers.forEach { subVC in
             addChild(subVC)
         }
@@ -85,7 +87,13 @@ class MainViewController: UIViewController {
                 make.leading.top.bottom.equalTo(rightContainerView)
                 make.width.equalTo(4 * 420 + 3 * 20)
             }
-            collectionVC.view.isHidden = collectionVC.type != currentPageType
+            if let infoVC = collectionVC as? PersonalViewController {
+                infoVC.view.isHidden = infoVC.type != currentPageType
+            }
+
+            if let vc = collectionVC as? BaseCollectionViewController {
+                vc.view.isHidden = vc.type != currentPageType
+            }
         }
     }
 }
@@ -140,7 +148,14 @@ extension MainViewController: SidePanelDelegate {
         }
 
         subViewControllers.forEach { VC in
-            VC.view.isHidden = focusType != VC.type
+//            VC.view.isHidden = focusType != VC.type
+            if let infoVC = VC as? PersonalInfoViewController {
+                infoVC.view.isHidden = infoVC.type != focusType
+            }
+
+            if let viewController = VC as? BaseCollectionViewController {
+                viewController.view.isHidden = viewController.type != focusType
+            }
         }
 
         subPanel.currentFocusType = focusType

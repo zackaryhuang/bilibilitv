@@ -10,6 +10,7 @@ import UIKit
 protocol CategoryCellDelegate: NSObjectProtocol {
     func categoryCellDidBecomeFocused(category: LiveCategory)
     func categoryCellDidBecomeFocused(category: RankCategoryInfo)
+    func categoryCellDidBecomeFocused(category: PersonalInfoCategory)
 }
 
 class CategoryCell: UITableViewCell {
@@ -17,6 +18,7 @@ class CategoryCell: UITableViewCell {
     weak var delegate: CategoryCellDelegate?
     var liveCategory: LiveCategory?
     var rankCategory: RankCategoryInfo?
+    var personalInfoCategory: PersonalInfoCategory?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -51,6 +53,11 @@ class CategoryCell: UITableViewCell {
         rankCategory = category
     }
 
+    func update(with category: PersonalInfoCategory) {
+        titleLabel.text = category.title
+        personalInfoCategory = category
+    }
+
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if context.nextFocusedView == self {
             coordinator.addCoordinatedAnimations({ () in
@@ -62,6 +69,9 @@ class CategoryCell: UITableViewCell {
             }
             if let currentRankCategory = rankCategory {
                 delegate?.categoryCellDidBecomeFocused(category: currentRankCategory)
+            }
+            if let currentPersonalCategory = personalInfoCategory {
+                delegate?.categoryCellDidBecomeFocused(category: currentPersonalCategory)
             }
         } else if context.previouslyFocusedView == self {
             coordinator.addCoordinatedAnimations({ () in

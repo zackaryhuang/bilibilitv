@@ -11,6 +11,25 @@ protocol SideSubPanelDelegate: NSObjectProtocol {
     func sideSubPanelDidFocus(on category: LiveCategory)
     func sideSubPanelDidFocus(on category: RankCategoryInfo)
     func sideSubPanelDidBecomeUnFocused(sideSubPanel: SubSidePanel)
+    func sideSubPanelDidFocus(on category: PersonalInfoCategory)
+}
+
+extension SideSubPanelDelegate {
+    func sideSubPanelDidFocus(on category: PersonalInfoCategory) {
+        debugPrint("Implemented in extension")
+    }
+
+    func sideSubPanelDidFocus(on category: LiveCategory) {
+        debugPrint("Implemented in extension")
+    }
+
+    func sideSubPanelDidFocus(on category: RankCategoryInfo) {
+        debugPrint("Implemented in extension")
+    }
+
+    func sideSubPanelDidBecomeUnFocused(sideSubPanel: SubSidePanel) {
+        debugPrint("Implemented in extension")
+    }
 }
 
 class SettingItem {
@@ -71,6 +90,18 @@ struct LiveCategory {
     }
 }
 
+enum PersonalInfoCategoryType: Int {
+    case followedUp
+    case watchLater
+    case history
+    case logout
+}
+
+struct PersonalInfoCategory {
+    let title: String
+    let type: PersonalInfoCategoryType
+}
+
 class SubSidePanel: UIView {
     weak var delegate: SideSubPanelDelegate?
 
@@ -127,6 +158,11 @@ class SubSidePanel: UIView {
                      LiveCategory(title: "知识", type: .knowledge),
                      LiveCategory(title: "赛事", type: .competition)]
 
+    let personalInfoItems = [PersonalInfoCategory(title: "我的关注", type: .followedUp),
+                             PersonalInfoCategory(title: "稍后观看", type: .watchLater),
+                             PersonalInfoCategory(title: "观看历史", type: .history),
+                             PersonalInfoCategory(title: "退出登录", type: .logout)]
+
     var tableView: UITableView!
     var titleLabel: UILabel!
 
@@ -171,6 +207,8 @@ extension SubSidePanel: UITableViewDelegate, UITableViewDataSource {
             return liveItems.count
         case .rank:
             return RankCategoryInfo.all.count
+        case .userInfo:
+            return personalInfoItems.count
         default:
             return 0
         }
@@ -208,6 +246,17 @@ extension SubSidePanel: UITableViewDelegate, UITableViewDataSource {
                 rankItemCell.delegate = self
                 let rankItem = RankCategoryInfo.all[indexPath.row]
                 rankItemCell.update(with: rankItem)
+            }
+            return cell!
+        case .userInfo:
+            var cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(CategoryCell.self))
+            if cell == nil {
+                cell = CategoryCell(style: .default, reuseIdentifier: NSStringFromClass(CategoryCell.self))
+            }
+            if let categoryCell = cell as? CategoryCell {
+                categoryCell.delegate = self
+                let personalInfoItem = personalInfoItems[indexPath.row]
+                categoryCell.update(with: personalInfoItem)
             }
             return cell!
         default:
@@ -324,6 +373,10 @@ extension SubSidePanel: CategoryCellDelegate {
     }
 
     func categoryCellDidBecomeFocused(category: RankCategoryInfo) {
+        delegate?.sideSubPanelDidFocus(on: category)
+    }
+
+    func categoryCellDidBecomeFocused(category: PersonalInfoCategory) {
         delegate?.sideSubPanelDidFocus(on: category)
     }
 }

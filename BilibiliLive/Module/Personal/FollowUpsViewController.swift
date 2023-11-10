@@ -188,5 +188,13 @@ extension WebRequest {
         let uname: String
         let face: URL
         let sign: String
+        let official_verify: OfficialVerify
+        var isFamousUper: Bool { official_verify.type == 0 }
+        var isOfficialUper: Bool { official_verify.type == 1 }
+
+        struct OfficialVerify: Codable {
+            let type: Int
+            let desc: String
+        }
     }
 }
