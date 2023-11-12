@@ -191,10 +191,18 @@ extension WebRequest {
         let official_verify: OfficialVerify
         var isFamousUper: Bool { official_verify.type == 0 }
         var isOfficialUper: Bool { official_verify.type == 1 }
+        var vip: VIPInfo
+        var isBigVip: Bool { vip.vipType == 2 && vip.vipStatus == 1 }
 
         struct OfficialVerify: Codable {
             let type: Int
             let desc: String
+        }
+
+        struct VIPInfo: Codable {
+            let vipType: Int
+            let vipStatus: Int
+            let vipDueDate: Int
         }
     }
 }

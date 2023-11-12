@@ -78,6 +78,9 @@ class FollowerCell: UICollectionViewCell {
         } else if follower.isOfficialUper {
             officialIcon.image = UIImage(named: "icon_official_uper")
             officialIcon.isHidden = false
+        } else if follower.isBigVip {
+            officialIcon.image = UIImage(named: "icon_vip")
+            officialIcon.isHidden = false
         } else {
             officialIcon.isHidden = true
         }
