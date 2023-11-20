@@ -188,6 +188,7 @@ class SubSidePanel: UIView {
         }
 
         tableView = UITableView()
+        tableView.remembersLastFocusedIndexPath = true
         tableView.delegate = self
         tableView.dataSource = self
         addSubview(tableView)

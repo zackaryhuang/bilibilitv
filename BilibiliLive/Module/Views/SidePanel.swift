@@ -27,11 +27,31 @@ enum CurrentFocusType: Int {
     case setting
 }
 
+class SidePanelItem {
+    let icon: String
+    var avatar: String?
+    let title: String
+    let type: CurrentFocusType
+    init(icon: String, avatar: String? = nil, title: String, type: CurrentFocusType) {
+        self.icon = icon
+        self.avatar = avatar
+        self.title = title
+        self.type = type
+    }
+}
+
 class SidePanel: UIView {
     var userItemView: SidePanelItemView!
 
     var lastFocusedView: UIView?
-
+    var hotItem: SidePanelItemView!
+    var tableView: UITableView!
+    var sidePanelItems = [SidePanelItem(icon: "icon_recommend", title: "推荐", type: .recommend),
+                          SidePanelItem(icon: "icon_hot", title: "热门", type: .hot),
+                          SidePanelItem(icon: "icon_live", title: "直播", type: .live),
+                          SidePanelItem(icon: "icon_rank", title: "排行榜", type: .rank),
+                          SidePanelItem(icon: "icon_follow", title: "关注", type: .follow),
+                          SidePanelItem(icon: "icon_setting", title: "设置", type: .setting)]
     weak var delegate: SidePanelDelegate?
 
     override init(frame: CGRect) {
@@ -41,9 +61,9 @@ class SidePanel: UIView {
         WebRequest.requestLoginInfo { [weak self] response in
             switch response {
             case let .success(json):
-                self?.userItemView.imageView.kf.setImage(with: URL(string: json["face"].stringValue))
-                let labelUrl = json["vip_label"]["img_label_uri_hans_static"]
-                self?.userItemView.label.text = json["uname"].stringValue
+                let userItem = SidePanelItem(icon: "", avatar: json["face"].stringValue, title: json["uname"].stringValue, type: .userInfo)
+                self?.sidePanelItems.insert(userItem, at: 0)
+                self?.tableView.reloadData()
             case .failure:
                 break
             }
@@ -56,83 +76,18 @@ class SidePanel: UIView {
     }
 
     private func configUI() {
-        userItemView = SidePanelItemView()
-        userItemView.type = .userInfo
-        userItemView.imageView.layer.cornerRadius = 25
-        userItemView.imageView.clipsToBounds = true
-        addSubview(userItemView)
-        userItemView.snp.makeConstraints { make in
-            make.leading.equalTo(self).offset(20)
-            make.width.equalTo(360)
-            make.top.equalTo(self).offset(60)
-        }
-
-        let recommend = SidePanelItemView()
-        recommend.type = .recommend
-        recommend.title = "推荐"
-        recommend.image = "icon_recommend"
-        addSubview(recommend)
-        recommend.snp.makeConstraints { make in
-            make.leading.equalTo(self).offset(20)
-            make.width.equalTo(360)
-            make.top.equalTo(userItemView.snp.bottom).offset(60)
-        }
-
-        let hot = SidePanelItemView()
-        hot.type = .hot
-        hot.title = "热门"
-        hot.image = "icon_hot"
-        addSubview(hot)
-        hot.snp.makeConstraints { make in
-            make.leading.equalTo(self).offset(20)
-            make.width.equalTo(360)
-            make.top.equalTo(recommend.snp.bottom).offset(10)
-        }
-
-        let live = SidePanelItemView()
-        live.type = .live
-        live.title = "直播"
-        live.image = "icon_live"
-        addSubview(live)
-        live.snp.makeConstraints { make in
-            make.leading.equalTo(self).offset(20)
-            make.width.equalTo(360)
-            make.top.equalTo(hot.snp.bottom).offset(10)
-        }
-
-        let rank = SidePanelItemView()
-        rank.type = .rank
-        rank.title = "排行榜"
-        rank.image = "icon_rank"
-        addSubview(rank)
-        rank.snp.makeConstraints { make in
-            make.leading.equalTo(self).offset(20)
-            make.width.equalTo(360)
-            make.top.equalTo(live.snp.bottom).offset(10)
-        }
-
-        let follow = SidePanelItemView()
-        follow.type = .follow
-        follow.title = "关注"
-        follow.image = "icon_follow"
-        addSubview(follow)
-        follow.snp.makeConstraints { make in
-            make.leading.equalTo(self).offset(20)
-            make.width.equalTo(360)
-            make.top.equalTo(rank.snp.bottom).offset(10)
-        }
-
-        let setting = SidePanelItemView()
-        setting.type = .setting
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onSetting))
-        setting.addGestureRecognizer(tapGesture)
-        setting.title = "设置"
-        setting.image = "icon_setting"
-        addSubview(setting)
-        setting.snp.makeConstraints { make in
-            make.leading.equalTo(self).offset(20)
-            make.width.equalTo(360)
-            make.bottom.equalTo(self).offset(-60)
+        tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.insetsContentViewsToSafeArea = false
+        tableView.insetsLayoutMarginsFromSafeArea = false
+        tableView.preservesSuperviewLayoutMargins = false
+        tableView.contentInset = .zero
+        tableView.remembersLastFocusedIndexPath = true
+        addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(self).inset(UIEdgeInsets(top: 60, left: 10, bottom: 0, right: 0))
         }
     }
 
@@ -152,28 +107,31 @@ class SidePanel: UIView {
         }
     }
 
-//    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-//        if context.nextFocusedView == self {
-//            showTitle()
-//        } else {
-//            hideTitle()
-//        }
-//    }
-
     override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
         if let nextFocusedView = context.nextFocusedView {
-            if subviews.contains(nextFocusedView) {
+            if nextFocusedView is SidePanelItemView {
                 debugPrint("进入")
                 showTitle()
                 delegate?.sidePanelDidBecomeFocused(sidePanel: self)
                 if let sideItem = nextFocusedView as? SidePanelItemView {
                     delegate?.sidePanelDidFocus(sidePanel: self, focusType: sideItem.type)
                 }
+                subviews.forEach { view in
+                    if let item = view as? SidePanelItemView {
+                        item.canBeF = true
+                    }
+                }
             } else {
                 debugPrint("出去")
                 lastFocusedView = context.previouslyFocusedView
                 hideTitle()
                 delegate?.sidePanelDidBecomeUnFocused(sidePanel: self)
+
+                subviews.forEach { view in
+                    if let item = view as? SidePanelItemView {
+                        item.canBeF = item == lastFocusedView
+                    }
+                }
             }
         }
         return true
@@ -181,5 +139,35 @@ class SidePanel: UIView {
 
     @objc func onSetting() {
         delegate?.sidePanelDidClickSetting(sidePanel: self)
+    }
+}
+
+extension SidePanel: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sidePanelItems.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SidePanelItemView.self))
+        if cell == nil {
+            cell = SidePanelItemView(style: .default, reuseIdentifier: NSStringFromClass(SidePanelItemView.self))
+        }
+
+        if let itemCell = cell as? SidePanelItemView {
+            itemCell.updateCell(with: sidePanelItems[indexPath.row])
+        }
+
+        return cell!
+    }
+
+    func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
+        if let cell = tableView.cellForRow(at: indexPath) as? SidePanelItemView {
+            return cell.canBeF
+        }
+        return false
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
     }
 }

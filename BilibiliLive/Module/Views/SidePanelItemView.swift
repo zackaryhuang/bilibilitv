@@ -7,10 +7,11 @@
 
 import UIKit
 
-class SidePanelItemView: UIView {
+class SidePanelItemView: UITableViewCell {
     var type: CurrentFocusType!
-    var imageView: UIImageView!
+    var iconView: UIImageView!
     var label: UILabel!
+    var canBeF = true
     var title: String! {
         didSet {
             label.text = title
@@ -19,12 +20,12 @@ class SidePanelItemView: UIView {
 
     var image: String! {
         didSet {
-            imageView.image = UIImage(named: image)
+            iconView.image = UIImage(named: image)
         }
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         configUI()
     }
 
@@ -35,29 +36,44 @@ class SidePanelItemView: UIView {
 
     private func configUI() {
         layer.cornerRadius = 20
-        imageView = UIImageView()
+        iconView = UIImageView()
 
-        addSubview(imageView)
-        imageView.snp.makeConstraints { make in
+        contentView.addSubview(iconView)
+        iconView.snp.makeConstraints { make in
+            make.top.equalTo(contentView).offset(20)
             make.width.height.equalTo(50)
-            make.leading.top.equalTo(self).offset(10)
-            make.bottom.equalTo(self).offset(-10)
+            make.leading.equalTo(contentView).offset(10)
+            make.bottom.equalTo(contentView).offset(-20)
         }
 
         label = UILabel()
-        label.isHidden = true
         label.font = .systemFont(ofSize: 30)
         label.text = title
-        addSubview(label)
+        contentView.addSubview(label)
         label.snp.makeConstraints { make in
-            make.leading.equalTo(imageView.snp.trailing).offset(30)
-            make.centerY.equalTo(imageView)
-            make.trailing.equalTo(self)
+            make.leading.equalTo(iconView.snp.trailing).offset(30)
+            make.centerY.equalTo(iconView)
+            make.trailing.equalTo(contentView)
         }
     }
 
+    func updateCell(with item: SidePanelItem) {
+        type = item.type
+        if item.type == .userInfo {
+            iconView.layer.cornerRadius = 25
+            iconView.clipsToBounds = true
+            iconView.kf.setImage(with: URL(string: item.avatar!))
+        } else {
+            iconView.layer.cornerRadius = 0
+            iconView.clipsToBounds = false
+            iconView.image = UIImage(named: item.icon)
+        }
+
+        label.text = item.title
+    }
+
     override var canBecomeFocused: Bool {
-        return true
+        return canBeF
     }
 
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
