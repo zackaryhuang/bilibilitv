@@ -201,11 +201,11 @@
 		F927ED8F2610A5E900EAB8E3 /* CookieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieManager.swift; sourceTree = "<group>"; };
 		F927ED982610AD8D00EAB8E3 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
 		F9562C91261A0D2200573B74 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
-		F99D28DA2618A55900F8E66A /* BilibiliLive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BilibiliLive-Bridging-Header.h"; sourceTree = "<group>"; };
+		F99D28DA2618A55900F8E66A /* bilibili-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bilibili-Bridging-Header.h"; sourceTree = "<group>"; };
 		F99D28E02619591300F8E66A /* CommonPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonPlayerViewController.swift; sourceTree = "<group>"; };
 		F99D28E926195EC200F8E66A /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		F99D28F62619F5F000F8E66A /* FollowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowsViewController.swift; sourceTree = "<group>"; };
-		F9B57350260F5F7400771ED5 /* 哔哩哔哩.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "哔哩哔哩.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9B57350260F5F7400771ED5 /* 哔哩哔哩 - Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "哔哩哔哩 - Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B57353260F5F7400771ED5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9B57355260F5F7400771ED5 /* LivePlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePlayerViewController.swift; sourceTree = "<group>"; };
 		F9B57358260F5F7400771ED5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -263,7 +263,7 @@
 			children = (
 				F9B5735C260F5F7600771ED5 /* LaunchScreen.storyboard */,
 				F9B5735F260F5F7600771ED5 /* Info.plist */,
-				F99D28DA2618A55900F8E66A /* BilibiliLive-Bridging-Header.h */,
+				F99D28DA2618A55900F8E66A /* bilibili-Bridging-Header.h */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -477,7 +477,7 @@
 		F9B57347260F5F7400771ED5 = {
 			isa = PBXGroup;
 			children = (
-				F9B57352260F5F7400771ED5 /* BilibiliLive */,
+				F9B57352260F5F7400771ED5 /* bilibili */,
 				F9B57351260F5F7400771ED5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -485,12 +485,12 @@
 		F9B57351260F5F7400771ED5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F9B57350260F5F7400771ED5 /* 哔哩哔哩.app */,
+				F9B57350260F5F7400771ED5 /* 哔哩哔哩 - Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F9B57352260F5F7400771ED5 /* BilibiliLive */ = {
+		F9B57352260F5F7400771ED5 /* bilibili */ = {
 			isa = PBXGroup;
 			children = (
 				3006A95E2AE808C900DB0EE5 /* Resource */,
@@ -506,15 +506,15 @@
 				2D3CD3F72635BD7000191419 /* Supporting Files */,
 				496400D22943431E0098ACA6 /* Logger.swift */,
 			);
-			path = BilibiliLive;
+			path = bilibili;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F9B5734F260F5F7400771ED5 /* 哔哩哔哩 */ = {
+		F9B5734F260F5F7400771ED5 /* bilibili */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F9B57362260F5F7600771ED5 /* Build configuration list for PBXNativeTarget "哔哩哔哩" */;
+			buildConfigurationList = F9B57362260F5F7600771ED5 /* Build configuration list for PBXNativeTarget "bilibili" */;
 			buildPhases = (
 				4947421429050FAF005D6885 /* Swift formate */,
 				F9B5734C260F5F7400771ED5 /* Sources */,
@@ -526,7 +526,7 @@
 			);
 			dependencies = (
 			);
-			name = "哔哩哔哩";
+			name = bilibili;
 			packageProductDependencies = (
 				F9B5736D260F652C00771ED5 /* Alamofire */,
 				F9B57372260F6B8E00771ED5 /* Starscream */,
@@ -545,7 +545,7 @@
 				3006A9622AE8093600DB0EE5 /* Lottie */,
 			);
 			productName = BilibiliLive;
-			productReference = F9B57350260F5F7400771ED5 /* 哔哩哔哩.app */;
+			productReference = F9B57350260F5F7400771ED5 /* 哔哩哔哩 - Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -563,7 +563,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F9B5734B260F5F7400771ED5 /* Build configuration list for PBXProject "哔哩哔哩" */;
+			buildConfigurationList = F9B5734B260F5F7400771ED5 /* Build configuration list for PBXProject "bilibili" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -593,7 +593,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F9B5734F260F5F7400771ED5 /* 哔哩哔哩 */,
+				F9B5734F260F5F7400771ED5 /* bilibili */,
 			);
 		};
 /* End PBXProject section */
@@ -877,10 +877,11 @@
 				DEVELOPMENT_TEAM = V75YC5AZ2H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/BilibiliLive/Vendor",
-					"$(PROJECT_DIR)/BilibiliLive/Vendor/DanmakuKit",
+					"$(PROJECT_DIR)/bilibili/Vendor",
+					"$(PROJECT_DIR)/bilibili/Vendor/DanmakuKit",
 				);
-				INFOPLIST_FILE = "BilibiliLive/Supporting Files/Info.plist";
+				IBSC_MODULE = "bilibili-debug";
+				INFOPLIST_FILE = "bilibili/Supporting Files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "哔哩哔哩";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -888,11 +889,12 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/BilibiliLive/Vendor",
+					"$(PROJECT_DIR)/bilibili/Vendor",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.etan.tv.BilibiliLive2233;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "BilibiliLive/Supporting Files/BilibiliLive-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = club.thatisawesome.bilibili;
+				PRODUCT_MODULE_NAME = "哔哩哔哩-Debug";
+				PRODUCT_NAME = "哔哩哔哩 - Debug";
+				SWIFT_OBJC_BRIDGING_HEADER = "bilibili/Supporting Files/bilibili-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -910,10 +912,11 @@
 				DEVELOPMENT_TEAM = V75YC5AZ2H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/BilibiliLive/Vendor",
-					"$(PROJECT_DIR)/BilibiliLive/Vendor/DanmakuKit",
+					"$(PROJECT_DIR)/bilibili/Vendor",
+					"$(PROJECT_DIR)/bilibili/Vendor/DanmakuKit",
 				);
-				INFOPLIST_FILE = "BilibiliLive/Supporting Files/Info.plist";
+				IBSC_MODULE = bilibili;
+				INFOPLIST_FILE = "bilibili/Supporting Files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "哔哩哔哩";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -921,11 +924,11 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/BilibiliLive/Vendor",
+					"$(PROJECT_DIR)/bilibili/Vendor",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.etan.tv.BilibiliLive2233;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "BilibiliLive/Supporting Files/BilibiliLive-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = club.thatisawesome.bilibili;
+				PRODUCT_NAME = "哔哩哔哩";
+				SWIFT_OBJC_BRIDGING_HEADER = "bilibili/Supporting Files/bilibili-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 15.0;
@@ -935,7 +938,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F9B5734B260F5F7400771ED5 /* Build configuration list for PBXProject "哔哩哔哩" */ = {
+		F9B5734B260F5F7400771ED5 /* Build configuration list for PBXProject "bilibili" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F9B57360260F5F7600771ED5 /* Debug */,
@@ -944,7 +947,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F9B57362260F5F7600771ED5 /* Build configuration list for PBXNativeTarget "哔哩哔哩" */ = {
+		F9B57362260F5F7600771ED5 /* Build configuration list for PBXNativeTarget "bilibili" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F9B57363260F5F7600771ED5 /* Debug */,
