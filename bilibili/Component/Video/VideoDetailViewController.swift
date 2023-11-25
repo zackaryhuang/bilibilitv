@@ -141,15 +141,15 @@ class VideoDetailViewController: UIViewController {
     }
 
     func present(from vc: UIViewController, playVideoDirectly: Bool = Settings.playVideoDirectly) {
-//        if !playVideoDirectly {
-//            vc.present(self, animated: true)
-//        } else {
-        vc.present(self, animated: false) { [weak self] in
-            guard let self else { return }
-            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: self.aid, cid: self.cid))
-            self.present(player, animated: true)
+        if !playVideoDirectly {
+            vc.present(self, animated: true)
+        } else {
+            vc.present(self, animated: false) { [weak self] in
+                guard let self else { return }
+                let player = VideoPlayerViewController(playInfo: PlayInfo(aid: self.aid, cid: self.cid))
+                self.present(player, animated: true)
+            }
         }
-//        }
     }
 
     private func exit(with error: Error) {

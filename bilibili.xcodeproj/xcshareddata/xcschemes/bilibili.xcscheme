@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F9B5734F260F5F7400771ED5"
-               BuildableName = "&#x54d4;&#x54e9;&#x54d4;&#x54e9;.app"
+               BuildableName = "bilibili.app"
                BlueprintName = "bilibili"
                ReferencedContainer = "container:bilibili.xcodeproj">
             </BuildableReference>
@@ -44,7 +44,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F9B5734F260F5F7400771ED5"
-            BuildableName = "&#x54d4;&#x54e9;&#x54d4;&#x54e9;.app"
+            BuildableName = "bilibili.app"
             BlueprintName = "bilibili"
             ReferencedContainer = "container:bilibili.xcodeproj">
          </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F9B5734F260F5F7400771ED5"
-            BuildableName = "&#x54d4;&#x54e9;&#x54d4;&#x54e9;.app"
+            BuildableName = "bilibili.app"
             BlueprintName = "bilibili"
             ReferencedContainer = "container:bilibili.xcodeproj">
          </BuildableReference>

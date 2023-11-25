@@ -31,6 +31,25 @@ class FollowingUPViewController: UIViewController {
     }
 
     func configUI() {
+        let label = UILabel()
+        label.text = "我的关注"
+        label.font = .boldSystemFont(ofSize: 50)
+        view.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.leading.equalTo(view).offset(80)
+            make.top.equalTo(view).offset(100)
+        }
+
+        let line = UIView()
+        line.backgroundColor = .gray
+        view.addSubview(line)
+        line.snp.makeConstraints { make in
+            make.leading.equalTo(view).offset(80)
+            make.trailing.equalTo(view).offset(-80)
+            make.height.equalTo(2)
+            make.top.equalTo(label.snp.bottom).offset(50)
+        }
+
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = Self.LineSpacing
         layout.minimumInteritemSpacing = Self.InteritemSpacing
@@ -44,7 +63,7 @@ class FollowingUPViewController: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.width.equalTo(Self.CellWidth * 3 + 2 * Self.InteritemSpacing)
             make.centerX.equalTo(view)
-            make.top.equalTo(view).offset(60)
+            make.top.equalTo(line.snp.bottom).offset(20)
             make.bottom.equalTo(view)
         }
     }

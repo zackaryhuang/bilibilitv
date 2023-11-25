@@ -41,17 +41,12 @@ class SidePanelItem {
 }
 
 class SidePanel: UIView {
-    var userItemView: SidePanelItemView!
-
-    var lastFocusedView: UIView?
-    var hotItem: SidePanelItemView!
     var tableView: UITableView!
     var sidePanelItems = [SidePanelItem(icon: "icon_recommend", title: "推荐", type: .recommend),
                           SidePanelItem(icon: "icon_hot", title: "热门", type: .hot),
                           SidePanelItem(icon: "icon_live", title: "直播", type: .live),
                           SidePanelItem(icon: "icon_rank", title: "排行榜", type: .rank),
-                          SidePanelItem(icon: "icon_follow", title: "关注", type: .follow),
-                          SidePanelItem(icon: "icon_setting", title: "设置", type: .setting)]
+                          SidePanelItem(icon: "icon_follow", title: "关注", type: .follow)]
     weak var delegate: SidePanelDelegate?
 
     override init(frame: CGRect) {
@@ -115,16 +110,11 @@ class SidePanel: UIView {
                 delegate?.sidePanelDidBecomeFocused(sidePanel: self)
             } else {
                 debugPrint("出去")
-                lastFocusedView = context.previouslyFocusedView
                 hideTitle()
                 delegate?.sidePanelDidBecomeUnFocused(sidePanel: self)
             }
         }
         return true
-    }
-
-    @objc func onSetting() {
-        delegate?.sidePanelDidClickSetting(sidePanel: self)
     }
 }
 
@@ -158,9 +148,5 @@ extension SidePanel: UITableViewDelegate, UITableViewDataSource {
         if let sideItem = context.nextFocusedView as? SidePanelItemView {
             delegate?.sidePanelDidFocus(sidePanel: self, focusType: sideItem.type)
         }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
-        return true
     }
 }

@@ -11,7 +11,9 @@ private let reuseIdentifier = "Cell"
 
 class RanksCollectionViewController: BaseCollectionViewController {
     var dataArray = [AnyDispplayData]()
-    var currentRankCategory: RankCategoryInfo? {
+
+    var categoryCollectionView: UICollectionView!
+    var currentRankCategory: RankCategoryInfo? = RankCategoryInfo.all.first {
         didSet {
             dataArray = []
             collectionView.reloadData()
@@ -25,6 +27,32 @@ class RanksCollectionViewController: BaseCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumLineSpacing = 20
+        flowLayout.minimumInteritemSpacing = 20
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.itemSize = CGSize(width: 150, height: 60)
+
+        categoryCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
+        categoryCollectionView.remembersLastFocusedIndexPath = true
+        categoryCollectionView.contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        categoryCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: NSStringFromClass(CategoryCell.self))
+        categoryCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
+        view.addSubview(categoryCollectionView)
+        categoryCollectionView.snp.makeConstraints { make in
+            make.leading.equalTo(view)
+            make.trailing.equalTo(view)
+            make.top.equalTo(view).offset(60)
+            make.height.equalTo(60 + 40)
+        }
+
+        collectionView.snp.remakeConstraints { make in
+            make.leading.trailing.bottom.equalTo(view)
+            make.top.equalTo(categoryCollectionView.snp.bottom).offset(20)
+        }
+
         collectionView.delegate = self
         collectionView.dataSource = self
         Task {
@@ -82,10 +110,22 @@ class RanksCollectionViewController: BaseCollectionViewController {
 
 extension RanksCollectionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == categoryCollectionView {
+            return RankCategoryInfo.all.count
+        }
         return dataArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == categoryCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(CategoryCell.self), for: indexPath)
+
+            if let videoCell = cell as? CategoryCell {
+                let data = RankCategoryInfo.all[indexPath.row]
+                videoCell.update(with: data)
+            }
+            return cell
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(VideoCell.self), for: indexPath)
 
         if let videoCell = cell as? VideoCell {
@@ -96,6 +136,11 @@ extension RanksCollectionViewController: UICollectionViewDelegate, UICollectionV
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == categoryCollectionView {
+            let data = RankCategoryInfo.all[indexPath.row]
+            currentRankCategory = data
+            return
+        }
         let item = dataArray[indexPath.row]
         if let record = item.data as? VideoDetail.Info {
             let player = VideoPlayerViewController(playInfo: PlayInfo(aid: record.aid, cid: record.cid))

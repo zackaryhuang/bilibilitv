@@ -163,7 +163,10 @@ class PersonalInfoViewController: UIViewController {
         }
     }
 
-    @objc func onSettingClick() {}
+    @objc func onSettingClick() {
+        let setting = SettingViewController()
+        present(setting, animated: true)
+    }
 
     @objc func onFollowClick() {
         let follow = FollowingUPViewController()
