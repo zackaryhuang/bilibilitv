@@ -15,7 +15,7 @@
         <!--Personal View Controller-->
         <scene sceneID="9YZ-Di-4Eg">
             <objects>
-                <viewController storyboardIdentifier="PersonalViewController" id="s9B-UG-Dhf" customClass="PersonalViewController" customModule="BilibiliLive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PersonalViewController" id="s9B-UG-Dhf" customClass="PersonalViewController" customModule="bilibili" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a6C-U6-GJQ"/>
                         <viewControllerLayoutGuide type="bottom" id="qVe-35-Bva"/>
@@ -111,7 +111,7 @@
         <!--Video Detail View Controller-->
         <scene sceneID="dFg-mm-Gkm">
             <objects>
-                <viewController storyboardIdentifier="VideoDetailViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="Q5X-tf-Ysh" customClass="VideoDetailViewController" customModule="BilibiliLive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoDetailViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="Q5X-tf-Ysh" customClass="VideoDetailViewController" customModule="bilibili" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lGE-up-eVy"/>
                         <viewControllerLayoutGuide type="bottom" id="S83-DL-GbR"/>
@@ -160,7 +160,7 @@
                                                                                 <constraint firstAttribute="width" secondItem="pnX-um-kBa" secondAttribute="height" id="fRi-99-fnX"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="a2g-fL-QNx" customClass="BLCustomTextButton" customModule="BilibiliLive" customModuleProvider="target">
+                                                                        <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="a2g-fL-QNx" customClass="BLCustomTextButton" customModule="bilibili" customModuleProvider="target">
                                                                             <rect key="frame" x="80" y="3" width="164" height="54"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <color key="tintColor" name="bgColor"/>
@@ -171,7 +171,7 @@
                                                                                 <action selector="actionShowUpSpace:" destination="Q5X-tf-Ysh" eventType="primaryActionTriggered" id="NsB-Iw-xx0"/>
                                                                             </connections>
                                                                         </view>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dxc-AZ-B22" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dxc-AZ-B22" customClass="BLCustomButton" customModule="bilibili" customModuleProvider="target">
                                                                             <rect key="frame" x="274" y="3" width="61.5" height="54"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <color key="tintColor" name="bgColor"/>
@@ -228,7 +228,7 @@
                                                                         <constraint firstItem="pnX-um-kBa" firstAttribute="height" secondItem="skF-nX-ooc" secondAttribute="height" multiplier="0.833333" id="MGl-l0-76C"/>
                                                                     </constraints>
                                                                 </stackView>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VqR-Fc-Jmv" customClass="NoteDetailView" customModule="BilibiliLive" customModuleProvider="target">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VqR-Fc-Jmv" customClass="NoteDetailView" customModule="bilibili" customModuleProvider="target">
                                                                     <rect key="frame" x="80" y="293" width="880" height="166"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
@@ -334,7 +334,7 @@
                                                                         <constraint firstAttribute="width" constant="60" id="9T5-OL-kYd"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfB-VX-ver" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfB-VX-ver" customClass="BLCustomButton" customModule="bilibili" customModuleProvider="target">
                                                                     <rect key="frame" x="80" y="0.0" width="160" height="128"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" name="bgColor"/>
@@ -353,7 +353,7 @@
                                                                         <action selector="actionPlay:" destination="Q5X-tf-Ysh" eventType="primaryActionTriggered" id="QDX-p5-SwN"/>
                                                                     </connections>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lIW-Ax-AbL" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lIW-Ax-AbL" customClass="BLCustomButton" customModule="bilibili" customModuleProvider="target">
                                                                     <rect key="frame" x="260" y="0.0" width="160" height="128"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" name="bgColor"/>
@@ -369,7 +369,7 @@
                                                                         <action selector="actionLike:" destination="Q5X-tf-Ysh" eventType="primaryActionTriggered" id="zw7-cJ-pIT"/>
                                                                     </connections>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Olx-aY-Y43" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Olx-aY-Y43" customClass="BLCustomButton" customModule="bilibili" customModuleProvider="target">
                                                                     <rect key="frame" x="440" y="0.0" width="160" height="128"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" name="bgColor"/>
@@ -385,7 +385,7 @@
                                                                         <action selector="actionCoin:" destination="Q5X-tf-Ysh" eventType="primaryActionTriggered" id="Gae-XI-rSU"/>
                                                                     </connections>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxL-C9-Fqb" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxL-C9-Fqb" customClass="BLCustomButton" customModule="bilibili" customModuleProvider="target">
                                                                     <rect key="frame" x="620" y="0.0" width="160" height="128"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" name="bgColor"/>
@@ -401,7 +401,7 @@
                                                                         <action selector="actionFavorite:" destination="Q5X-tf-Ysh" eventType="primaryActionTriggered" id="4zN-i3-UR0"/>
                                                                     </connections>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Efg-f4-str" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Efg-f4-str" customClass="BLCustomButton" customModule="bilibili" customModuleProvider="target">
                                                                     <rect key="frame" x="800" y="0.0" width="160" height="128"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" name="bgColor"/>
@@ -565,14 +565,14 @@
                                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="30" maxY="0.0"/>
                                                                     </collectionViewFlowLayout>
                                                                     <cells>
-                                                                        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ReplyCell" id="gxq-A8-Ahf" customClass="ReplyCell" customModule="BilibiliLive" customModuleProvider="target">
+                                                                        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ReplyCell" id="gxq-A8-Ahf" customClass="ReplyCell" customModule="bilibili" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="582" height="360"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <collectionViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="91g-YW-NBL">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="582" height="360"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                                 <subviews>
-                                                                                    <tvCardView contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="q7F-CH-d8W" customClass="BLCardView" customModule="BilibiliLive" customModuleProvider="target">
+                                                                                    <tvCardView contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="q7F-CH-d8W" customClass="BLCardView" customModule="bilibili" customModuleProvider="target">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="582" height="360"/>
                                                                                         <tvCardContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="W7y-m5-Uda">
                                                                                             <rect key="frame" x="23" y="23" width="536" height="314"/>
@@ -730,7 +730,7 @@
         <!--Settings View Controller-->
         <scene sceneID="XVs-rO-0EQ">
             <objects>
-                <viewController storyboardIdentifier="SettingsViewController" id="0G9-QH-9t2" customClass="SettingsViewController" customModule="BilibiliLive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" id="0G9-QH-9t2" customClass="SettingsViewController" customModule="bilibili" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="htL-MR-65a"/>
                         <viewControllerLayoutGuide type="bottom" id="5kF-g1-3Gy"/>
@@ -748,7 +748,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SettingsSwitchCell" id="QTP-GN-GLF" customClass="SettingsSwitchCell" customModule="BilibiliLive" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SettingsSwitchCell" id="QTP-GN-GLF" customClass="SettingsSwitchCell" customModule="bilibili" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="1224" height="68"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="zZ2-H6-bIG">

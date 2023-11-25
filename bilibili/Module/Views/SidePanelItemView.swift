@@ -11,7 +11,6 @@ class SidePanelItemView: UITableViewCell {
     var type: CurrentFocusType!
     var iconView: UIImageView!
     var label: UILabel!
-    var canBeF = true
     var title: String! {
         didSet {
             label.text = title
@@ -70,10 +69,6 @@ class SidePanelItemView: UITableViewCell {
         }
 
         label.text = item.title
-    }
-
-    override var canBecomeFocused: Bool {
-        return canBeF
     }
 
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {

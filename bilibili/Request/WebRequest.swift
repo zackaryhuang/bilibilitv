@@ -183,6 +183,15 @@ extension WebRequest {
         }
     }
 
+    static func requestTopHistory(complete: (([HistoryData]) -> Void)?) {
+        request(url: "https://api.bilibili.com/x/v2/history", parameters: ["pn": 1, "ps": 10]) {
+            (result: Result<[HistoryData], RequestError>) in
+            if let data = try? result.get() {
+                complete?(data)
+            }
+        }
+    }
+
     static func requestPlayerInfo(aid: Int, cid: Int) async throws -> PlayerInfo {
         try await request(url: EndPoint.playerInfo, parameters: ["aid": aid, "cid": cid])
     }
@@ -379,6 +388,11 @@ extension WebRequest {
     static func requestLoginInfo(complete: ((Result<JSON, RequestError>) -> Void)?) {
         requestJSON(url: "http://api.bilibili.com/x/web-interface/nav", complete: complete)
     }
+
+    static func requestUserInfo() async throws -> UserInfoResp {
+        let resp: UserInfoResp = try await request(url: "http://api.bilibili.com/x/web-interface/nav")
+        return resp
+    }
 }
 
 struct HistoryData: DisplayData, Codable {
@@ -396,6 +410,7 @@ struct HistoryData: DisplayData, Codable {
     let aid: Int
     let progress: Int
     let duration: Int
+    let stat: Stat
 //    let bangumi: BangumiData?
 }
 
@@ -682,6 +697,61 @@ struct PlayerInfo: Codable {
     struct MaskInfo: Codable {
         let mask_url: URL?
         let fps: Int
+    }
+}
+
+struct UserInfoResp: Codable {
+    let coinBalance: Int?
+    let userName: String?
+    let vipInfo: VipInfoData?
+    let levelInfo: LevelInfoData?
+    let walletInfo: WalletInfoData?
+    let avatarUrl: String?
+    let vipType: Int?
+    let vipStatus: Int?
+    var isBigVip: Bool { vipType == 2 && vipStatus == 1 }
+
+    enum CodingKeys: String, CodingKey {
+        case coinBalance = "money"
+        case userName = "uname"
+        case vipInfo = "vip_label"
+        case levelInfo = "level_info"
+        case walletInfo = "wallet"
+        case avatarUrl = "face"
+        case vipType
+        case vipStatus
+    }
+
+    struct VipInfoData: Codable {
+        let vipString: String?
+        let imageUrl: String?
+
+        enum CodingKeys: String, CodingKey {
+            case vipString = "text"
+            case imageUrl = "img_label_uri_hans_static"
+        }
+    }
+
+    struct LevelInfoData: Codable {
+        let nextLevelExp: Int?
+        let currentLevel: Int?
+        let currentExp: Int?
+        let currentLevelExpMin: Int?
+
+        enum CodingKeys: String, CodingKey {
+            case nextLevelExp = "next_exp"
+            case currentLevel = "current_level"
+            case currentExp = "current_exp"
+            case currentLevelExpMin = "current_min"
+        }
+    }
+
+    struct WalletInfoData: Codable {
+        let BCoinBalance: Int?
+
+        enum CodingKeys: String, CodingKey {
+            case BCoinBalance = "bcoin_balance"
+        }
     }
 }
 

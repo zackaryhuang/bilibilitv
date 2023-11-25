@@ -22,6 +22,8 @@ class VideoCell: UICollectionViewCell {
     var uperIcon: UIImageView!
     var uperNameLabel: UILabel!
 
+    static let videSize = CGSizeMake(420, 345)
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configUI()
@@ -275,6 +277,38 @@ class VideoCell: UICollectionViewCell {
         }
     }
 
+    func update(with item: HistoryData) {
+        coverImageView.kf.setImage(with: item.pic)
+        titleLabel.text = item.title
+        uperIcon.kf.setImage(with: item.avatar)
+        uperNameLabel.text = item.ownerName
+        durationLabel.text = item.duration.durationString
+        playCountLabel.text = item.stat.playCountString
+        danmakuCountLabel.text = item.stat.danmakuCountString
+        uperIcon.snp.makeConstraints { make in
+            make.width.height.equalTo(35)
+        }
+        uperIcon.clipsToBounds = true
+        uperIcon.layer.cornerRadius = 17.5
+        uperIcon.contentMode = .scaleAspectFill
+    }
+
+    func update(with item: ToViewData) {
+        coverImageView.kf.setImage(with: item.pic)
+        titleLabel.text = item.title
+        uperIcon.kf.setImage(with: item.avatar)
+        uperNameLabel.text = item.ownerName
+//        durationLabel.text = item.duration.durationString
+//        playCountLabel.text = item.stat.playCountString
+//        danmakuCountLabel.text = item.stat.danmakuCountString
+        uperIcon.snp.makeConstraints { make in
+            make.width.height.equalTo(35)
+        }
+        uperIcon.clipsToBounds = true
+        uperIcon.layer.cornerRadius = 17.5
+        uperIcon.contentMode = .scaleAspectFill
+    }
+
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if context.nextFocusedView == self {
             coordinator.addCoordinatedAnimations({ () in
@@ -287,5 +321,9 @@ class VideoCell: UICollectionViewCell {
                 self.coverImageView.layer.borderColor = UIColor.clear.cgColor
             }, completion: nil)
         }
+    }
+
+    override var canBecomeFocused: Bool {
+        return true
     }
 }

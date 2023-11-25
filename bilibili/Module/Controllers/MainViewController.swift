@@ -20,7 +20,7 @@ enum CurrentPageType: Int {
 class MainViewController: UIViewController {
     var sidePanel: SidePanel!
     var currentPageType = CurrentFocusType.recommend
-    var subPanel: SubSidePanel!
+//    var subPanel: SubSidePanel!
     var subViewControllers = [UIViewController]()
 
     var liveVC: LivesCollectionViewController!
@@ -62,30 +62,24 @@ class MainViewController: UIViewController {
             make.width.equalTo(100)
         }
 
-        subPanel = SubSidePanel()
-        subPanel.delegate = self
-        subPanel.parentViewController = self
-        subPanel.clipsToBounds = true
-        subPanel.isHidden = true
-        view.addSubview(subPanel)
-        subPanel.snp.makeConstraints { make in
-            make.leading.equalTo(sidePanel.snp.trailing)
-            make.top.bottom.equalTo(view)
-            make.width.equalTo(CGFLOAT_MIN)
-        }
-
         let rightContainerView = UIView()
         view.addSubview(rightContainerView)
         rightContainerView.snp.makeConstraints { make in
-            make.leading.equalTo(subPanel.snp.trailing)
+            make.leading.equalTo(sidePanel.snp.trailing)
             make.top.bottom.trailing.equalTo(view)
         }
 
         for collectionVC in subViewControllers {
             rightContainerView.addSubview(collectionVC.view)
-            collectionVC.view.snp.makeConstraints { make in
-                make.leading.top.bottom.equalTo(rightContainerView)
-                make.width.equalTo(4 * 420 + 3 * 20)
+            if collectionVC is BaseCollectionViewController {
+                collectionVC.view.snp.makeConstraints { make in
+                    make.leading.top.bottom.equalTo(rightContainerView)
+                    make.width.equalTo(4 * 420 + 3 * 20)
+                }
+            } else {
+                collectionVC.view.snp.makeConstraints { make in
+                    make.edges.equalTo(rightContainerView)
+                }
             }
             if let infoVC = collectionVC as? PersonalViewController {
                 infoVC.view.isHidden = infoVC.type != currentPageType
@@ -102,7 +96,7 @@ extension MainViewController: SidePanelDelegate {
     func sidePanelDidBecomeFocused(sidePanel: SidePanel) {
         UIView.animate(withDuration: 0.3) {
             sidePanel.snp.updateConstraints { make in
-                make.width.equalTo(400)
+                make.width.equalTo(250)
             }
             self.view.layoutIfNeeded()
         }
@@ -123,30 +117,6 @@ extension MainViewController: SidePanelDelegate {
     }
 
     func sidePanelDidFocus(sidePanel: SidePanel, focusType: CurrentFocusType) {
-        if focusType == .setting || focusType == .live || focusType == .rank {
-            subPanel.isHidden = false
-            UIView.animate(withDuration: 0.3) {
-                self.subPanel.snp.updateConstraints { make in
-                    if focusType == .live {
-                        make.width.equalTo(300)
-                    } else if focusType == .rank {
-                        make.width.equalTo(200)
-                    } else {
-                        make.width.equalTo(400)
-                    }
-                }
-                self.view.layoutIfNeeded()
-            }
-        } else {
-            subPanel.isHidden = true
-            UIView.animate(withDuration: 0.3) {
-                self.subPanel.snp.updateConstraints { make in
-                    make.width.equalTo(CGFLOAT_MIN)
-                }
-                self.view.layoutIfNeeded()
-            }
-        }
-
         subViewControllers.forEach { VC in
 //            VC.view.isHidden = focusType != VC.type
             if let infoVC = VC as? PersonalInfoViewController {
@@ -157,27 +127,5 @@ extension MainViewController: SidePanelDelegate {
                 viewController.view.isHidden = viewController.type != focusType
             }
         }
-
-        subPanel.currentFocusType = focusType
-    }
-}
-
-extension MainViewController: SideSubPanelDelegate {
-    func sideSubPanelDidFocus(on category: LiveCategory) {
-        liveVC.currentLiveCategory = category
-    }
-
-    func sideSubPanelDidBecomeUnFocused(sideSubPanel: SubSidePanel) {
-        subPanel.isHidden = true
-        UIView.animate(withDuration: 0.3) {
-            self.subPanel.snp.updateConstraints { make in
-                make.width.equalTo(CGFLOAT_MIN)
-            }
-            self.view.layoutIfNeeded()
-        }
-    }
-
-    func sideSubPanelDidFocus(on category: RankCategoryInfo) {
-        rankVC.currentRankCategory = category
     }
 }

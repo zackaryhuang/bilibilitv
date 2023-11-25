@@ -8,131 +8,209 @@
 import UIKit
 
 class PersonalInfoViewController: UIViewController {
-    static let CellWidth = 500.0
-    static let CellHeight = 120.0
-    static let Inset = 10.0
-    static let InteritemSpacing = 20.0
-    static let LineSpacing = 20.0
+    var type = CurrentFocusType.userInfo
 
-    var sidePanel: SubSidePanel!
+    let infoCard = PersonalInfoCard()
 
-    var type: CurrentFocusType = .userInfo
-    var currentCategory: PersonalInfoCategory?
+    let scrollView = UIScrollView()
 
-    var collectionView: UICollectionView!
-    var requesting = false
-    var finished = false
-    var page = 0
+    var histories = [HistoryData]()
 
-    var follows = [WebRequest.FollowingUser]() {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    var watchLaterList = [ToViewData]()
+
+    var historyCollectionView: UICollectionView!
+
+    var watchLaterCollectionView: UICollectionView!
 
     override func viewDidLoad() {
-        super.viewDidLoad()
         configUI()
-        loadData()
+        Task {
+            do {
+                let resp = try await WebRequest.requestUserInfo()
+                infoCard.update(with: resp)
+            } catch let err {
+                debugPrint(err)
+            }
+        }
+
+        WebRequest.requestTopHistory { histories in
+            self.histories = histories
+            self.historyCollectionView.reloadData()
+        }
+
+        Task {
+            do {
+                let resp = try await WebRequest.requestToView()
+                watchLaterList = resp
+                watchLaterCollectionView.reloadData()
+            } catch let err {
+                debugPrint(err)
+            }
+        }
     }
 
     func configUI() {
-        sidePanel = SubSidePanel()
-        sidePanel.delegate = self
-        sidePanel.currentFocusType = .userInfo
-        view.addSubview(sidePanel)
-        sidePanel.snp.makeConstraints { make in
-            make.leading.top.bottom.equalTo(view)
-            make.width.equalTo(170)
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view)
         }
 
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 20
-        layout.minimumInteritemSpacing = 20
+        scrollView.addSubview(infoCard)
+        infoCard.snp.makeConstraints { make in
+            make.leading.equalTo(scrollView).offset(60)
+            make.top.equalTo(scrollView).offset(30)
+        }
 
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: NSStringFromClass(FollowerCell.self))
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.contentInset = UIEdgeInsets(top: Self.Inset, left: Self.Inset, bottom: Self.Inset, right: Self.Inset)
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.leading.equalTo(sidePanel.snp.trailing)
-            make.top.bottom.equalTo(view)
-            make.width.equalTo(Self.CellWidth * 3 + 2 * Self.Inset + 2 * Self.InteritemSpacing)
+        let followerButton = LargeButton(title: "我的关注", image: "icon_follow_2")
+        scrollView.addSubview(followerButton)
+        followerButton.snp.makeConstraints { make in
+            make.leading.equalTo(infoCard.snp.trailing).offset(30)
+            make.top.equalTo(infoCard).offset(30)
+            make.bottom.equalTo(infoCard)
+            make.width.equalTo(220)
+        }
+
+        let tapForFollow = UITapGestureRecognizer(target: self, action: #selector(onFollowClick))
+        followerButton.addGestureRecognizer(tapForFollow)
+
+        let settingButton = LargeButton(title: "设置", image: "icon_setting_2")
+        scrollView.addSubview(settingButton)
+        settingButton.snp.makeConstraints { make in
+            make.leading.equalTo(followerButton.snp.trailing).offset(30)
+            make.top.equalTo(followerButton)
+            make.bottom.equalTo(followerButton)
+            make.width.equalTo(followerButton)
+        }
+
+        let tapForSetting = UITapGestureRecognizer(target: self, action: #selector(onSettingClick))
+        settingButton.addGestureRecognizer(tapForSetting)
+
+        let aboutButton = LargeButton(title: "关于", image: "icon_about")
+        scrollView.addSubview(aboutButton)
+        aboutButton.snp.makeConstraints { make in
+            make.leading.equalTo(settingButton.snp.trailing).offset(30)
+            make.top.equalTo(settingButton)
+            make.bottom.equalTo(settingButton)
+            make.width.equalTo(settingButton)
+        }
+
+        let tapForAbout = UITapGestureRecognizer(target: self, action: #selector(onAboutClick))
+        aboutButton.addGestureRecognizer(tapForAbout)
+
+        let logoutButton = LargeButton(title: "退出登录", image: "icon_exit")
+        scrollView.addSubview(logoutButton)
+        logoutButton.snp.makeConstraints { make in
+            make.leading.equalTo(aboutButton.snp.trailing).offset(30)
+            make.top.equalTo(aboutButton)
+            make.bottom.equalTo(aboutButton)
+            make.width.equalTo(aboutButton)
+        }
+
+        let tapForExit = UITapGestureRecognizer(target: self, action: #selector(onExitClick))
+        logoutButton.addGestureRecognizer(tapForExit)
+
+        let recentLabel = UILabel()
+        recentLabel.text = "最近播放"
+        scrollView.addSubview(recentLabel)
+        recentLabel.snp.makeConstraints { make in
+            make.leading.equalTo(infoCard)
+            make.top.equalTo(infoCard.snp.bottom).offset(30)
+        }
+
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 20
+        flowLayout.minimumInteritemSpacing = 20
+        flowLayout.itemSize = CGSize(width: VideoCell.videSize.width, height: VideoCell.videSize.height)
+
+        historyCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
+        historyCollectionView.register(VideoCell.self, forCellWithReuseIdentifier: NSStringFromClass(VideoCell.self))
+        historyCollectionView.delegate = self
+        historyCollectionView.dataSource = self
+        scrollView.addSubview(historyCollectionView)
+        historyCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(recentLabel.snp.bottom).offset(20)
+            make.leading.equalTo(recentLabel)
+            make.height.equalTo(VideoCell.videSize.height)
+            make.width.equalTo(VideoCell.videSize.width * 4 + 20 * 3)
+        }
+
+        let watchLaterLabel = UILabel()
+        watchLaterLabel.text = "稍后播放"
+        scrollView.addSubview(watchLaterLabel)
+        watchLaterLabel.snp.makeConstraints { make in
+            make.leading.equalTo(infoCard)
+            make.top.equalTo(historyCollectionView.snp.bottom).offset(30)
+        }
+
+        let watchFlowLayout = UICollectionViewFlowLayout()
+        watchFlowLayout.scrollDirection = .horizontal
+        watchFlowLayout.minimumLineSpacing = 20
+        watchFlowLayout.minimumInteritemSpacing = 20
+        watchFlowLayout.itemSize = CGSize(width: VideoCell.videSize.width, height: VideoCell.videSize.height)
+
+        watchLaterCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: watchFlowLayout)
+        watchLaterCollectionView.register(VideoCell.self, forCellWithReuseIdentifier: NSStringFromClass(VideoCell.self))
+        watchLaterCollectionView.delegate = self
+        watchLaterCollectionView.dataSource = self
+        scrollView.addSubview(watchLaterCollectionView)
+        watchLaterCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(watchLaterLabel.snp.bottom).offset(20)
+            make.leading.equalTo(recentLabel)
+            make.height.equalTo(VideoCell.videSize.height)
+            make.width.equalTo(VideoCell.videSize.width * 4 + 20 * 3)
+            make.bottom.equalTo(scrollView)
         }
     }
 
-    func loadData() {
-        Task {
-            requesting = true
-            do {
-                follows = try await WebRequest.requestFollowing(page: 1)
-            } catch {}
-            requesting = false
-        }
+    @objc func onSettingClick() {}
+
+    @objc func onFollowClick() {
+        let follow = FollowingUPViewController()
+        present(follow, animated: true)
     }
 
-    func loadMoreData() {
-        requesting = true
-        Task {
-            do {
-                page += 1
-                let next = try await WebRequest.requestFollowing(page: page)
-                finished = next.count < 40
-                follows.append(contentsOf: next)
-            } catch {
-                finished = true
-            }
-            requesting = false
-        }
-    }
+    @objc func onAboutClick() {}
+
+    @objc func onExitClick() {}
 }
 
-extension PersonalInfoViewController: SideSubPanelDelegate {
-    func sideSubPanelDidFocus(on category: PersonalInfoCategory) {
-        currentCategory = category
-        collectionView.reloadData()
-    }
-}
-
-extension PersonalInfoViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension PersonalInfoViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if currentCategory?.type == .followedUp {
-            return follows.count
+        if collectionView == historyCollectionView {
+            return histories.count
         }
-        return 0
+        return watchLaterList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FollowerCell.self), for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(VideoCell.self), for: indexPath)
 
-        if let upCell = cell as? FollowerCell {
-            let up = follows[indexPath.row]
-            upCell.update(with: up)
+        if let videoCell = cell as? VideoCell {
+            if collectionView == historyCollectionView {
+                let item = histories[indexPath.row]
+                videoCell.update(with: item)
+            } else if collectionView == watchLaterCollectionView {
+                let item = watchLaterList[indexPath.row]
+                videoCell.update(with: item)
+            }
         }
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if currentCategory?.type == .followedUp {
-            return CGSize(width: Self.CellWidth, height: Self.CellHeight)
-        }
-        return .zero
-    }
-
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard follows.count > 0 else { return }
-        guard indexPath.row == follows.count - 1, !requesting, !finished else {
-            return
-        }
-        loadMoreData()
-    }
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let data = follows[indexPath.item]
-        let upSpaceVC = UpSpaceViewController()
-        upSpaceVC.mid = data.mid
-        present(upSpaceVC, animated: true)
+        if collectionView == historyCollectionView {
+            let item = histories[indexPath.row]
+            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
+            present(player, animated: true)
+        } else if collectionView == watchLaterCollectionView {
+            let item = watchLaterList[indexPath.row]
+            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
+            present(player, animated: true)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }

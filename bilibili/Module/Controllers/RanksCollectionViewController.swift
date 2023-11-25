@@ -98,8 +98,8 @@ extension RanksCollectionViewController: UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = dataArray[indexPath.row]
         if let record = item.data as? VideoDetail.Info {
-            let detailVC = VideoDetailViewController.create(aid: record.aid, cid: record.cid)
-            detailVC.present(from: self)
+            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: record.aid, cid: record.cid))
+            present(player, animated: true)
         } else if let record = item.data as? Season {
             let detailVC = VideoDetailViewController.create(seasonId: record.season_id)
             detailVC.present(from: self)

@@ -52,7 +52,7 @@ class FollowerCell: UICollectionViewCell {
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(avatarImageView.snp.trailing).offset(10)
             make.bottom.equalTo(avatarImageView.snp.centerY).offset(-10)
-            make.trailing.lessThanOrEqualTo(contentView).offset(-5)
+            make.trailing.equalTo(contentView).offset(-5)
         }
 
         descLabel = UILabel()
@@ -60,7 +60,7 @@ class FollowerCell: UICollectionViewCell {
         contentView.addSubview(descLabel)
         descLabel.snp.makeConstraints { make in
             make.leading.equalTo(nameLabel)
-            make.trailing.lessThanOrEqualTo(contentView).offset(-10)
+            make.trailing.equalTo(contentView).offset(-10)
             make.top.equalTo(avatarImageView.snp.centerY).offset(10)
         }
 

@@ -119,9 +119,8 @@ extension FollowersCollectionViewController: UICollectionViewDelegate, UICollect
         }
 
         if !item.isbangumi {
-            let detailVC = VideoDetailViewController.create(aid: item.aid, cid: item.cid)
-            detailVC.present(from: self)
-            return
+            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
+            present(player, animated: true)
         } else {
             let detailVC = VideoDetailViewController.create(epid: item.episode!)
             detailVC.present(from: self)

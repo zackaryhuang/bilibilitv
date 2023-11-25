@@ -61,7 +61,7 @@ class SidePanel: UIView {
         WebRequest.requestLoginInfo { [weak self] response in
             switch response {
             case let .success(json):
-                let userItem = SidePanelItem(icon: "", avatar: json["face"].stringValue, title: json["uname"].stringValue, type: .userInfo)
+                let userItem = SidePanelItem(icon: "", avatar: json["face"].stringValue, title: "我的", type: .userInfo)
                 self?.sidePanelItems.insert(userItem, at: 0)
                 self?.tableView.reloadData()
             case .failure:
@@ -113,25 +113,11 @@ class SidePanel: UIView {
                 debugPrint("进入")
                 showTitle()
                 delegate?.sidePanelDidBecomeFocused(sidePanel: self)
-                if let sideItem = nextFocusedView as? SidePanelItemView {
-                    delegate?.sidePanelDidFocus(sidePanel: self, focusType: sideItem.type)
-                }
-                subviews.forEach { view in
-                    if let item = view as? SidePanelItemView {
-                        item.canBeF = true
-                    }
-                }
             } else {
                 debugPrint("出去")
                 lastFocusedView = context.previouslyFocusedView
                 hideTitle()
                 delegate?.sidePanelDidBecomeUnFocused(sidePanel: self)
-
-                subviews.forEach { view in
-                    if let item = view as? SidePanelItemView {
-                        item.canBeF = item == lastFocusedView
-                    }
-                }
             }
         }
         return true
@@ -161,13 +147,20 @@ extension SidePanel: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
-        if let cell = tableView.cellForRow(at: indexPath) as? SidePanelItemView {
-            return cell.canBeF
-        }
-        return false
+        return true
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
+    }
+
+    func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        if let sideItem = context.nextFocusedView as? SidePanelItemView {
+            delegate?.sidePanelDidFocus(sidePanel: self, focusType: sideItem.type)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }
