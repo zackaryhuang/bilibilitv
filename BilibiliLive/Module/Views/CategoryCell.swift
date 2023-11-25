@@ -39,7 +39,6 @@ class CategoryCell: UITableViewCell {
             make.leading.equalTo(contentView).offset(10)
             make.top.equalTo(contentView).offset(5)
             make.bottom.equalTo(contentView).offset(-5)
-            make.trailing.lessThanOrEqualTo(contentView).offset(-10)
         }
     }
 

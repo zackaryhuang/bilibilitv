@@ -216,14 +216,14 @@ class VideoCell: UICollectionViewCell {
         danmakuCountLabel.text = item.stat.danmakuCountString
         durationLabel.text = item.durationString
 
-        if let recommendString = item.rcmd_reason?.content, !recommendString.isEmpty {
-            uperIcon.isHidden = true
-            recommendLabel.isHidden = false
-            recommendLabel.text = "\(recommendString)   "
-        } else {
-            recommendLabel.isHidden = true
-            uperIcon.isHidden = false
-        }
+//        if let recommendString = item.rcmd_reason?.content, !recommendString.isEmpty {
+//            uperIcon.isHidden = true
+//            recommendLabel.isHidden = false
+//            recommendLabel.text = "\(recommendString)   "
+//        } else {
+//            recommendLabel.isHidden = true
+//            uperIcon.isHidden = false
+//        }
 
         uperNameLabel.snp.remakeConstraints { make in
             if uperIcon.isHidden {

@@ -8,10 +8,14 @@
 import Foundation
 import UIKit
 
-class UpSpaceViewController: StandardVideoCollectionViewController<UpSpaceReq.List.VListData> {
+class UpSpaceViewController: StandardVideoCollectionViewController<UpSpaceListData> {
     var mid: Int!
 
-    override func request(page: Int) async throws -> [UpSpaceReq.List.VListData] {
-        return try await WebRequest.requestUpSpaceVideo(mid: mid, page: page)
+    private var lastAid: Int?
+
+    override func request(page: Int) async throws -> [UpSpaceListData] {
+        let res = try await WebRequest.requestUpSpaceVideo(mid: mid, lastAid: lastAid, pageSize: 20)
+        lastAid = res.last?.aid
+        return res
     }
 }

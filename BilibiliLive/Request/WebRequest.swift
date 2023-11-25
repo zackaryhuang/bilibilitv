@@ -229,6 +229,19 @@ extension WebRequest {
         return resp.list.vlist
     }
 
+    static func requestUpSpaceVideo(mid: Int, lastAid: Int?, pageSize: Int = 20) async throws -> [UpSpaceListData] {
+        struct Resp: Codable {
+            let item: [UpSpaceListData]
+        }
+
+        var param: Parameters = ["vmid": mid, "ps": pageSize, "actionKey": "appkey", "disable_rcmd": 0, "fnval": 976, "fnver": 0, "force_host": 0, "fourk": 1, "order": "pubdate", "player_net": 1, "qn": 120]
+        if let lastAid {
+            param["aid"] = lastAid
+        }
+        let resp: Resp = try await request(url: "https://app.bilibili.com/x/v2/space/archive/cursor", parameters: param)
+        return resp.item
+    }
+
     static func requestLike(aid: Int, like: Bool) async -> Bool {
         do {
             _ = try await requestJSON(method: .post, url: EndPoint.like, parameters: ["aid": aid, "like": like ? "1" : "2"])
@@ -484,11 +497,11 @@ struct VideoDetail: Codable, Hashable {
         let ugc_season: UgcSeason?
         let redirect_url: URL?
         let stat: Stat
-        let rcmd_reason: RCMReason?
-
-        struct RCMReason: Codable, Hashable {
-            let content: String
-        }
+//        let rcmd_reason: RCMReason?
+//
+//        struct RCMReason: Codable, Hashable {
+//            let content: String?
+//        }
 
         struct UgcSeason: Codable, Hashable {
             let id: Int
@@ -612,6 +625,22 @@ struct VideoPage: Codable, Hashable {
     let page: Int
     let from: String
     let part: String
+}
+
+struct UpSpaceListData: Codable, Hashable, DisplayData, PlayableData {
+    var pic: URL? { return cover }
+
+    var aid: Int { return Int(param) ?? 0 }
+
+    let title: String
+    let author: String
+    let param: String
+    let cover: URL?
+    var ownerName: String {
+        return author
+    }
+
+    var cid: Int { return 0 }
 }
 
 struct UpSpaceReq: Codable, Hashable {

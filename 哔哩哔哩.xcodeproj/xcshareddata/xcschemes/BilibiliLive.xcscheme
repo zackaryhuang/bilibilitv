@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F9B5734F260F5F7400771ED5"
-               BuildableName = "BilibiliLive.app"
-               BlueprintName = "BilibiliLive"
-               ReferencedContainer = "container:BilibiliLive.xcodeproj">
+               BuildableName = "&#x54d4;&#x54e9;&#x54d4;&#x54e9;.app"
+               BlueprintName = "&#x54d4;&#x54e9;&#x54d4;&#x54e9;"
+               ReferencedContainer = "container:&#x54d4;&#x54e9;&#x54d4;&#x54e9;.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F9B5734F260F5F7400771ED5"
-            BuildableName = "BilibiliLive.app"
-            BlueprintName = "BilibiliLive"
-            ReferencedContainer = "container:BilibiliLive.xcodeproj">
+            BuildableName = "&#x54d4;&#x54e9;&#x54d4;&#x54e9;.app"
+            BlueprintName = "&#x54d4;&#x54e9;&#x54d4;&#x54e9;"
+            ReferencedContainer = "container:&#x54d4;&#x54e9;&#x54d4;&#x54e9;.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F9B5734F260F5F7400771ED5"
-            BuildableName = "BilibiliLive.app"
-            BlueprintName = "BilibiliLive"
-            ReferencedContainer = "container:BilibiliLive.xcodeproj">
+            BuildableName = "&#x54d4;&#x54e9;&#x54d4;&#x54e9;.app"
+            BlueprintName = "&#x54d4;&#x54e9;&#x54d4;&#x54e9;"
+            ReferencedContainer = "container:&#x54d4;&#x54e9;&#x54d4;&#x54e9;.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
