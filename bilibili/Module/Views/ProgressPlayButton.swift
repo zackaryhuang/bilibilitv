@@ -1,15 +1,30 @@
 //
-//  SettingView.swift
+//  ProgressPlayButton.swift
 //  bilibili
 //
-//  Created by Zackary on 2023/11/25.
+//  Created by Zackary on 2023/11/26.
 //
 
 import UIKit
 
-class SettingCell: UICollectionViewCell {
+class ProgressPlayButton: UIView {
+    let progressView = UIView()
+
     let label = UILabel()
-    let selectIcon = UIImageView()
+
+    var progress = 0.0 {
+        didSet {
+            progressView.snp.remakeConstraints { make in
+                make.leading.top.bottom.equalTo(self)
+                make.width.equalTo(self).multipliedBy(progress)
+            }
+            if progress > 0 {
+                label.text = "继续播放"
+            } else {
+                label.text = "播放"
+            }
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,27 +36,25 @@ class SettingCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func configUI() {
-        contentView.backgroundColor = UIColor(hex: 0x000000, alpha: 0.16)
-        contentView.layer.cornerRadius = 10
-        label.textAlignment = .center
-        contentView.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.center.equalTo(contentView)
-        }
-        selectIcon.image = UIImage(named: "icon_selected")
-        contentView.addSubview(selectIcon)
-        selectIcon.snp.makeConstraints { make in
-            make.centerY.equalTo(label)
-            make.trailing.equalTo(label.snp.leading).offset(-10)
-            make.width.height.equalTo(40)
-        }
-    }
+    func configUI() {
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
 
-    func update(with option: SettingOptions) {
-        label.text = option.title
-        let isSelected = option.checkSelected()
-        selectIcon.isHidden = !isSelected
+        backgroundColor = UIColor(hex: 0xFF9552, alpha: 0.6)
+        progressView.backgroundColor = UIColor(hex: 0xFF9552)
+        addSubview(progressView)
+        progressView.snp.makeConstraints { make in
+            make.leading.top.bottom.equalTo(self)
+            make.width.equalTo(self)
+        }
+
+        label.font = UIFont.systemFont(ofSize: 32)
+        label.text = "播放"
+        addSubview(label)
+        label.textAlignment = .center
+        label.snp.makeConstraints { make in
+            make.center.equalTo(self)
+        }
     }
 
     override var canBecomeFocused: Bool {
@@ -57,15 +70,18 @@ class SettingCell: UICollectionViewCell {
                 self.layer.shadowOffset = CGSizeMake(0, 10)
                 self.layer.shadowOpacity = 0.15
                 self.layer.shadowRadius = 16.0
-                self.contentView.backgroundColor = UIColor(hex: 0x2197F3)
             }
         } else {
             coordinator.addCoordinatedAnimations {
                 self.transform = CGAffineTransformIdentity
                 self.layer.shadowOpacity = 0
-                self.contentView.backgroundColor = UIColor(hex: 0x000000, alpha: 0.16)
                 self.layer.shadowOffset = CGSizeMake(0, 0)
             }
         }
+    }
+
+    func addTapGesture(target: Any?, action: Selector) {
+        let tap = UITapGestureRecognizer(target: target, action: action)
+        addGestureRecognizer(tap)
     }
 }

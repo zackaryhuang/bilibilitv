@@ -223,4 +223,8 @@ extension LivesCollectionViewController: UICollectionViewDelegate, UICollectionV
             await loadMore()
         }
     }
+
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        return [categoryCollectionView]
+    }
 }

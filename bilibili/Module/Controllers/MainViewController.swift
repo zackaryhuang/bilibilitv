@@ -81,7 +81,7 @@ class MainViewController: UIViewController {
                     make.edges.equalTo(rightContainerView)
                 }
             }
-            if let infoVC = collectionVC as? PersonalViewController {
+            if let infoVC = collectionVC as? PersonalInfoViewController {
                 infoVC.view.isHidden = infoVC.type != currentPageType
             }
 
@@ -109,11 +109,6 @@ extension MainViewController: SidePanelDelegate {
             }
             self.view.layoutIfNeeded()
         }
-    }
-
-    func sidePanelDidClickSetting(sidePanel: SidePanel) {
-        let vc = SettingsViewController.create()
-        present(vc, animated: true)
     }
 
     func sidePanelDidFocus(sidePanel: SidePanel, focusType: CurrentFocusType) {

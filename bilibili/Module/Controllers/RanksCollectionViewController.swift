@@ -146,8 +146,8 @@ extension RanksCollectionViewController: UICollectionViewDelegate, UICollectionV
             let player = VideoPlayerViewController(playInfo: PlayInfo(aid: record.aid, cid: record.cid))
             present(player, animated: true)
         } else if let record = item.data as? Season {
-            let detailVC = VideoDetailViewController.create(seasonId: record.season_id)
-            detailVC.present(from: self)
+            let detail = NewVideoDetailViewController(seasonID: record.season_id)
+            present(detail, animated: true)
         }
     }
 

@@ -309,6 +309,22 @@ class VideoCell: UICollectionViewCell {
         uperIcon.contentMode = .scaleAspectFill
     }
 
+    func update(with item: UpSpaceListData) {
+        coverImageView.kf.setImage(with: item.pic)
+        titleLabel.text = item.title
+        uperIcon.kf.setImage(with: item.cover)
+        uperNameLabel.text = item.ownerName
+        durationLabel.text = item.duration?.durationString
+        playCountLabel.text = item.view_content
+        danmakuCountLabel.text = item.danmaku?.numberString()
+        uperIcon.snp.makeConstraints { make in
+            make.width.height.equalTo(35)
+        }
+        uperIcon.clipsToBounds = true
+        uperIcon.layer.cornerRadius = 17.5
+        uperIcon.contentMode = .scaleAspectFill
+    }
+
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if context.nextFocusedView == self {
             coordinator.addCoordinatedAnimations({ () in

@@ -16,7 +16,7 @@ import UIKit
 struct PlayInfo {
     let aid: Int
     var cid: Int? = 0
-    var isBangumi: Bool = false
+    var isSession: Bool = false
 
     var isCidVaild: Bool {
         return cid ?? 0 > 0
@@ -219,10 +219,12 @@ extension VideoPlayerViewController {
         assert(playInfo.isCidVaild)
         let aid = playInfo.aid
         let cid = playInfo.cid!
+
+        UserDefaults.standard.set("\(cid)", forKey: "\(aid)")
         let info = try? await WebRequest.requestPlayerInfo(aid: aid, cid: cid)
         do {
             let playData: VideoPlayURLInfo
-            if playInfo.isBangumi {
+            if playInfo.isSession {
                 playData = try await WebRequest.requestPcgPlayUrl(aid: aid, cid: cid)
                 clipInfos = playData.clip_info_list
             } else {

@@ -25,4 +25,14 @@ extension Int {
         formatter.unitsStyle = .brief
         return formatter.string(from: TimeInterval(self)) ?? ""
     }
+
+    var standardDurationString: String {
+        let hours = self / 3600
+        let minutes = (self - hours * 3600) / 60
+        let seconds = self - hours * 3600 - minutes * 60
+        if hours > 0 {
+            return String(format: "%d:%.2d:%.2d", hours, minutes, seconds)
+        }
+        return String(format: "%.2d:%.2d", minutes, seconds)
+    }
 }

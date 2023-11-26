@@ -29,12 +29,16 @@
 		304F07212AF14EAC00ED4FD7 /* lottie_empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 304F07202AF14EAC00ED4FD7 /* lottie_empty.json */; };
 		305F0A672AFB12290029422F /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305F0A662AFB12290029422F /* PersonalInfoViewController.swift */; };
 		305FB6F02AFD326B00D0CA85 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FB6EF2AFD326B00D0CA85 /* FollowerCell.swift */; };
+		307C09072B12E8A300A8F6E6 /* SettingSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C09062B12E8A300A8F6E6 /* SettingSectionHeader.swift */; };
+		307C09092B13024800A8F6E6 /* NewVideoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C09082B13024800A8F6E6 /* NewVideoDetailViewController.swift */; };
+		307C090B2B131CBC00A8F6E6 /* NormalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C090A2B131CBC00A8F6E6 /* NormalButton.swift */; };
+		307C090D2B13208E00A8F6E6 /* ProgressPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C090C2B13208E00A8F6E6 /* ProgressPlayButton.swift */; };
+		30B4A8E02B13430500DA0645 /* UperSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4A8DF2B13430500DA0645 /* UperSpaceViewController.swift */; };
 		30BD34BF2B11FB3800FF19DB /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD34BE2B11FB3800FF19DB /* LargeButton.swift */; };
 		30BD34C32B121EB200FF19DB /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD34C22B121EB200FF19DB /* SettingViewController.swift */; };
-		30BD34C52B12218000FF19DB /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD34C42B12218000FF19DB /* SettingView.swift */; };
+		30BD34C52B12218000FF19DB /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD34C42B12218000FF19DB /* SettingCell.swift */; };
 		30BD34C72B12557B00FF19DB /* SubSidePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD34C62B12557B00FF19DB /* SubSidePanel.swift */; };
 		30BD34C92B12565C00FF19DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30BD34C82B12565C00FF19DB /* Main.storyboard */; };
-		30EAEC272AEAA8C700BB3410 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EAEC262AEAA8C700BB3410 /* SettingCell.swift */; };
 		490425F729AB54B200CDBC60 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490425F629AB54B200CDBC60 /* CategoryViewController.swift */; };
 		49078E47291BEA2400F556BD /* PocketSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 49078E46291BEA2400F556BD /* PocketSVG */; };
 		490EC3E7290CC8F8001E00B6 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EC3E6290CC8F8001E00B6 /* RankingViewController.swift */; };
@@ -152,12 +156,16 @@
 		304F07202AF14EAC00ED4FD7 /* lottie_empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_empty.json; sourceTree = "<group>"; };
 		305F0A662AFB12290029422F /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		305FB6EF2AFD326B00D0CA85 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
+		307C09062B12E8A300A8F6E6 /* SettingSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSectionHeader.swift; sourceTree = "<group>"; };
+		307C09082B13024800A8F6E6 /* NewVideoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVideoDetailViewController.swift; sourceTree = "<group>"; };
+		307C090A2B131CBC00A8F6E6 /* NormalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalButton.swift; sourceTree = "<group>"; };
+		307C090C2B13208E00A8F6E6 /* ProgressPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressPlayButton.swift; sourceTree = "<group>"; };
+		30B4A8DF2B13430500DA0645 /* UperSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UperSpaceViewController.swift; sourceTree = "<group>"; };
 		30BD34BE2B11FB3800FF19DB /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		30BD34C22B121EB200FF19DB /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		30BD34C42B12218000FF19DB /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		30BD34C42B12218000FF19DB /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		30BD34C62B12557B00FF19DB /* SubSidePanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubSidePanel.swift; sourceTree = "<group>"; };
 		30BD34C82B12565C00FF19DB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		30EAEC262AEAA8C700BB3410 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		490425F629AB54B200CDBC60 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		490EC3E6290CC8F8001E00B6 /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
 		490EC3E8290CE23E001E00B6 /* BLSettingLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLSettingLineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -323,6 +331,8 @@
 				305F0A662AFB12290029422F /* PersonalInfoViewController.swift */,
 				302191A72B11A453002DD721 /* FollowingUPViewController.swift */,
 				30BD34C22B121EB200FF19DB /* SettingViewController.swift */,
+				307C09082B13024800A8F6E6 /* NewVideoDetailViewController.swift */,
+				30B4A8DF2B13430500DA0645 /* UperSpaceViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -332,7 +342,6 @@
 			children = (
 				30BD34C62B12557B00FF19DB /* SubSidePanel.swift */,
 				3006A9682AE8129800DB0EE5 /* SidePanel.swift */,
-				30EAEC262AEAA8C700BB3410 /* SettingCell.swift */,
 				304F071C2AF08CC500ED4FD7 /* CategoryCell.swift */,
 				3006A96A2AE8155600DB0EE5 /* SidePanelItemView.swift */,
 				3006A96E2AE82ED400DB0EE5 /* VideoCell.swift */,
@@ -340,7 +349,10 @@
 				302191A92B11A7B2002DD721 /* PersonalInfoCard.swift */,
 				302191AB2B11AABD002DD721 /* ProgressView.swift */,
 				30BD34BE2B11FB3800FF19DB /* LargeButton.swift */,
-				30BD34C42B12218000FF19DB /* SettingView.swift */,
+				307C090A2B131CBC00A8F6E6 /* NormalButton.swift */,
+				30BD34C42B12218000FF19DB /* SettingCell.swift */,
+				307C09062B12E8A300A8F6E6 /* SettingSectionHeader.swift */,
+				307C090C2B13208E00A8F6E6 /* ProgressPlayButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -674,6 +686,7 @@
 				F90AAE04265549B5008DE7C2 /* FeedViewController.swift in Sources */,
 				2DBE4C4D2628818F00D20413 /* HistoryViewController.swift in Sources */,
 				30BD34C72B12557B00FF19DB /* SubSidePanel.swift in Sources */,
+				307C09072B12E8A300A8F6E6 /* SettingSectionHeader.swift in Sources */,
 				F9171D6629026AC5002868C7 /* TitleSupplementaryView.swift in Sources */,
 				F9B9EAE7261AC6F80045C2C6 /* BLTabBarViewController.swift in Sources */,
 				F9562C92261A0D2200573B74 /* VideoPlayerViewController.swift in Sources */,
@@ -691,9 +704,11 @@
 				304F07172AEFF6F600ED4FD7 /* RanksCollectionViewController.swift in Sources */,
 				4973502D29162A6D0045C26B /* StandardVideoCollectionViewController.swift in Sources */,
 				F927ED752610395300EAB8E3 /* DanmakuAsyncLayer.swift in Sources */,
+				307C090D2B13208E00A8F6E6 /* ProgressPlayButton.swift in Sources */,
 				49389D6228AFEA2900B9DAFD /* VideoDanmuProvider.swift in Sources */,
 				AEA5FDE2290F6E2600E7C0B2 /* String.swift in Sources */,
 				F927ED682610113A00EAB8E3 /* LiveDanMuProvider.swift in Sources */,
+				307C09092B13024800A8F6E6 /* NewVideoDetailViewController.swift in Sources */,
 				49474213290509F6005D6885 /* DateFormatter.swift in Sources */,
 				F927ED742610395300EAB8E3 /* DanmakuView.swift in Sources */,
 				F927ED782610395300EAB8E3 /* DanmakuTrack.swift in Sources */,
@@ -706,7 +721,7 @@
 				F927ED732610395300EAB8E3 /* DanmakuCell.swift in Sources */,
 				49389D8C28B0A84500B9DAFD /* PersonalViewController.swift in Sources */,
 				302191AA2B11A7B2002DD721 /* PersonalInfoCard.swift in Sources */,
-				30BD34C52B12218000FF19DB /* SettingView.swift in Sources */,
+				30BD34C52B12218000FF19DB /* SettingCell.swift in Sources */,
 				F927ED772610395300EAB8E3 /* DanmakuQueuePool.swift in Sources */,
 				49A441CD293F6DFD0007606C /* FollowUpsViewController.swift in Sources */,
 				AEA6AB1928FFF3DD007CE72E /* Settings.swift in Sources */,
@@ -721,6 +736,7 @@
 				30BD34C32B121EB200FF19DB /* SettingViewController.swift in Sources */,
 				F99D28E12619591300F8E66A /* CommonPlayerViewController.swift in Sources */,
 				304F071B2AEFF88D00ED4FD7 /* BaseCollectionViewController.swift in Sources */,
+				30B4A8E02B13430500DA0645 /* UperSpaceViewController.swift in Sources */,
 				AE4889B228FE55DA00E8C5CD /* FavoriteViewController.swift in Sources */,
 				304F071D2AF08CC500ED4FD7 /* CategoryCell.swift in Sources */,
 				304F07152AEFF6F000ED4FD7 /* HotsCollectionViewController.swift in Sources */,
@@ -731,11 +747,11 @@
 				490EC3E9290CE23E001E00B6 /* BLSettingLineCollectionViewCell.swift in Sources */,
 				3006A9672AE8128900DB0EE5 /* MainViewController.swift in Sources */,
 				3006A9692AE8129800DB0EE5 /* SidePanel.swift in Sources */,
-				30EAEC272AEAA8C700BB3410 /* SettingCell.swift in Sources */,
 				F9B57354260F5F7400771ED5 /* AppDelegate.swift in Sources */,
 				F9EDADD3262AA421007CB99F /* VideoDetailViewController.swift in Sources */,
 				496400D32943431E0098ACA6 /* Logger.swift in Sources */,
 				F927ED8826103CFB00EAB8E3 /* DanmakuTextCell.swift in Sources */,
+				307C090B2B131CBC00A8F6E6 /* NormalButton.swift in Sources */,
 				F9171D6429010DF1002868C7 /* FeedCollectionViewCell.swift in Sources */,
 				3006A95D2AE7FFD200DB0EE5 /* Tools.swift in Sources */,
 				F927ED902610A5E900EAB8E3 /* CookieManager.swift in Sources */,

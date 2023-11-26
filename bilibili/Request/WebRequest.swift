@@ -164,12 +164,12 @@ enum WebRequest {
 // MARK: - Video
 
 extension WebRequest {
-    static func requestBangumiInfo(epid: Int) async throws -> BangumiInfo {
+    static func requestSessionInfo(epid: Int) async throws -> BangumiInfo {
         let info: BangumiInfo = try await request(url: "http://api.bilibili.com/pgc/view/web/season", parameters: ["ep_id": epid], dataObj: "result")
         return info
     }
 
-    static func requestBangumiInfo(seasonID: Int) async throws -> BangumiSeasonInfo {
+    static func requestSessionInfo(seasonID: Int) async throws -> BangumiSeasonInfo {
         let res: BangumiSeasonInfo = try await request(url: "https://api.bilibili.com/pgc/web/season/section", parameters: ["season_id": seasonID], dataObj: "result")
         return res
     }
@@ -393,6 +393,11 @@ extension WebRequest {
         let resp: UserInfoResp = try await request(url: "http://api.bilibili.com/x/web-interface/nav")
         return resp
     }
+
+    static func requestUserInfo(mid: Int) async throws -> UperData {
+        let resp: UperData = try await request(url: "https://api.bilibili.com/x/web-interface/card", parameters: ["mid": mid, "photo": true])
+        return resp
+    }
 }
 
 struct HistoryData: DisplayData, Codable {
@@ -461,6 +466,7 @@ struct Stat: Codable, Hashable {
     let share: Int
     let danmaku: Int
     let view: Int
+    let dislike: Int
 
     var playCountString: String {
         if view > 10000 {
@@ -501,6 +507,7 @@ struct VideoDetail: Codable, Hashable {
         let cid: Int
         let title: String
         let videos: Int?
+        let tname: String?
         let pic: URL?
         let desc: String?
         let owner: VideoOwner
@@ -512,6 +519,7 @@ struct VideoDetail: Codable, Hashable {
         let ugc_season: UgcSeason?
         let redirect_url: URL?
         let stat: Stat
+        let dimension: Dimension?
 //        let rcmd_reason: RCMReason?
 //
 //        struct RCMReason: Codable, Hashable {
@@ -546,6 +554,12 @@ struct VideoDetail: Codable, Hashable {
                     let pic: URL
                 }
             }
+        }
+
+        struct Dimension: Codable, Hashable {
+            let width: Int
+            let height: Int
+            let rotate: Int?
         }
 
         var durationString: String {
@@ -651,11 +665,56 @@ struct UpSpaceListData: Codable, Hashable, DisplayData, PlayableData {
     let author: String
     let param: String
     let cover: URL?
+    let duration: Int?
+    let view_content: String?
+    let danmaku: Int?
     var ownerName: String {
         return author
     }
 
     var cid: Int { return 0 }
+}
+
+struct UperData: Codable, Hashable {
+    let space: UperSpace?
+    let isFollowing: Bool
+    let fansCount: Int?
+    let archiveCount: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case isFollowing = "following"
+        case space
+        case fansCount = "follower"
+        case archiveCount = "archive_count"
+    }
+
+    struct UperSpace: Codable, Hashable {
+        let banner: String
+        var bannerURL: URL? { URL(string: banner) ?? nil }
+        enum CodingKeys: String, CodingKey {
+            case banner = "l_img"
+        }
+    }
+
+    struct SpaceCard: Codable, Hashable {
+        let face: String?
+        let sex: String?
+        let sign: String?
+        let levelInfo: LevelInfoData?
+        let official: Official?
+
+        enum CodingKeys: String, CodingKey {
+            case levelInfo = "level_info"
+            case face
+            case sex
+            case sign
+            case official = "Official"
+        }
+
+        struct Official: Codable, Hashable {
+            let title: String?
+        }
+    }
 }
 
 struct UpSpaceReq: Codable, Hashable {
@@ -732,26 +791,26 @@ struct UserInfoResp: Codable {
         }
     }
 
-    struct LevelInfoData: Codable {
-        let nextLevelExp: Int?
-        let currentLevel: Int?
-        let currentExp: Int?
-        let currentLevelExpMin: Int?
-
-        enum CodingKeys: String, CodingKey {
-            case nextLevelExp = "next_exp"
-            case currentLevel = "current_level"
-            case currentExp = "current_exp"
-            case currentLevelExpMin = "current_min"
-        }
-    }
-
     struct WalletInfoData: Codable {
         let BCoinBalance: Int?
 
         enum CodingKeys: String, CodingKey {
             case BCoinBalance = "bcoin_balance"
         }
+    }
+}
+
+struct LevelInfoData: Codable, Hashable {
+    let nextLevelExp: Int?
+    let currentLevel: Int?
+    let currentExp: Int?
+    let currentLevelExpMin: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case nextLevelExp = "next_exp"
+        case currentLevel = "current_level"
+        case currentExp = "current_exp"
+        case currentLevelExpMin = "current_min"
     }
 }
 

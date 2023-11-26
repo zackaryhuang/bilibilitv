@@ -24,6 +24,9 @@ class FollowerCell: UICollectionViewCell {
     }
 
     private func configUI() {
+        contentView.backgroundColor = UIColor(hex: 0x000000, alpha: 0.16)
+        contentView.layer.cornerRadius = 16
+
         avatarImageView = UIImageView()
         avatarImageView.layer.cornerRadius = 50
         avatarImageView.layer.masksToBounds = true
@@ -63,9 +66,6 @@ class FollowerCell: UICollectionViewCell {
             make.trailing.equalTo(contentView).offset(-10)
             make.top.equalTo(avatarImageView.snp.centerY).offset(10)
         }
-
-        contentView.backgroundColor = UIColor(named: "bgColor")
-        contentView.layer.cornerRadius = 16
     }
 
     func update(with follower: WebRequest.FollowingUser) {
@@ -94,7 +94,7 @@ class FollowerCell: UICollectionViewCell {
             descLabel.textColor = .black
             officialIcon.layer.borderColor = UIColor.white.cgColor
         } else {
-            contentView.backgroundColor = UIColor(named: "bgColor")
+            contentView.backgroundColor = UIColor(hex: 0x000000, alpha: 0.16)
             nameLabel.textColor = .white
             descLabel.textColor = .white
             officialIcon.layer.borderColor = UIColor(named: "bgColor")?.cgColor

@@ -1,19 +1,26 @@
 //
-//  SettingView.swift
+//  NormalButton.swift
 //  bilibili
 //
-//  Created by Zackary on 2023/11/25.
+//  Created by Zackary on 2023/11/26.
 //
 
 import UIKit
 
-class SettingCell: UICollectionViewCell {
+class NormalButton: UIView {
+    let imageView = UIImageView()
+
     let label = UILabel()
-    let selectIcon = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         configUI()
+    }
+
+    convenience init(image: String, title: String) {
+        self.init(frame: CGRectZero)
+        imageView.image = UIImage(named: image)
+        label.text = title
     }
 
     @available(*, unavailable)
@@ -21,27 +28,26 @@ class SettingCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func configUI() {
-        contentView.backgroundColor = UIColor(hex: 0x000000, alpha: 0.16)
-        contentView.layer.cornerRadius = 10
-        label.textAlignment = .center
-        contentView.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.center.equalTo(contentView)
+    func configUI() {
+        layer.cornerRadius = 20
+        backgroundColor = UIColor(hex: 0x000000, alpha: 0.16)
+        addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.width.height.equalTo(60)
+            make.top.equalTo(self).offset(10)
+            make.leading.equalTo(self).offset(30)
+            make.trailing.equalTo(self).offset(-30)
         }
-        selectIcon.image = UIImage(named: "icon_selected")
-        contentView.addSubview(selectIcon)
-        selectIcon.snp.makeConstraints { make in
-            make.centerY.equalTo(label)
-            make.trailing.equalTo(label.snp.leading).offset(-10)
-            make.width.height.equalTo(40)
-        }
-    }
 
-    func update(with option: SettingOptions) {
-        label.text = option.title
-        let isSelected = option.checkSelected()
-        selectIcon.isHidden = !isSelected
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .lightGray
+        addSubview(label)
+        label.snp.makeConstraints { make in
+            make.top.equalTo(imageView.snp.bottom).offset(10)
+            make.bottom.equalTo(self).offset(-10)
+            make.leading.trailing.equalTo(self)
+        }
     }
 
     override var canBecomeFocused: Bool {
@@ -57,13 +63,13 @@ class SettingCell: UICollectionViewCell {
                 self.layer.shadowOffset = CGSizeMake(0, 10)
                 self.layer.shadowOpacity = 0.15
                 self.layer.shadowRadius = 16.0
-                self.contentView.backgroundColor = UIColor(hex: 0x2197F3)
+                self.backgroundColor = .green
             }
         } else {
             coordinator.addCoordinatedAnimations {
                 self.transform = CGAffineTransformIdentity
                 self.layer.shadowOpacity = 0
-                self.contentView.backgroundColor = UIColor(hex: 0x000000, alpha: 0.16)
+                self.backgroundColor = UIColor(hex: 0x000000, alpha: 0.16)
                 self.layer.shadowOffset = CGSizeMake(0, 0)
             }
         }

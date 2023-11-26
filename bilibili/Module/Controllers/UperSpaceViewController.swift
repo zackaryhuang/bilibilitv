@@ -1,18 +1,25 @@
 //
-//  FeedsCollectionViewController.swift
-//  BilibiliLive
+//  UperSpaceViewController.swift
+//  bilibili
 //
-//  Created by Zackary on 2023/10/30.
+//  Created by Zackary on 2023/11/26.
 //
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+class UperSpaceViewController: BaseCollectionViewController {
+    var items = [UpSpaceListData]()
 
-class FeedsCollectionViewController: BaseCollectionViewController {
-    var items = [ApiRequest.FeedResp.Items]()
+    let bannerView = UIImageView()
+
+    var uperData: UperData?
+
+    var hasMore = true
 
     var isLoading = false
+
+    private var mid = 0
+    private var lastAid: Int?
 
     var page = 1
 
@@ -21,14 +28,38 @@ class FeedsCollectionViewController: BaseCollectionViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         Task {
+            uperData = try await WebRequest.requestUserInfo(mid: mid)
+            bannerView.kf.setImage(with: uperData?.space?.bannerURL)
+        }
+
+        view.addSubview(bannerView)
+        bannerView.snp.makeConstraints { make in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(300)
+        }
+
+        collectionView.snp.remakeConstraints { make in
+            make.bottom.equalTo(view)
+            make.centerX.equalTo(view)
+            make.width.equalTo(VideoCell.videSize.width * 4 + 20 * 3)
+            make.top.equalTo(bannerView.snp.bottom).offset(20)
+        }
+
+        Task {
             await loadData()
         }
     }
 
+    convenience init(mid: Int) {
+        self.init()
+        self.mid = mid
+    }
+
     private func loadData() async {
         do {
+            lastAid = nil
             page = 1
-            let res = try await request(page: page)
+            let res = try await request()
             page += 1
             items = res
             collectionView.reloadData()
@@ -41,7 +72,7 @@ class FeedsCollectionViewController: BaseCollectionViewController {
 
     private func loadMore() async {
         do {
-            let res = try await request(page: page)
+            let res = try await request()
             page += 1
             items += res
             collectionView.reloadData()
@@ -53,18 +84,17 @@ class FeedsCollectionViewController: BaseCollectionViewController {
         }
     }
 
-    private func request(page: Int) async throws -> [ApiRequest.FeedResp.Items] {
-        if page == 1 {
-            return try await ApiRequest.getFeeds()
-        } else if let last = (items.last)?.idx {
-            return try await ApiRequest.getFeeds(lastIdx: last)
-        } else {
-            throw NSError(domain: "", code: -1)
+    private func request() async throws -> [UpSpaceListData] {
+        let res = try await WebRequest.requestUpSpaceVideo(mid: mid, lastAid: lastAid, pageSize: 20)
+        lastAid = res.last?.aid
+        if res.count < 20 {
+            hasMore = false
         }
+        return res
     }
 }
 
-extension FeedsCollectionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension UperSpaceViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }
@@ -92,7 +122,7 @@ extension FeedsCollectionViewController: UICollectionViewDelegate, UICollectionV
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard items.count > 0 else { return }
-        guard indexPath.row == items.count - 1, !isLoading else {
+        guard indexPath.row == items.count - 1, !isLoading, hasMore else {
             return
         }
         isLoading = true

@@ -12,7 +12,6 @@ import UIKit
 protocol SidePanelDelegate: NSObjectProtocol {
     func sidePanelDidBecomeFocused(sidePanel: SidePanel)
     func sidePanelDidBecomeUnFocused(sidePanel: SidePanel)
-    func sidePanelDidClickSetting(sidePanel: SidePanel)
     func sidePanelDidFocus(sidePanel: SidePanel, focusType: CurrentFocusType)
 }
 

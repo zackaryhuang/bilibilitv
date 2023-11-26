@@ -51,10 +51,10 @@ class BLTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         fav.tabBarItem.title = "收藏"
         vcs.append(fav)
 
-        let persionVC = PersonalViewController.create()
-        persionVC.extendedLayoutIncludesOpaqueBars = true
-        persionVC.tabBarItem.title = "我的"
-        vcs.append(persionVC)
+//        let persionVC = PersonalViewController.create()
+//        persionVC.extendedLayoutIncludesOpaqueBars = true
+//        persionVC.tabBarItem.title = "我的"
+//        vcs.append(persionVC)
 
         setViewControllers(vcs, animated: false)
         selectedIndex = UserDefaults.standard.integer(forKey: selectedIndexKey)

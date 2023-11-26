@@ -63,7 +63,7 @@ class VideoDetailViewController: UIViewController {
         }
     }
 
-    private var isBangumi = false
+    private var isSession = false
     private var startTime = 0
     private var pages = [VideoPage]()
     private var replys: Replys?
@@ -171,16 +171,16 @@ class VideoDetailViewController: UIViewController {
         ugcView.isHidden = true
         do {
             if seasonId > 0 {
-                isBangumi = true
-                let info = try await WebRequest.requestBangumiInfo(seasonID: seasonId)
+                isSession = true
+                let info = try await WebRequest.requestSessionInfo(seasonID: seasonId)
                 if let epi = info.main_section.episodes.first ?? info.section.first?.episodes.first {
                     aid = epi.aid
                     cid = epi.cid
                 }
                 pages = info.main_section.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title) })
             } else if epid > 0 {
-                isBangumi = true
-                let info = try await WebRequest.requestBangumiInfo(epid: epid)
+                isSession = true
+                let info = try await WebRequest.requestSessionInfo(epid: epid)
                 if let epi = info.episodes.first(where: { $0.id == epid }) ?? info.episodes.first {
                     aid = epi.aid
                     cid = epi.cid
@@ -192,10 +192,10 @@ class VideoDetailViewController: UIViewController {
             let data = try await WebRequest.requestDetailVideo(aid: aid)
             self.data = data
 
-            if let redirect = data.View.redirect_url?.lastPathComponent, redirect.starts(with: "ep"), let id = Int(redirect.dropFirst(2)), !isBangumi {
-                isBangumi = true
+            if let redirect = data.View.redirect_url?.lastPathComponent, redirect.starts(with: "ep"), let id = Int(redirect.dropFirst(2)), !isSession {
+                isSession = true
                 epid = id
-                let info = try await WebRequest.requestBangumiInfo(epid: epid)
+                let info = try await WebRequest.requestSessionInfo(epid: epid)
                 pages = info.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title + " " + $0.long_title) })
             }
             update(with: data)
@@ -216,7 +216,7 @@ class VideoDetailViewController: UIViewController {
             self?.didSentCoins = coins
         }
 
-        if isBangumi {
+        if isSession {
             favButton.isHidden = true
             recommandCollectionView.superview?.isHidden = true
             return
@@ -255,7 +255,7 @@ class VideoDetailViewController: UIViewController {
         }
         notes.append(data.View.desc ?? "")
         noteView.label.text = notes.joined(separator: "\n")
-        if !isBangumi {
+        if !isSession {
             pages = data.View.pages ?? []
         }
         if pages.count > 1 {
@@ -301,10 +301,10 @@ class VideoDetailViewController: UIViewController {
     }
 
     @IBAction func actionPlay(_ sender: Any) {
-        let player = VideoPlayerViewController(playInfo: PlayInfo(aid: aid, cid: cid, isBangumi: isBangumi))
+        let player = VideoPlayerViewController(playInfo: PlayInfo(aid: aid, cid: cid, isSession: isSession))
         player.data = data
         if pages.count > 0, let index = pages.firstIndex(where: { $0.cid == cid }) {
-            let seq = pages.dropFirst(index).map({ PlayInfo(aid: aid, cid: $0.cid, isBangumi: isBangumi) })
+            let seq = pages.dropFirst(index).map({ PlayInfo(aid: aid, cid: $0.cid, isSession: isSession) })
             if seq.count > 0 {
                 let nextProvider = VideoNextProvider(seq: seq)
                 player.nextProvider = nextProvider
@@ -392,10 +392,10 @@ extension VideoDetailViewController: UICollectionViewDelegate {
         switch collectionView {
         case pageCollectionView:
             let page = pages[indexPath.item]
-            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: isBangumi ? page.page : aid, cid: page.cid, isBangumi: isBangumi))
-            player.data = isBangumi ? nil : data
+            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: isSession ? page.page : aid, cid: page.cid, isSession: isSession))
+            player.data = isSession ? nil : data
 
-            let seq = pages.dropFirst(indexPath.item).map({ PlayInfo(aid: aid, cid: $0.cid, isBangumi: isBangumi) })
+            let seq = pages.dropFirst(indexPath.item).map({ PlayInfo(aid: aid, cid: $0.cid, isSession: isSession) })
             if seq.count > 0 {
                 let nextProvider = VideoNextProvider(seq: seq)
                 player.nextProvider = nextProvider

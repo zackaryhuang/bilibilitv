@@ -24,7 +24,7 @@ class FollowsViewController: StandardVideoCollectionViewController<FeedData> {
                 let ep = bangumi["new_ep"]
                 let title = "第" + ep["index"].stringValue + "集 - " + ep["index_title"].stringValue
                 let episode = ep["episode_id"].intValue
-                return FeedData(title: title, cid: 0, aid: 0, isbangumi: true, season: season, episode: episode, ownerName: owner, duration: nil, pic: pic, avatar: nil, date: date, stat: nil)
+                return FeedData(title: title, cid: 0, aid: 0, isSession: true, season: season, episode: episode, ownerName: owner, duration: nil, pic: pic, avatar: nil, date: date, stat: nil)
             }
             let avid = data["id"].intValue
             let archive = data["archive"]
@@ -41,15 +41,16 @@ class FollowsViewController: StandardVideoCollectionViewController<FeedData> {
             let coin = archive["stat"]["coin"].intValue
             let like = archive["stat"]["like"].intValue
             let share = archive["stat"]["share"].intValue
-            let stat = Stat(favorite: favorite, coin: coin, like: like, share: share, danmaku: danmaku, view: view)
+            let dislike = archive["stat"]["dislike"].intValue
+            let stat = Stat(favorite: favorite, coin: coin, like: like, share: share, danmaku: danmaku, view: view, dislike: dislike)
 
-            return FeedData(title: title, cid: cid, aid: avid, isbangumi: false, season: nil, episode: nil, ownerName: owner, duration: duration, pic: pic, avatar: avatar, date: date, stat: stat)
+            return FeedData(title: title, cid: cid, aid: avid, isSession: false, season: nil, episode: nil, ownerName: owner, duration: duration, pic: pic, avatar: avatar, date: date, stat: stat)
         }
         return datas
     }
 
     override func goDetail(with feed: FeedData) {
-        if !feed.isbangumi {
+        if !feed.isSession {
             let detailVC = VideoDetailViewController.create(aid: feed.aid, cid: feed.cid)
             detailVC.present(from: self)
             return
@@ -64,7 +65,7 @@ struct FeedData: PlayableData {
     let title: String
     let cid: Int
     let aid: Int
-    let isbangumi: Bool
+    let isSession: Bool
     let season: Int?
     let episode: Int?
     let ownerName: String

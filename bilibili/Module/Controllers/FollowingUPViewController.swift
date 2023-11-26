@@ -123,8 +123,7 @@ extension FollowingUPViewController: UICollectionViewDelegate, UICollectionViewD
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = follows[indexPath.item]
-        let upSpaceVC = UpSpaceViewController()
-        upSpaceVC.mid = data.mid
+        let upSpaceVC = UperSpaceViewController(mid: data.mid)
         present(upSpaceVC, animated: true)
     }
 }
