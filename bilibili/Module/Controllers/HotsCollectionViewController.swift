@@ -69,8 +69,13 @@ extension HotsCollectionViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = items[indexPath.row]
-        let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
-        present(player, animated: true)
+        if Settings.playVideoDirectly {
+            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
+            present(player, animated: true)
+        } else {
+            let detailViewController = NewVideoDetailViewController(aid: item.aid, cid: item.cid)
+            present(detailViewController, animated: true)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {

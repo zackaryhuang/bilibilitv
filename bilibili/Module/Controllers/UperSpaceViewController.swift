@@ -10,8 +10,6 @@ import UIKit
 class UperSpaceViewController: BaseCollectionViewController {
     var items = [UpSpaceListData]()
 
-    let bannerView = UIImageView()
-
     var uperData: UperData?
 
     var hasMore = true
@@ -25,34 +23,38 @@ class UperSpaceViewController: BaseCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        Task {
-            uperData = try await WebRequest.requestUserInfo(mid: mid)
-            bannerView.kf.setImage(with: uperData?.space?.bannerURL)
-        }
-
-        view.addSubview(bannerView)
-        bannerView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalTo(view)
-            make.height.equalTo(300)
-        }
-
-        collectionView.snp.remakeConstraints { make in
-            make.bottom.equalTo(view)
-            make.centerX.equalTo(view)
-            make.width.equalTo(VideoCell.videSize.width * 4 + 20 * 3)
-            make.top.equalTo(bannerView.snp.bottom).offset(20)
-        }
-
+        configUI()
         Task {
             await loadData()
         }
+        fetchUperInfo()
     }
 
     convenience init(mid: Int) {
         self.init()
         self.mid = mid
+    }
+
+    private func configUI() {
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.headerReferenceSize = CGSizeMake(view.frame.size.width, 300)
+        }
+        collectionView.register(UperSpaceSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(UperSpaceSectionHeader.self))
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.snp.remakeConstraints { make in
+            make.bottom.equalTo(view)
+            make.centerX.equalTo(view)
+            make.width.equalTo(VideoCell.videSize.width * 4 + 20 * 3)
+            make.top.equalTo(view)
+        }
+    }
+
+    private func fetchUperInfo() {
+        Task {
+            uperData = try await WebRequest.requestUserInfo(mid: mid)
+            collectionView.reloadData()
+        }
     }
 
     private func loadData() async {
@@ -129,5 +131,15 @@ extension UperSpaceViewController: UICollectionViewDelegate, UICollectionViewDat
         Task {
             await loadMore()
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(UperSpaceSectionHeader.self), for: indexPath)
+        if let sectionHeader = view as? UperSpaceSectionHeader,
+           let data = uperData
+        {
+            sectionHeader.update(with: data)
+        }
+        return view
     }
 }

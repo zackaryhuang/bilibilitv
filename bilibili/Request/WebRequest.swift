@@ -680,12 +680,14 @@ struct UperData: Codable, Hashable {
     let isFollowing: Bool
     let fansCount: Int?
     let archiveCount: Int?
+    let card: SpaceCard?
 
     enum CodingKeys: String, CodingKey {
         case isFollowing = "following"
         case space
         case fansCount = "follower"
         case archiveCount = "archive_count"
+        case card
     }
 
     struct UperSpace: Codable, Hashable {
@@ -698,8 +700,10 @@ struct UperData: Codable, Hashable {
 
     struct SpaceCard: Codable, Hashable {
         let face: String?
+        var faceURL: URL? { (face != nil) ? URL(string: face!) : nil }
         let sex: String?
         let sign: String?
+        let name: String?
         let levelInfo: LevelInfoData?
         let official: Official?
 
@@ -709,6 +713,7 @@ struct UperData: Codable, Hashable {
             case sex
             case sign
             case official = "Official"
+            case name
         }
 
         struct Official: Codable, Hashable {

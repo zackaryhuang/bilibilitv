@@ -109,10 +109,6 @@ extension FollowingUPViewController: UICollectionViewDelegate, UICollectionViewD
         return cell
     }
 
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: Self.CellWidth, height: Self.CellHeight)
-//    }
-
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard follows.count > 0 else { return }
         guard indexPath.row == follows.count - 1, !requesting, !finished else {

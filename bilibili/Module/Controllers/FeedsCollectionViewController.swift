@@ -81,9 +81,13 @@ extension FeedsCollectionViewController: UICollectionViewDelegate, UICollectionV
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = items[indexPath.row]
-//        let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
-        let player = NewVideoDetailViewController(aid: item.aid, cid: item.cid)
-        present(player, animated: true)
+        if Settings.playVideoDirectly {
+            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
+            present(player, animated: true)
+        } else {
+            let detailVC = NewVideoDetailViewController(aid: item.aid, cid: item.cid)
+            present(detailVC, animated: true)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {

@@ -120,11 +120,18 @@ extension FollowersCollectionViewController: UICollectionViewDelegate, UICollect
         }
 
         if !item.isSession {
-            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
-            present(player, animated: true)
+            if Settings.playVideoDirectly {
+                let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
+                present(player, animated: true)
+            } else {
+                let videoDetailVC = NewVideoDetailViewController(aid: item.aid, cid: item.cid)
+                present(videoDetailVC, animated: true)
+            }
         } else {
-            let detailVC = VideoDetailViewController.create(epid: item.episode!)
-            detailVC.present(from: self)
+            if let epid = item.episode {
+                let detailVC = NewVideoDetailViewController(episodeID: epid)
+                present(detailVC, animated: true)
+            }
         }
     }
 

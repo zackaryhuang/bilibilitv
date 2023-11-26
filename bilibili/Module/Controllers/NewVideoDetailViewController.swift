@@ -243,7 +243,7 @@ class NewVideoDetailViewController: UIViewController {
             if favCount == 0 {
                 collectionButton.label.text = "收藏"
             } else {
-                collectionButton.label.text = "\(favCount)"
+                collectionButton.label.text = "\(favCount.numberString())"
             }
         }
 
@@ -251,7 +251,7 @@ class NewVideoDetailViewController: UIViewController {
             if likeCount == 0 {
                 thumbUpButton.label.text = "点赞"
             } else {
-                thumbUpButton.label.text = "\(likeCount)"
+                thumbUpButton.label.text = "\(likeCount.numberString())"
             }
         }
 
@@ -259,7 +259,7 @@ class NewVideoDetailViewController: UIViewController {
             if coinCount == 0 {
                 coinButton.label.text = "投币"
             } else {
-                coinButton.label.text = "\(coinCount)"
+                coinButton.label.text = "\(coinCount.numberString())"
             }
         }
 
@@ -267,7 +267,7 @@ class NewVideoDetailViewController: UIViewController {
             if dislikeCount == 0 {
                 dislikeButton.label.text = "不喜欢"
             } else {
-                dislikeButton.label.text = "\(dislikeCount)"
+                dislikeButton.label.text = "\(dislikeCount.numberString())"
             }
         }
 

@@ -34,6 +34,7 @@
 		307C090B2B131CBC00A8F6E6 /* NormalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C090A2B131CBC00A8F6E6 /* NormalButton.swift */; };
 		307C090D2B13208E00A8F6E6 /* ProgressPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C090C2B13208E00A8F6E6 /* ProgressPlayButton.swift */; };
 		30B4A8E02B13430500DA0645 /* UperSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4A8DF2B13430500DA0645 /* UperSpaceViewController.swift */; };
+		30B4A8E22B13983200DA0645 /* UperSpaceSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4A8E12B13983200DA0645 /* UperSpaceSectionHeader.swift */; };
 		30BD34BF2B11FB3800FF19DB /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD34BE2B11FB3800FF19DB /* LargeButton.swift */; };
 		30BD34C32B121EB200FF19DB /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD34C22B121EB200FF19DB /* SettingViewController.swift */; };
 		30BD34C52B12218000FF19DB /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD34C42B12218000FF19DB /* SettingCell.swift */; };
@@ -161,6 +162,7 @@
 		307C090A2B131CBC00A8F6E6 /* NormalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalButton.swift; sourceTree = "<group>"; };
 		307C090C2B13208E00A8F6E6 /* ProgressPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressPlayButton.swift; sourceTree = "<group>"; };
 		30B4A8DF2B13430500DA0645 /* UperSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UperSpaceViewController.swift; sourceTree = "<group>"; };
+		30B4A8E12B13983200DA0645 /* UperSpaceSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UperSpaceSectionHeader.swift; sourceTree = "<group>"; };
 		30BD34BE2B11FB3800FF19DB /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		30BD34C22B121EB200FF19DB /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		30BD34C42B12218000FF19DB /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				30BD34C42B12218000FF19DB /* SettingCell.swift */,
 				307C09062B12E8A300A8F6E6 /* SettingSectionHeader.swift */,
 				307C090C2B13208E00A8F6E6 /* ProgressPlayButton.swift */,
+				30B4A8E12B13983200DA0645 /* UperSpaceSectionHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 				304F07112AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift in Sources */,
 				F927ED8926103CFB00EAB8E3 /* DanmakuTextCellModel.swift in Sources */,
 				49D39F28263AD40000F14497 /* WebRequest.swift in Sources */,
+				30B4A8E22B13983200DA0645 /* UperSpaceSectionHeader.swift in Sources */,
 				498DB1DF291BC24700F95607 /* BMaskProvider.swift in Sources */,
 				494741C029002797005D6885 /* UserDefault+..swift in Sources */,
 				30BD34C32B121EB200FF19DB /* SettingViewController.swift in Sources */,
