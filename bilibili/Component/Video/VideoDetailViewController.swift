@@ -173,11 +173,11 @@ class VideoDetailViewController: UIViewController {
             if seasonId > 0 {
                 isSession = true
                 let info = try await WebRequest.requestSessionInfo(seasonID: seasonId)
-                if let epi = info.main_section.episodes.first ?? info.section.first?.episodes.first {
+                if let epi = info.main_section?.episodes.first ?? info.section.first?.episodes.first {
                     aid = epi.aid
                     cid = epi.cid
                 }
-                pages = info.main_section.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title) })
+                pages = info.main_section?.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title) }) ?? [VideoPage]()
             } else if epid > 0 {
                 isSession = true
                 let info = try await WebRequest.requestSessionInfo(epid: epid)

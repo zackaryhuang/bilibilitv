@@ -19,6 +19,7 @@ class CategoryCell: UICollectionViewCell {
     var liveCategory: LiveCategory?
     var rankCategory: RankCategoryInfo?
     var personalInfoCategory: PersonalInfoCategory?
+    var isChose = false
     override init(frame: CGRect) {
         super.init(frame: frame)
         configUI()
@@ -30,7 +31,7 @@ class CategoryCell: UICollectionViewCell {
     }
 
     private func configUI() {
-        contentView.layer.cornerRadius = 20
+        contentView.layer.cornerRadius = 30
         titleLabel = UILabel()
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
@@ -43,14 +44,18 @@ class CategoryCell: UICollectionViewCell {
         }
     }
 
-    func update(with category: LiveCategory) {
+    func update(with category: LiveCategory, isSelected: Bool) {
         titleLabel.text = category.title
         liveCategory = category
+        contentView.backgroundColor = isSelected ? UIColor.biliPink : UIColor.clear
+        isChose = isSelected
     }
 
-    func update(with category: RankCategoryInfo) {
+    func update(with category: RankCategoryInfo, isSelected: Bool) {
         titleLabel.text = category.title
         rankCategory = category
+        contentView.backgroundColor = isSelected ? UIColor.biliPink : UIColor.clear
+        isChose = isSelected
     }
 
     func update(with category: PersonalInfoCategory) {
@@ -71,13 +76,14 @@ class CategoryCell: UICollectionViewCell {
                 self.layer.shadowOffset = CGSizeMake(0, 10)
                 self.layer.shadowOpacity = 0.15
                 self.layer.shadowRadius = 16.0
-                self.contentView.backgroundColor = UIColor(hex: 0x2197F3)
+                self.contentView.backgroundColor = self.isChose ? UIColor.biliPink : UIColor(hex: 0x2197F3)
+//                self.contentView.backgroundColor = UIColor(hex: 0x2197F3)
             }
         } else {
             coordinator.addCoordinatedAnimations {
                 self.transform = CGAffineTransformIdentity
                 self.layer.shadowOpacity = 0
-                self.contentView.backgroundColor = .clear
+                self.contentView.backgroundColor = self.isChose ? UIColor.biliPink : UIColor.clear
                 self.layer.shadowOffset = CGSizeMake(0, 0)
             }
         }

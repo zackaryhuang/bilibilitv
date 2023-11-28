@@ -121,7 +121,7 @@ class PersonalInfoViewController: UIViewController {
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 20
         flowLayout.minimumInteritemSpacing = 20
-        flowLayout.itemSize = CGSize(width: VideoCell.videSize.width, height: VideoCell.videSize.height)
+        flowLayout.itemSize = CGSize(width: VideoCell.CellSize.width, height: VideoCell.CellSize.height)
 
         historyCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
         historyCollectionView.register(VideoCell.self, forCellWithReuseIdentifier: NSStringFromClass(VideoCell.self))
@@ -131,8 +131,8 @@ class PersonalInfoViewController: UIViewController {
         historyCollectionView.snp.makeConstraints { make in
             make.top.equalTo(recentLabel.snp.bottom).offset(20)
             make.leading.equalTo(recentLabel)
-            make.height.equalTo(VideoCell.videSize.height)
-            make.width.equalTo(VideoCell.videSize.width * 4 + 20 * 3)
+            make.height.equalTo(VideoCell.CellSize.height)
+            make.width.equalTo(VideoCell.CellSize.width * 4 + 20 * 3)
         }
 
         let watchLaterLabel = UILabel()
@@ -147,7 +147,7 @@ class PersonalInfoViewController: UIViewController {
         watchFlowLayout.scrollDirection = .horizontal
         watchFlowLayout.minimumLineSpacing = 20
         watchFlowLayout.minimumInteritemSpacing = 20
-        watchFlowLayout.itemSize = CGSize(width: VideoCell.videSize.width, height: VideoCell.videSize.height)
+        watchFlowLayout.itemSize = CGSize(width: VideoCell.CellSize.width, height: VideoCell.CellSize.height)
 
         watchLaterCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: watchFlowLayout)
         watchLaterCollectionView.register(VideoCell.self, forCellWithReuseIdentifier: NSStringFromClass(VideoCell.self))
@@ -157,8 +157,8 @@ class PersonalInfoViewController: UIViewController {
         watchLaterCollectionView.snp.makeConstraints { make in
             make.top.equalTo(watchLaterLabel.snp.bottom).offset(20)
             make.leading.equalTo(recentLabel)
-            make.height.equalTo(VideoCell.videSize.height)
-            make.width.equalTo(VideoCell.videSize.width * 4 + 20 * 3)
+            make.height.equalTo(VideoCell.CellSize.height)
+            make.width.equalTo(VideoCell.CellSize.width * 4 + 20 * 3)
             make.bottom.equalTo(scrollView)
         }
     }
@@ -204,12 +204,23 @@ extension PersonalInfoViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == historyCollectionView {
             let item = histories[indexPath.row]
-            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
-            present(player, animated: true)
+            if Settings.playVideoDirectly {
+                let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
+                present(player, animated: true)
+            } else {
+                let detailVC = NewVideoDetailViewController(aid: item.aid, cid: item.cid ?? 0)
+                present(detailVC, animated: true)
+            }
+
         } else if collectionView == watchLaterCollectionView {
             let item = watchLaterList[indexPath.row]
-            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
-            present(player, animated: true)
+            if Settings.playVideoDirectly {
+                let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
+                present(player, animated: true)
+            } else {
+                let detailVC = NewVideoDetailViewController(aid: item.aid, cid: item.cid)
+                present(detailVC, animated: true)
+            }
         }
     }
 

@@ -15,11 +15,11 @@ extension UIColor {
         self.init(red: r, green: g, blue: b, alpha: alpha)
     }
 
-    static var biliblue: UIColor {
+    static var biliBlue: UIColor {
         UIColor(hex: 0x00aeec)
     }
 
-    static var bilipink: UIColor {
+    static var biliPink: UIColor {
         UIColor(hex: 0xff6699)
     }
 }

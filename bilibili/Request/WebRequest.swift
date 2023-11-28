@@ -626,20 +626,20 @@ struct Replys: Codable, Hashable {
 }
 
 struct BangumiSeasonInfo: Codable {
-    let main_section: BangumiInfo
+    let main_section: BangumiInfo?
     let section: [BangumiInfo]
 }
 
-struct BangumiInfo: Codable, Hashable {
-    struct Episode: Codable, Hashable {
-        let id: Int
-        let aid: Int
-        let cid: Int
-        let cover: URL
-        let long_title: String
-        let title: String
-    }
+struct Episode: Codable, Hashable {
+    let id: Int
+    let aid: Int
+    let cid: Int
+    let cover: URL
+    let long_title: String
+    let title: String
+}
 
+struct BangumiInfo: Codable, Hashable {
     let episodes: [Episode] // 正片剧集列表
 }
 
@@ -680,6 +680,7 @@ struct UperData: Codable, Hashable {
     let isFollowing: Bool
     let fansCount: Int?
     let archiveCount: Int?
+    let likeCount: Int?
     let card: SpaceCard?
 
     enum CodingKeys: String, CodingKey {
@@ -688,6 +689,7 @@ struct UperData: Codable, Hashable {
         case fansCount = "follower"
         case archiveCount = "archive_count"
         case card
+        case likeCount = "like_num"
     }
 
     struct UperSpace: Codable, Hashable {

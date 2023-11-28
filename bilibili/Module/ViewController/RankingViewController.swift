@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct RankCategoryInfo {
+struct RankCategoryInfo: Equatable {
     let title: String
     let rid: Int
     var isSeason = false

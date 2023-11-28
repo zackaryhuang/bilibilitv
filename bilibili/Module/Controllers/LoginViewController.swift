@@ -78,7 +78,7 @@ class LoginViewController: UIViewController {
 
         attributedString.append(NSAttributedString(string: "哔哩哔哩", attributes: [
             .font: UIFont.boldSystemFont(ofSize: 40),
-            .foregroundColor: UIColor.bilipink,
+            .foregroundColor: UIColor.biliPink,
         ]))
 
         attributedString.append(NSAttributedString(string: "扫描二维码登录", attributes: [

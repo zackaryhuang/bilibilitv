@@ -41,7 +41,7 @@ class SettingItem {
     }
 }
 
-struct LiveCategory {
+struct LiveCategory: Equatable {
     let title: String
     let areaID: Int?
 

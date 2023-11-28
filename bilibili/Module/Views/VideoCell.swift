@@ -22,7 +22,7 @@ class VideoCell: UICollectionViewCell {
     var uperIcon: UIImageView!
     var uperNameLabel: UILabel!
 
-    static let videSize = CGSizeMake(420, 345)
+    static let CellSize = CGSizeMake(420, 345)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -317,6 +317,22 @@ class VideoCell: UICollectionViewCell {
         durationLabel.text = item.duration?.durationString
         playCountLabel.text = item.view_content
         danmakuCountLabel.text = item.danmaku?.numberString()
+        uperIcon.snp.makeConstraints { make in
+            make.width.height.equalTo(35)
+        }
+        uperIcon.clipsToBounds = true
+        uperIcon.layer.cornerRadius = 17.5
+        uperIcon.contentMode = .scaleAspectFill
+    }
+
+    func update(with item: Episode) {
+        coverImageView.kf.setImage(with: item.cover)
+        titleLabel.text = item.long_title
+//        uperIcon.kf.setImage(with: item.cover)
+//        uperNameLabel.text = item.long_title
+//        durationLabel.text = item.duration?.durationString
+//        playCountLabel.text = item.view_content
+//        danmakuCountLabel.text = item.danmaku?.numberString()
         uperIcon.snp.makeConstraints { make in
             make.width.height.equalTo(35)
         }

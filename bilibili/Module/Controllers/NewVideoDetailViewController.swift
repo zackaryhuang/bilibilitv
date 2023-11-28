@@ -8,6 +8,8 @@
 import UIKit
 
 class NewVideoDetailViewController: UIViewController {
+    static var CollectionViewInset = 20.0
+
     private var aid = 0
     private var cid = 0
     private var data: VideoDetail?
@@ -15,6 +17,8 @@ class NewVideoDetailViewController: UIViewController {
     private var isSession = false
     private var epid = 0
     private var pages = [VideoPage]()
+    private var episodes = [Episode]()
+    var episodesCollectionView: UICollectionView!
 
     let coverImageView = UIImageView()
     let contentScrollView = UIScrollView()
@@ -28,6 +32,7 @@ class NewVideoDetailViewController: UIViewController {
     var thumbUpButton: NormalButton!
     var coinButton: NormalButton!
     var dislikeButton: NormalButton!
+    var episodesLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +57,10 @@ class NewVideoDetailViewController: UIViewController {
     }
 
     private func configUI() {
+        view.backgroundColor = .black
+        contentScrollView.insetsLayoutMarginsFromSafeArea = false
+        contentScrollView.contentInsetAdjustmentBehavior = .never
+        contentScrollView.preservesSuperviewLayoutMargins = false
         view.addSubview(contentScrollView)
         contentScrollView.snp.makeConstraints { make in
             make.edges.equalTo(view)
@@ -59,10 +68,6 @@ class NewVideoDetailViewController: UIViewController {
 
         coverImageView.isUserInteractionEnabled = true
         contentScrollView.addSubview(coverImageView)
-        coverImageView.layer.shadowColor = UIColor(hex: 0x576289, alpha: 0.5).cgColor
-        coverImageView.layer.shadowOpacity = 1
-        coverImageView.layer.shadowRadius = 10
-        coverImageView.layer.shadowOffset = CGSizeMake(80, 80)
         coverImageView.snp.makeConstraints { make in
             make.leading.top.equalTo(contentScrollView)
             make.trailing.equalTo(view)
@@ -153,6 +158,35 @@ class NewVideoDetailViewController: UIViewController {
             make.trailing.equalTo(coverImageView).offset((-20))
             make.bottom.lessThanOrEqualTo(playButton)
         }
+
+        episodesLabel.text = "剧集"
+        contentScrollView.addSubview(episodesLabel)
+        episodesLabel.snp.makeConstraints { make in
+            make.leading.equalTo(contentScrollView).offset(60)
+            make.top.equalTo(coverImageView.snp.bottom).offset(20)
+        }
+
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 20
+        flowLayout.minimumInteritemSpacing = 20
+
+        episodesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        episodesCollectionView.contentInset = UIEdgeInsets(top: Self.CollectionViewInset,
+                                                           left: Self.CollectionViewInset,
+                                                           bottom: Self.CollectionViewInset,
+                                                           right: Self.CollectionViewInset)
+        episodesCollectionView.backgroundColor = .clear
+        episodesCollectionView.register(NormalVideoCell.self, forCellWithReuseIdentifier: NSStringFromClass(NormalVideoCell.self))
+        episodesCollectionView.delegate = self
+        episodesCollectionView.dataSource = self
+        contentScrollView.addSubview(episodesCollectionView)
+        episodesCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(episodesLabel.snp.bottom).offset(20)
+            make.height.equalTo(NormalVideoCell.CellSize.height + 2 * Self.CollectionViewInset)
+            make.width.equalTo(NormalVideoCell.CellSize.width * 4 + (20.0 * 3) + (2 * Self.CollectionViewInset))
+            make.centerX.equalTo(coverImageView)
+        }
     }
 
     func loadData() {
@@ -160,11 +194,23 @@ class NewVideoDetailViewController: UIViewController {
             if seasonId > 0 {
                 isSession = true
                 let info = try await WebRequest.requestSessionInfo(seasonID: seasonId)
-                if let epi = info.main_section.episodes.last ?? info.section.last?.episodes.last {
+                if let epi = info.main_section?.episodes.last ?? info.section.last?.episodes.last {
                     aid = epi.aid
                     cid = epi.cid
                 }
-                pages = info.main_section.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title) })
+
+                if let epi = info.main_section?.episodes.last {
+                    aid = epi.aid
+                    cid = epi.cid
+                    episodes = info.main_section?.episodes.reversed() ?? [Episode]()
+                } else if let epi = info.section.last?.episodes.last {
+                    aid = epi.aid
+                    cid = epi.cid
+                    episodes = info.section.last?.episodes.reversed() ?? [Episode]()
+                    assert(info.section.count > 1, "应该是有多个 Season")
+                }
+
+                pages = info.main_section?.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title) }) ?? [VideoPage]()
             } else if epid > 0 {
                 isSession = true
                 let info = try await WebRequest.requestSessionInfo(epid: epid)
@@ -174,6 +220,7 @@ class NewVideoDetailViewController: UIViewController {
                 } else {
                     throw NSError(domain: "get epi fail", code: -1)
                 }
+                episodes = info.episodes.reversed()
                 pages = info.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title) })
             }
             let data = try await WebRequest.requestDetailVideo(aid: aid)
@@ -184,6 +231,7 @@ class NewVideoDetailViewController: UIViewController {
                 epid = id
                 let info = try await WebRequest.requestSessionInfo(epid: epid)
                 pages = info.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title + " " + $0.long_title) })
+                episodes = info.episodes.reversed()
             }
             let cid = UserDefaults.standard.integer(forKey: "\(aid)")
             let playInfo = try? await WebRequest.requestPlayerInfo(aid: aid, cid: cid)
@@ -278,6 +326,28 @@ class NewVideoDetailViewController: UIViewController {
             playButton.progress = Double(playTimeInSecond) / Double(duration)
             playButton.label.text = "继续播放\(playTimeInSecond.standardDurationString)"
         }
+
+        if episodes.count > 0 {
+            coverImageView.snp.remakeConstraints { make in
+                make.leading.top.equalTo(contentScrollView)
+                make.size.equalTo(UIScreen.main.bounds.size)
+                make.trailing.equalTo(contentScrollView)
+            }
+
+            episodesLabel.snp.remakeConstraints { make in
+                make.leading.equalTo(contentScrollView).offset(60)
+                make.top.equalTo(coverImageView.snp.bottom).offset(20)
+            }
+
+            episodesCollectionView.snp.remakeConstraints { make in
+                make.top.equalTo(episodesLabel.snp.bottom).offset(20)
+                make.height.equalTo(NormalVideoCell.CellSize.height + 2 * Self.CollectionViewInset)
+                make.width.equalTo(NormalVideoCell.CellSize.width * 4 + (20.0 * 3) + (2 * Self.CollectionViewInset))
+                make.centerX.equalTo(coverImageView)
+                make.bottom.equalTo(contentScrollView).offset(-20)
+            }
+            episodesCollectionView.reloadData()
+        }
     }
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
@@ -287,5 +357,35 @@ class NewVideoDetailViewController: UIViewController {
     @objc func play() {
         let player = VideoPlayerViewController(playInfo: PlayInfo(aid: aid, cid: cid))
         present(player, animated: true)
+    }
+}
+
+extension NewVideoDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return episodes.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(NormalVideoCell.self), for: indexPath)
+
+        if let videoCell = cell as? NormalVideoCell {
+            let item = episodes[indexPath.row]
+            videoCell.update(title: item.title, subTitle: item.long_title, imageURL: item.cover)
+        }
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = episodes[indexPath.row]
+        let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
+        present(player, animated: true)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return NormalVideoCell.CellSize
+    }
+
+    func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }

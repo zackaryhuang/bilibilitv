@@ -8,7 +8,7 @@
 import UIKit
 
 class LivesCollectionViewController: BaseCollectionViewController {
-    var currentLiveCategory: LiveCategory? = LiveCategory.all.first {
+    var currentLiveCategory: LiveCategory = LiveCategory.all.first! {
         didSet {
             dataArray = []
             collectionView.reloadData()
@@ -23,6 +23,7 @@ class LivesCollectionViewController: BaseCollectionViewController {
     var isLoading = false
     var page = 1
     var hasMore = true
+    let focusGuide = UIFocusGuide()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,19 +48,33 @@ class LivesCollectionViewController: BaseCollectionViewController {
             make.height.equalTo(60 + 40)
         }
 
+        // 将Focus Guide的preferredFocusedView属性设置为需要获得焦点的视图
+
         collectionView.snp.remakeConstraints { make in
             make.leading.trailing.bottom.equalTo(view)
             make.top.equalTo(categoryCollectionView.snp.bottom).offset(20)
+            make.bottom.equalTo(view)
         }
         collectionView.delegate = self
         collectionView.dataSource = self
+
+        // 将Focus Guide添加到当前视图上
+        view.addLayoutGuide(focusGuide)
+
+        // 设置Focus Guide的frame，使其位于右上角
+        focusGuide.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor, constant: 0).isActive = true
+        focusGuide.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor, constant: 0).isActive = true
+        focusGuide.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 0).isActive = true
+        focusGuide.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 0).isActive = true
+        focusGuide.preferredFocusEnvironments = [categoryCollectionView]
+        focusGuide.isEnabled = false
         Task {
             await loadData()
         }
     }
 
     func loadData() async {
-        if currentLiveCategory?.areaID == nil {
+        if currentLiveCategory.areaID == nil {
             do {
                 hasMore = true
                 page = 1
@@ -105,13 +120,15 @@ class LivesCollectionViewController: BaseCollectionViewController {
 
         if dataArray.count == 0 {
             showEmptyView()
+            focusGuide.isEnabled = true
         } else {
             hideEmptyView()
+            focusGuide.isEnabled = false
         }
     }
 
     func loadMore() async {
-        if currentLiveCategory?.areaID == nil {
+        if currentLiveCategory.areaID == nil {
             do {
                 isLoading = true
                 let res = try await WebRequest.requestLiveRoom(page: page)
@@ -149,7 +166,7 @@ class LivesCollectionViewController: BaseCollectionViewController {
     }
 
     func request(page: Int) async throws -> [AreaLiveRoom] {
-        guard let liveAreaID = currentLiveCategory?.areaID else {
+        guard let liveAreaID = currentLiveCategory.areaID else {
             return []
         }
         if liveAreaID == 0 {
@@ -175,7 +192,7 @@ extension LivesCollectionViewController: UICollectionViewDelegate, UICollectionV
 
             if let categoryCell = cell as? CategoryCell {
                 let data = LiveCategory.all[indexPath.row]
-                categoryCell.update(with: data)
+                categoryCell.update(with: data, isSelected: data == currentLiveCategory)
             }
             return cell
         }
@@ -192,6 +209,7 @@ extension LivesCollectionViewController: UICollectionViewDelegate, UICollectionV
         if collectionView == categoryCollectionView {
             let data = LiveCategory.all[indexPath.row]
             currentLiveCategory = data
+            collectionView.reloadData()
             return
         }
         let item = dataArray[indexPath.row]
@@ -222,6 +240,15 @@ extension LivesCollectionViewController: UICollectionViewDelegate, UICollectionV
         Task {
             await loadMore()
         }
+    }
+
+    func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
+        if collectionView == categoryCollectionView {
+            if let index = LiveCategory.all.firstIndex(of: currentLiveCategory) {
+                return IndexPath(row: index, section: 0)
+            }
+        }
+        return nil
     }
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {

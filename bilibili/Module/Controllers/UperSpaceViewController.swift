@@ -24,10 +24,10 @@ class UperSpaceViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
+        fetchUperInfo()
         Task {
             await loadData()
         }
-        fetchUperInfo()
     }
 
     convenience init(mid: Int) {
@@ -36,17 +36,18 @@ class UperSpaceViewController: BaseCollectionViewController {
     }
 
     private func configUI() {
+        view.backgroundColor = .black
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.headerReferenceSize = CGSizeMake(view.frame.size.width, 300)
         }
         collectionView.register(UperSpaceSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(UperSpaceSectionHeader.self))
+        collectionView.insetsLayoutMarginsFromSafeArea = false
+        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.preservesSuperviewLayoutMargins = false
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.snp.remakeConstraints { make in
-            make.bottom.equalTo(view)
-            make.centerX.equalTo(view)
-            make.width.equalTo(VideoCell.videSize.width * 4 + 20 * 3)
-            make.top.equalTo(view)
+            make.edges.equalTo(view)
         }
     }
 
@@ -96,8 +97,15 @@ class UperSpaceViewController: BaseCollectionViewController {
     }
 }
 
-extension UperSpaceViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension UperSpaceViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return 0
+        }
         return items.count
     }
 
@@ -134,12 +142,30 @@ extension UperSpaceViewController: UICollectionViewDelegate, UICollectionViewDat
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(UperSpaceSectionHeader.self), for: indexPath)
-        if let sectionHeader = view as? UperSpaceSectionHeader,
-           let data = uperData
-        {
-            sectionHeader.update(with: data)
+        if indexPath.section == 0 {
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(UperSpaceSectionHeader.self), for: indexPath)
+            if let sectionHeader = view as? UperSpaceSectionHeader,
+               let data = uperData
+            {
+                sectionHeader.update(with: data)
+            }
+            return view
         }
-        return view
+        return UICollectionReusableView()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
+            return CGSize(width: view.frame.size.width, height: 300)
+        }
+        return CGSize(width: view.frame.size.width, height: 0)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 1 {
+            let inset = (view.frame.size.width - 4 * VideoCell.CellSize.width - 3 * 20) / 2.0
+            return UIEdgeInsets(top: 20, left: inset, bottom: 0, right: inset)
+        }
+        return .zero
     }
 }

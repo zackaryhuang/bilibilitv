@@ -16,7 +16,7 @@ class FollowingUPViewController: UIViewController {
     var collectionView: UICollectionView!
     var requesting = false
     var finished = false
-    var page = 0
+    var page = 1
 
     var follows = [WebRequest.FollowingUser]() {
         didSet {
@@ -79,8 +79,8 @@ class FollowingUPViewController: UIViewController {
     }
 
     func loadMoreData() {
-        requesting = true
         Task {
+            requesting = true
             do {
                 page += 1
                 let next = try await WebRequest.requestFollowing(page: page)

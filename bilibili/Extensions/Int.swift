@@ -13,6 +13,16 @@ extension Int {
     }
 
     func numberString() -> String {
+        if self > 100000000 {
+            return String(format: "%.1f 亿", floor(Double(self) / 10000000) / 10)
+        }
+
+//        if self > 10000000 {
+//            return String(format: "%.1f 千万", floor(Double(self) / 1000000) / 10)
+//        }
+//        if self > 1000000 {
+//            return String(format: "%.1f 百万", floor(Double(self) / 100000) / 10)
+//        }
         if self > 10000 {
             return String(format: "%.1f 万", floor(Double(self) / 1000) / 10)
         }

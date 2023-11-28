@@ -13,7 +13,7 @@ class RanksCollectionViewController: BaseCollectionViewController {
     var dataArray = [AnyDispplayData]()
 
     var categoryCollectionView: UICollectionView!
-    var currentRankCategory: RankCategoryInfo? = RankCategoryInfo.all.first {
+    var currentRankCategory: RankCategoryInfo = RankCategoryInfo.all.first! {
         didSet {
             dataArray = []
             collectionView.reloadData()
@@ -61,13 +61,10 @@ class RanksCollectionViewController: BaseCollectionViewController {
     }
 
     func loadData() async {
-        guard let category = currentRankCategory else {
-            return
-        }
-        if category.isSeason == true {
+        if currentRankCategory.isSeason == true {
             do {
                 isLoading = true
-                let res = try await WebRequest.requestSeasonRank(for: category.rid)
+                let res = try await WebRequest.requestSeasonRank(for: currentRankCategory.rid)
                 var temp = [AnyDispplayData]()
                 res.forEach { liveRoom in
                     temp.append(AnyDispplayData(data: liveRoom))
@@ -84,7 +81,7 @@ class RanksCollectionViewController: BaseCollectionViewController {
         } else {
             do {
                 isLoading = true
-                let res = try await WebRequest.requestRank(for: category.rid)
+                let res = try await WebRequest.requestRank(for: currentRankCategory.rid)
                 var temp = [AnyDispplayData]()
                 res.forEach { info in
                     temp.append(AnyDispplayData(data: info))
@@ -122,7 +119,7 @@ extension RanksCollectionViewController: UICollectionViewDelegate, UICollectionV
 
             if let videoCell = cell as? CategoryCell {
                 let data = RankCategoryInfo.all[indexPath.row]
-                videoCell.update(with: data)
+                videoCell.update(with: data, isSelected: data == currentRankCategory)
             }
             return cell
         }
@@ -139,16 +136,31 @@ extension RanksCollectionViewController: UICollectionViewDelegate, UICollectionV
         if collectionView == categoryCollectionView {
             let data = RankCategoryInfo.all[indexPath.row]
             currentRankCategory = data
+            collectionView.reloadData()
             return
         }
         let item = dataArray[indexPath.row]
         if let record = item.data as? VideoDetail.Info {
-            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: record.aid, cid: record.cid))
-            present(player, animated: true)
+            if Settings.playVideoDirectly {
+                let player = VideoPlayerViewController(playInfo: PlayInfo(aid: record.aid, cid: record.cid))
+                present(player, animated: true)
+            } else {
+                let detail = NewVideoDetailViewController(aid: record.aid, cid: record.cid)
+                present(detail, animated: true)
+            }
         } else if let record = item.data as? Season {
             let detail = NewVideoDetailViewController(seasonID: record.season_id)
             present(detail, animated: true)
         }
+    }
+
+    func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
+        if collectionView == categoryCollectionView {
+            if let index = RankCategoryInfo.all.firstIndex(of: currentRankCategory) {
+                return IndexPath(row: index, section: 0)
+            }
+        }
+        return nil
     }
 
     func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
