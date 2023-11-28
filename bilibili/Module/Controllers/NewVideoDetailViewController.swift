@@ -103,6 +103,7 @@ class NewVideoDetailViewController: UIViewController {
         }
 
         collectionButton = NormalButton(image: "icon_collect", title: "0")
+        addTapAndLongPress(for: collectionButton)
         coverImageView.addSubview(collectionButton)
         collectionButton.snp.makeConstraints { make in
             make.leading.equalTo(uperAvatarView)
@@ -110,6 +111,7 @@ class NewVideoDetailViewController: UIViewController {
         }
 
         thumbUpButton = NormalButton(image: "icon_thumb_up", title: "0")
+        addTapAndLongPress(for: thumbUpButton)
         coverImageView.addSubview(thumbUpButton)
         thumbUpButton.snp.makeConstraints { make in
             make.leading.equalTo(collectionButton.snp.trailing).offset(20)
@@ -117,6 +119,7 @@ class NewVideoDetailViewController: UIViewController {
         }
 
         coinButton = NormalButton(image: "icon_coin", title: "0")
+        addTapAndLongPress(for: coinButton)
         coverImageView.addSubview(coinButton)
         coinButton.snp.makeConstraints { make in
             make.leading.equalTo(thumbUpButton.snp.trailing).offset(20)
@@ -124,6 +127,7 @@ class NewVideoDetailViewController: UIViewController {
         }
 
         dislikeButton = NormalButton(image: "icon_thumb_down", title: "不喜欢")
+        addTapAndLongPress(for: dislikeButton)
         coverImageView.addSubview(dislikeButton)
         dislikeButton.snp.makeConstraints { make in
             make.leading.equalTo(coinButton.snp.trailing).offset(20)
@@ -347,6 +351,33 @@ class NewVideoDetailViewController: UIViewController {
                 make.bottom.equalTo(contentScrollView).offset(-20)
             }
             episodesCollectionView.reloadData()
+        }
+    }
+
+    private func addTapAndLongPress(for button: NormalButton) {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction))
+        button.addGestureRecognizer(tapGesture)
+        button.addGestureRecognizer(longPressGesture)
+    }
+
+    @objc func tapAction(gesture: UIGestureRecognizer) {
+        if gesture.view == collectionButton {
+            debugPrint("收藏")
+        } else if gesture.view == thumbUpButton {
+            debugPrint("点赞")
+        } else if gesture.view == coinButton {
+            debugPrint("投币")
+        } else if gesture.view == dislikeButton {
+            debugPrint("不喜欢")
+        } else {
+            debugPrint("Why?")
+        }
+    }
+
+    @objc func longPressAction(gesture: UIGestureRecognizer) {
+        if gesture.state == .began {
+            debugPrint("一键三连")
         }
     }
 

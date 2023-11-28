@@ -203,16 +203,16 @@ class VideoDetailViewController: UIViewController {
             self.exit(with: err)
         }
 
-        WebRequest.requestReplys(aid: aid) { [weak self] replys in
+        WebRequest.RequestReplies(aid: aid) { [weak self] replys in
             self?.replys = replys
             self?.replysCollectionView.reloadData()
         }
 
-        WebRequest.requestLikeStatus(aid: aid) { [weak self] isLiked in
+        WebRequest.RequestLikeStatus(aid: aid) { [weak self] isLiked in
             self?.likeButton.isOn = isLiked
         }
 
-        WebRequest.requestCoinStatus(aid: aid) { [weak self] coins in
+        WebRequest.RequestGetCoinStatus(aid: aid) { [weak self] coins in
             self?.didSentCoins = coins
         }
 
@@ -222,7 +222,7 @@ class VideoDetailViewController: UIViewController {
             return
         }
 
-        WebRequest.requestFavoriteStatus(aid: aid) { [weak self] isFavorited in
+        WebRequest.RequestCollectionStatus(aid: aid) { [weak self] isFavorited in
             self?.favButton.isOn = isFavorited
         }
     }
@@ -321,7 +321,7 @@ class VideoDetailViewController: UIViewController {
                 likeButton.title? += 1
             }
             likeButton.isOn.toggle()
-            let success = await WebRequest.requestLike(aid: aid, like: likeButton.isOn)
+            let success = await WebRequest.RequestLike(aid: aid, like: likeButton.isOn)
             if !success {
                 likeButton.isOn.toggle()
             }
@@ -343,7 +343,7 @@ class VideoDetailViewController: UIViewController {
                 self.likeButton.isOn = true
             }
             self.didSentCoins += 1
-            WebRequest.requestCoin(aid: aid, num: 1)
+            WebRequest.RequestSendCoin(aid: aid, num: 1)
         })
         if didSentCoins == 0 {
             alert.addAction(UIAlertAction(title: "2", style: .default) { [weak self] _ in
@@ -355,7 +355,7 @@ class VideoDetailViewController: UIViewController {
                 }
                 self.likeButton.isOn = true
                 self.didSentCoins += 2
-                WebRequest.requestCoin(aid: aid, num: 2)
+                WebRequest.RequestSendCoin(aid: aid, num: 2)
             })
         }
         alert.addAction(UIAlertAction(title: "取消", style: .cancel))
@@ -373,7 +373,7 @@ class VideoDetailViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: fav.title, style: .default) { [weak self] _ in
                     self?.favButton.title? += 1
                     self?.favButton.isOn = true
-                    WebRequest.requestFavorite(aid: aid, mid: fav.id)
+                    WebRequest.RequestAddCollection(aid: aid, mid: fav.id)
                 })
             }
             alert.addAction(UIAlertAction(title: "取消", style: .cancel))

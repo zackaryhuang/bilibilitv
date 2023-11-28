@@ -16,20 +16,29 @@ enum RequestError: Error {
 }
 
 enum WebRequest {
+    static let Domain = "https://api.bilibili.com/"
+    static let AppDomain = "https://app.bilibili.com/"
     enum EndPoint {
-        static let related = "https://api.bilibili.com/x/web-interface/archive/related"
-        static let logout = "https://passport.bilibili.com/login/exit/v2"
-        static let info = "https://api.bilibili.com/x/web-interface/view"
-        static let fav = "https://api.bilibili.com/x/v3/fav/resource/list"
-        static let favList = "https://api.bilibili.com/x/v3/fav/folder/created/list-all"
-        static let reportHistory = "https://api.bilibili.com/x/v2/history/report"
-        static let upSpace = "https://api.bilibili.com/x/space/arc/search"
-        static let like = "https://api.bilibili.com/x/web-interface/archive/like"
-        static let likeStatus = "https://api.bilibili.com/x/web-interface/archive/has/like"
-        static let coin = "https://api.bilibili.com/x/web-interface/coin/add"
-        static let playerInfo = "https://api.bilibili.com/x/player/v2"
-        static let playUrl = "https://api.bilibili.com/x/player/playurl"
-        static let pcgPlayUrl = "https://api.bilibili.com/pgc/player/web/playurl"
+        static let Related = Domain + "x/web-interface/archive/related"
+        static let Logout = "https://passport.bilibili.com/login/exit/v2"
+        static let Info = Domain + "x/web-interface/view"
+        static let Favorite = Domain + "x/v3/fav/resource/list"
+        static let FavoriteList = Domain + "x/v3/fav/folder/created/list-all"
+        static let ReportHistory = Domain + "/x/v2/history/report"
+        static let UPerSpace = Domain + "x/space/arc/search"
+        static let Like = Domain + "x/web-interface/archive/like"
+        static let LikeStatus = Domain + "x/web-interface/archive/has/like"
+        static let SendCoin = Domain + "x/web-interface/coin/add"
+        static let CoinStatus = Domain + "x/web-interface/archive/coins"
+        static let PlayerInfo = Domain + "x/player/v2"
+        static let PlayUrl = Domain + "x/player/playurl"
+        static let PGCPlayUrl = Domain + "pgc/player/web/playurl"
+        static let AddCollection = Domain + "x/v3/fav/resource/deal" // 添加收藏
+        static let CollectionStatus = Domain + "x/v2/fav/video/favoured" // 收藏状态
+        static let Triple = Domain + "x/web-interface/archive/like/triple" // 一键三连
+        static let History = Domain + "x/v2/history" // 播放记录
+        static let VideoDetail = Domain + "x/web-interface/view/detail" // 视频详情
+        static let UPerSpaceVide = AppDomain + "x/v2/space/archive/cursor" // 获取 UP 主的视频
     }
 
     static func requestData(method: HTTPMethod = .get,
@@ -174,8 +183,10 @@ extension WebRequest {
         return res
     }
 
+    /// 请求最近播放历史纪录
+    /// - Parameter complete: 完成回调
     static func requestHistory(complete: (([HistoryData]) -> Void)?) {
-        request(url: "http://api.bilibili.com/x/v2/history") {
+        request(url: WebRequest.EndPoint.History) {
             (result: Result<[HistoryData], RequestError>) in
             if let data = try? result.get() {
                 complete?(data)
@@ -183,8 +194,10 @@ extension WebRequest {
         }
     }
 
+    /// 请求前 10 条播放历史纪录
+    /// - Parameter complete: 完成回调
     static func requestTopHistory(complete: (([HistoryData]) -> Void)?) {
-        request(url: "https://api.bilibili.com/x/v2/history", parameters: ["pn": 1, "ps": 10]) {
+        request(url: WebRequest.EndPoint.History, parameters: ["pn": 1, "ps": 10]) {
             (result: Result<[HistoryData], RequestError>) in
             if let data = try? result.get() {
                 complete?(data)
@@ -193,11 +206,11 @@ extension WebRequest {
     }
 
     static func requestPlayerInfo(aid: Int, cid: Int) async throws -> PlayerInfo {
-        try await request(url: EndPoint.playerInfo, parameters: ["aid": aid, "cid": cid])
+        try await request(url: EndPoint.PlayerInfo, parameters: ["aid": aid, "cid": cid])
     }
 
     static func requestRelatedVideo(aid: Int, complete: (([VideoDetail.Info]) -> Void)? = nil) {
-        request(method: .get, url: EndPoint.related, parameters: ["aid": aid]) {
+        request(method: .get, url: EndPoint.Related, parameters: ["aid": aid]) {
             (result: Result<[VideoDetail.Info], RequestError>) in
             if let details = try? result.get() {
                 complete?(details)
@@ -206,7 +219,7 @@ extension WebRequest {
     }
 
     static func requestDetailVideo(aid: Int) async throws -> VideoDetail {
-        try await request(url: "http://api.bilibili.com/x/web-interface/view/detail", parameters: ["aid": aid])
+        try await request(url: EndPoint.VideoDetail, parameters: ["aid": aid])
     }
 
     static func requestFavVideosList() async throws -> [FavListData] {
@@ -214,7 +227,7 @@ extension WebRequest {
         struct Resp: Codable {
             let list: [FavListData]
         }
-        let res: Resp = try await request(method: .get, url: EndPoint.favList, parameters: ["up_mid": mid])
+        let res: Resp = try await request(method: .get, url: EndPoint.FavoriteList, parameters: ["up_mid": mid])
         return res.list
     }
 
@@ -222,23 +235,23 @@ extension WebRequest {
         struct Resp: Codable {
             let medias: [FavData]?
         }
-        let res: Resp = try await request(method: .get, url: EndPoint.fav, parameters: ["media_id": mid, "ps": "20", "pn": page, "platform": "web"])
+        let res: Resp = try await request(method: .get, url: EndPoint.Favorite, parameters: ["media_id": mid, "ps": "20", "pn": page, "platform": "web"])
         return res.medias ?? []
     }
 
-    static func reportWatchHistory(aid: Int, cid: Int, currentTime: Int) {
+    static func ReportWatchHistory(aid: Int, cid: Int, currentTime: Int) {
         requestJSON(method: .post,
-                    url: EndPoint.reportHistory,
+                    url: EndPoint.ReportHistory,
                     parameters: ["aid": aid, "cid": cid, "progress": currentTime],
                     complete: nil)
     }
 
-    static func requestUpSpaceVideo(mid: Int, page: Int, pageSize: Int = 50) async throws -> [UpSpaceReq.List.VListData] {
-        let resp: UpSpaceReq = try await request(url: EndPoint.upSpace, parameters: ["mid": mid, "pn": page, "ps": pageSize])
+    static func RequestUPerSpaceVideos(mid: Int, page: Int, pageSize: Int = 50) async throws -> [UpSpaceReq.List.VListData] {
+        let resp: UpSpaceReq = try await request(url: EndPoint.UPerSpace, parameters: ["mid": mid, "pn": page, "ps": pageSize])
         return resp.list.vlist
     }
 
-    static func requestUpSpaceVideo(mid: Int, lastAid: Int?, pageSize: Int = 20) async throws -> [UpSpaceListData] {
+    static func RequestUPerSpaceVideos(mid: Int, lastAid: Int?, pageSize: Int = 20) async throws -> [UpSpaceListData] {
         struct Resp: Codable {
             let item: [UpSpaceListData]
         }
@@ -247,37 +260,73 @@ extension WebRequest {
         if let lastAid {
             param["aid"] = lastAid
         }
-        let resp: Resp = try await request(url: "https://app.bilibili.com/x/v2/space/archive/cursor", parameters: param)
+        let resp: Resp = try await request(url: EndPoint.UPerSpaceVide, parameters: param)
         return resp.item
     }
 
-    static func requestLike(aid: Int, like: Bool) async -> Bool {
+    
+    /// 点赞
+    /// - Parameters:
+    ///   - aid: 稿件 aid
+    ///   - like: true 点赞，false 取消点赞
+    /// - Returns: 完成回调
+    static func RequestLike(aid: Int, like: Bool) async -> Bool {
         do {
-            _ = try await requestJSON(method: .post, url: EndPoint.like, parameters: ["aid": aid, "like": like ? "1" : "2"])
+            _ = try await requestJSON(method: .post, url: EndPoint.Like, parameters: ["aid": aid, "like": like ? "1" : "2"])
             return true
         } catch {
             return false
         }
     }
-
-    static func requestLikeStatus(aid: Int, complete: ((Bool) -> Void)?) {
-        requestJSON(url: EndPoint.likeStatus, parameters: ["aid": aid]) {
+    
+    /// 获取点赞状态
+    /// - Parameters:
+    ///   - aid: 稿件 aid
+    ///   - complete: 完成回调
+    static func RequestLikeStatus(aid: Int, completion: ((Bool) -> Void)?) {
+        requestJSON(url: EndPoint.LikeStatus, parameters: ["aid": aid]) {
             response in
             switch response {
             case let .success(data):
-                complete?(data.intValue == 1)
+                completion?(data.intValue == 1)
             case .failure:
-                complete?(false)
+                completion?(false)
             }
         }
     }
-
-    static func requestCoin(aid: Int, num: Int) {
-        requestJSON(method: .post, url: EndPoint.coin, parameters: ["aid": aid, "multiply": num, "select_like": 1])
+    
+    /// 一键三连
+    /// - Parameters:
+    ///   - aid: 视频 aid
+    ///   - completion: 完成回调
+    static func RequestTriple(aid: Int, completion: ((Bool) -> Void)?) {
+        requestJSON(url: EndPoint.Triple, parameters: ["aid": aid]) {
+            response in
+            switch response {
+            case let .success(data):
+                completion?(data.intValue == 1)
+            case .failure:
+                completion?(false)
+            }
+        }
+    }
+    
+    /// 投币
+    /// - Parameters:
+    ///   - aid: 稿件 ID
+    ///   - num:  投币数量（上限为 2）
+    ///   - thumbUp: 投币同时点赞
+    static func RequestSendCoin(aid: Int, num: Int, thumbUp: Bool) {
+        requestJSON(method: .post, url: EndPoint.SendCoin, parameters: ["aid": aid, "multiply": num, "select_like": thumbUp ? 1 : 0])
     }
 
-    static func requestCoinStatus(aid: Int, complete: ((Int) -> Void)?) {
-        requestJSON(url: "http://api.bilibili.com/x/web-interface/archive/coins", parameters: ["aid": aid]) {
+    
+    /// 获取投币状态
+    /// - Parameters:
+    ///   - aid: 稿件 aid
+    ///   - complete: 完成回调，回调已投币数
+    static func RequestGetCoinStatus(aid: Int, complete: ((Int) -> Void)?) {
+        requestJSON(url: EndPoint.CoinStatus, parameters: ["aid": aid]) {
             response in
             switch response {
             case let .success(data):
@@ -301,12 +350,20 @@ extension WebRequest {
         }
     }
 
-    static func requestFavorite(aid: Int, mid: Int) {
-        requestJSON(method: .post, url: "http://api.bilibili.com/x/v3/fav/resource/deal", parameters: ["rid": aid, "type": 2, "add_media_ids": mid])
+    /// 收藏视频
+    /// - Parameters:
+    ///   - aid: 视频 aid
+    ///   - mid: 需要加入的收藏夹 mlid
+    static func RequestAddCollection(aid: Int, mid: Int) {
+        requestJSON(method: .post, url: WebRequest.EndPoint.AddCollection, parameters: ["rid": aid, "type": 2, "add_media_ids": mid])
     }
 
-    static func requestFavoriteStatus(aid: Int, complete: ((Bool) -> Void)?) {
-        requestJSON(url: "http://api.bilibili.com/x/v2/fav/video/favoured", parameters: ["aid": aid]) {
+    /// 获取视频收藏状态
+    /// - Parameters:
+    ///   - aid: 视频 aid
+    ///   - complete: 完成回调
+    static func RequestCollectionStatus(aid: Int, complete: ((Bool) -> Void)?) {
+        requestJSON(url: WebRequest.EndPoint.CollectionStatus, parameters: ["aid": aid]) {
             response in
             switch response {
             case let .success(data):
@@ -317,20 +374,20 @@ extension WebRequest {
         }
     }
 
-    static func requestPlayUrl(aid: Int, cid: Int) async throws -> VideoPlayURLInfo {
+    static func RequestPlayUrl(aid: Int, cid: Int) async throws -> VideoPlayURLInfo {
         let quality = Settings.mediaQuality
-        return try await request(url: EndPoint.playUrl,
+        return try await request(url: EndPoint.PlayUrl,
                                  parameters: ["avid": aid, "cid": cid, "qn": quality.qn, "type": "", "fnver": 0, "fnval": quality.fnval, "otype": "json"])
     }
 
-    static func requestPcgPlayUrl(aid: Int, cid: Int) async throws -> VideoPlayURLInfo {
+    static func RequestPGCPlayUrl(aid: Int, cid: Int) async throws -> VideoPlayURLInfo {
         let quality = Settings.mediaQuality
-        return try await request(url: EndPoint.pcgPlayUrl,
+        return try await request(url: EndPoint.PGCPlayUrl,
                                  parameters: ["avid": aid, "cid": cid, "qn": quality.qn, "support_multi_audio": true, "fnver": 0, "fnval": quality.fnval, "fourk": 1],
                                  dataObj: "result")
     }
 
-    static func requestReplys(aid: Int, complete: ((Replys) -> Void)?) {
+    static func RequestReplies(aid: Int, complete: ((Replys) -> Void)?) {
         request(url: "http://api.bilibili.com/x/v2/reply", parameters: ["type": 1, "oid": aid, "sort": 1, "nohot": 0]) {
             (result: Result<Replys, RequestError>) in
             if let details = try? result.get() {
@@ -357,7 +414,7 @@ extension WebRequest {
         return resp.body
     }
 
-    static func requestCid(aid: Int) async throws -> Int {
+    static func RequestCid(aid: Int) async throws -> Int {
         let res = try await requestJSON(url: "https://api.bilibili.com/x/player/pagelist?aid=\(aid)&jsonp=jsonp")
         let cid = res[0]["cid"].intValue
         return cid
@@ -372,7 +429,7 @@ extension WebRequest {
     }
 
     static func logout(complete: (() -> Void)? = nil) {
-        request(method: .post, url: EndPoint.logout) {
+        request(method: .post, url: EndPoint.Logout) {
             (result: Result<[String: String], RequestError>) in
             if let details = try? result.get() {
                 print("logout success")

@@ -68,7 +68,7 @@ class VideoPlayerViewController: CommonPlayerViewController {
         guard let currentTime = player?.currentTime().seconds, currentTime > 0 else { return }
 
         if let cid = playInfo.cid, cid > 0 {
-            WebRequest.reportWatchHistory(aid: playInfo.aid, cid: cid, currentTime: Int(currentTime))
+            WebRequest.ReportWatchHistory(aid: playInfo.aid, cid: cid, currentTime: Int(currentTime))
         }
         BiliBiliUpnpDMR.shared.sendStatus(status: .stop)
     }
@@ -87,7 +87,7 @@ class VideoPlayerViewController: CommonPlayerViewController {
     private func initPlayer() async {
         if !playInfo.isCidVaild {
             do {
-                playInfo.cid = try await WebRequest.requestCid(aid: playInfo.aid)
+                playInfo.cid = try await WebRequest.RequestCid(aid: playInfo.aid)
             } catch let err {
                 self.showErrorAlertAndExit(message: "请求cid失败,\(err.localizedDescription)")
             }
@@ -225,10 +225,10 @@ extension VideoPlayerViewController {
         do {
             let playData: VideoPlayURLInfo
             if playInfo.isSession {
-                playData = try await WebRequest.requestPcgPlayUrl(aid: aid, cid: cid)
+                playData = try await WebRequest.RequestPGCPlayUrl(aid: aid, cid: cid)
                 clipInfos = playData.clip_info_list
             } else {
-                playData = try await WebRequest.requestPlayUrl(aid: aid, cid: cid)
+                playData = try await WebRequest.RequestPlayUrl(aid: aid, cid: cid)
             }
             if info?.last_play_cid == cid, let startTime = info?.playTimeInSecond, playData.dash.duration - startTime > 5, Settings.continuePlay {
                 playerStartPos = startTime

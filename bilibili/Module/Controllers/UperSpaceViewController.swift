@@ -88,7 +88,7 @@ class UperSpaceViewController: BaseCollectionViewController {
     }
 
     private func request() async throws -> [UpSpaceListData] {
-        let res = try await WebRequest.requestUpSpaceVideo(mid: mid, lastAid: lastAid, pageSize: 20)
+        let res = try await WebRequest.RequestUPerSpaceVideos(mid: mid, lastAid: lastAid, pageSize: 20)
         lastAid = res.last?.aid
         if res.count < 20 {
             hasMore = false

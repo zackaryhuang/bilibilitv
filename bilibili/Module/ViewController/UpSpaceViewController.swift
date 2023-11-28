@@ -14,7 +14,7 @@ class UpSpaceViewController: StandardVideoCollectionViewController<UpSpaceListDa
     private var lastAid: Int?
 
     override func request(page: Int) async throws -> [UpSpaceListData] {
-        let res = try await WebRequest.requestUpSpaceVideo(mid: mid, lastAid: lastAid, pageSize: 20)
+        let res = try await WebRequest.RequestUPerSpaceVideos(mid: mid, lastAid: lastAid, pageSize: 20)
         lastAid = res.last?.aid
         return res
     }
