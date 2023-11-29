@@ -106,7 +106,7 @@ class LoginViewController: UIViewController {
             make.centerX.equalTo(tipsLabel)
         }
 
-        lottieAnimationView = LottieAnimationView(name: "login_loading")
+        lottieAnimationView = LottieAnimationView(name: "coin")
         lottieAnimationView.loopMode = .loop
         lottieAnimationView.play()
         rightContainer.addSubview(lottieAnimationView)

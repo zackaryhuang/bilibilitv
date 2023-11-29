@@ -264,7 +264,6 @@ extension WebRequest {
         return resp.item
     }
 
-    
     /// 点赞
     /// - Parameters:
     ///   - aid: 稿件 aid
@@ -278,7 +277,7 @@ extension WebRequest {
             return false
         }
     }
-    
+
     /// 获取点赞状态
     /// - Parameters:
     ///   - aid: 稿件 aid
@@ -294,7 +293,7 @@ extension WebRequest {
             }
         }
     }
-    
+
     /// 一键三连
     /// - Parameters:
     ///   - aid: 视频 aid
@@ -310,17 +309,16 @@ extension WebRequest {
             }
         }
     }
-    
+
     /// 投币
     /// - Parameters:
     ///   - aid: 稿件 ID
     ///   - num:  投币数量（上限为 2）
     ///   - thumbUp: 投币同时点赞
-    static func RequestSendCoin(aid: Int, num: Int, thumbUp: Bool) {
+    static func RequestSendCoin(aid: Int, num: Int, thumbUp: Bool = false) {
         requestJSON(method: .post, url: EndPoint.SendCoin, parameters: ["aid": aid, "multiply": num, "select_like": thumbUp ? 1 : 0])
     }
 
-    
     /// 获取投币状态
     /// - Parameters:
     ///   - aid: 稿件 aid
