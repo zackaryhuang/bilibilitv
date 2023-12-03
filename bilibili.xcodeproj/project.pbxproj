@@ -19,6 +19,7 @@
 		302191A82B11A453002DD721 /* FollowingUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302191A72B11A453002DD721 /* FollowingUPViewController.swift */; };
 		302191AA2B11A7B2002DD721 /* PersonalInfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302191A92B11A7B2002DD721 /* PersonalInfoCard.swift */; };
 		302191AC2B11AABD002DD721 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302191AB2B11AABD002DD721 /* ProgressView.swift */; };
+		303C283A2B1A279700161008 /* All.json in Resources */ = {isa = PBXBuildFile; fileRef = 303C28392B1A279700161008 /* All.json */; };
 		304F07112AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F07102AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift */; };
 		304F07132AEFF6DE00ED4FD7 /* LivesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F07122AEFF6DE00ED4FD7 /* LivesCollectionViewController.swift */; };
 		304F07152AEFF6F000ED4FD7 /* HotsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304F07142AEFF6F000ED4FD7 /* HotsCollectionViewController.swift */; };
@@ -149,6 +150,7 @@
 		302191A72B11A453002DD721 /* FollowingUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingUPViewController.swift; sourceTree = "<group>"; };
 		302191A92B11A7B2002DD721 /* PersonalInfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoCard.swift; sourceTree = "<group>"; };
 		302191AB2B11AABD002DD721 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		303C28392B1A279700161008 /* All.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = All.json; sourceTree = "<group>"; };
 		304F07102AEFF53A00ED4FD7 /* FeedsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsCollectionViewController.swift; sourceTree = "<group>"; };
 		304F07122AEFF6DE00ED4FD7 /* LivesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivesCollectionViewController.swift; sourceTree = "<group>"; };
 		304F07142AEFF6F000ED4FD7 /* HotsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotsCollectionViewController.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 		3006A95E2AE808C900DB0EE5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				303C28392B1A279700161008 /* All.json */,
 				305657FA2B179F1E009E0CB0 /* coin.json */,
 				30BD34C82B12565C00FF19DB /* Main.storyboard */,
 				304F07202AF14EAC00ED4FD7 /* lottie_empty.json */,
@@ -641,6 +644,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				303C283A2B1A279700161008 /* All.json in Resources */,
 				3006A9652AE80A1B00DB0EE5 /* login_loading.json in Resources */,
 				49F918702931E473001D3EC3 /* NirvanaControl.xml in Resources */,
 				49F918722931E927001D3EC3 /* AvTransportScpd.xml in Resources */,

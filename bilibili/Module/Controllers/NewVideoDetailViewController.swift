@@ -5,6 +5,7 @@
 //  Created by Zackary on 2023/11/26.
 //
 
+import Lottie
 import UIKit
 
 class NewVideoDetailViewController: UIViewController {
@@ -33,6 +34,10 @@ class NewVideoDetailViewController: UIViewController {
     var coinButton: NormalButton!
     var dislikeButton: NormalButton!
     var episodesLabel = UILabel()
+    var lottieView = LottieAnimationView(name: "All")
+    var isTripleCanceled = false
+    var hasTripled = false
+    var tripleStartTime = 0.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +107,7 @@ class NewVideoDetailViewController: UIViewController {
             make.leading.equalTo(coverImageView).offset(80)
         }
 
-        collectionButton = NormalButton(image: "icon_collect", title: "0")
+        collectionButton = NormalButton(image: "icon_collect_gray", title: "0")
         addTapAndLongPress(for: collectionButton)
         coverImageView.addSubview(collectionButton)
         collectionButton.snp.makeConstraints { make in
@@ -110,7 +115,7 @@ class NewVideoDetailViewController: UIViewController {
             make.top.equalTo(titleLabel.snp.bottom).offset(30)
         }
 
-        thumbUpButton = NormalButton(image: "icon_thumb_up", title: "0")
+        thumbUpButton = NormalButton(image: "icon_thumb_up_gray", title: "0")
         addTapAndLongPress(for: thumbUpButton)
         coverImageView.addSubview(thumbUpButton)
         thumbUpButton.snp.makeConstraints { make in
@@ -118,7 +123,7 @@ class NewVideoDetailViewController: UIViewController {
             make.centerY.equalTo(collectionButton)
         }
 
-        coinButton = NormalButton(image: "icon_coin", title: "0")
+        coinButton = NormalButton(image: "icon_coin_gray", title: "0")
         addTapAndLongPress(for: coinButton)
         coverImageView.addSubview(coinButton)
         coinButton.snp.makeConstraints { make in
@@ -126,7 +131,7 @@ class NewVideoDetailViewController: UIViewController {
             make.centerY.equalTo(thumbUpButton)
         }
 
-        dislikeButton = NormalButton(image: "icon_thumb_down", title: "不喜欢")
+        dislikeButton = NormalButton(image: "icon_thumb_down_gray", title: "不喜欢")
         addTapAndLongPress(for: dislikeButton)
         coverImageView.addSubview(dislikeButton)
         dislikeButton.snp.makeConstraints { make in
@@ -191,6 +196,14 @@ class NewVideoDetailViewController: UIViewController {
             make.width.equalTo(NormalVideoCell.CellSize.width * 4 + (20.0 * 3) + (2 * Self.CollectionViewInset))
             make.centerX.equalTo(coverImageView)
         }
+
+        lottieView.isHidden = true
+        view.addSubview(lottieView)
+        lottieView.snp.makeConstraints { make in
+            make.center.equalTo(view)
+            make.width.equalTo(1200)
+            make.height.equalTo(400)
+        }
     }
 
     func loadData() {
@@ -239,6 +252,31 @@ class NewVideoDetailViewController: UIViewController {
             }
             let cid = UserDefaults.standard.integer(forKey: "\(aid)")
             let playInfo = try? await WebRequest.requestPlayerInfo(aid: aid, cid: cid)
+
+            var hasSentCoin = false
+            WebRequest.RequestGetCoinStatus(aid: aid) { coinCount in
+                if coinCount > 0 {
+                    self.coinButton.imageView.image = UIImage(named: "icon_coin")
+                    hasSentCoin = true
+                }
+            }
+
+            var hasCollected = false
+            WebRequest.RequestCollectionStatus(aid: aid) { collected in
+                if collected {
+                    self.collectionButton.imageView.image = UIImage(named: "icon_collect")
+                    hasCollected = true
+                }
+            }
+            var hasLiked = false
+            WebRequest.RequestLikeStatus(aid: aid) { liked in
+                if liked {
+                    self.thumbUpButton.imageView.image = UIImage(named: "icon_thumb_up")
+                    hasLiked = true
+                }
+            }
+            
+            hasTripled = hasSentCoin && hasCollected && hasLiked
             update(with: data, info: playInfo)
         }
     }
@@ -376,8 +414,60 @@ class NewVideoDetailViewController: UIViewController {
     }
 
     @objc func longPressAction(gesture: UIGestureRecognizer) {
+        if hasTripled {
+            return
+        }
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0.0
+        self.view.addSubview(view)
         if gesture.state == .began {
-            debugPrint("一键三连")
+            tripleStartTime = CFAbsoluteTimeGetCurrent()
+            view.snp.makeConstraints { make in
+                make.edges.equalTo(self.view)
+            }
+            self.view.layoutIfNeeded()
+            UIView.animate(withDuration: 0.3) {
+                view.alpha = 0.3
+                self.view.layoutIfNeeded()
+            }
+            lottieView.isHidden = false
+            view.bringSubviewToFront(lottieView)
+            isTripleCanceled = false
+            lottieView.play { completed in
+                if !self.isTripleCanceled {
+                    debugPrint("一键三连")
+                    WebRequest.RequestTriple(aid: self.aid) { succeed in
+                        if succeed {
+                            self.collectionButton.imageView.image = UIImage(named: "icon_collect")
+                            self.thumbUpButton.imageView.image = UIImage(named: "icon_thumb_up")
+                            self.coinButton.imageView.image = UIImage(named: "icon_coin")
+                            self.hasTripled = true
+                        }
+                    }
+                }
+                self.lottieView.isHidden = true
+                UIView.animate(withDuration: 0.3) {
+                    view.alpha = 0.0
+                    self.view.layoutIfNeeded()
+                } completion: { completed in
+                    if completed {
+                        view.removeFromSuperview()
+                    }
+                }
+            }
+        }
+
+        if gesture.state == .ended {
+            let duration = CFAbsoluteTimeGetCurrent() - tripleStartTime
+            if duration < 1.2 {
+                lottieView.stop()
+                isTripleCanceled = true
+                UIView.animate(withDuration: 0.3) {
+                    view.alpha = 0.0
+                    self.view.layoutIfNeeded()
+                }
+            }
         }
     }
 
