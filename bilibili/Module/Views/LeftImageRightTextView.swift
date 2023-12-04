@@ -1,25 +1,21 @@
 //
-//  LargeButton.swift
+//  LeftImageRightTextView.swift
 //  bilibili
 //
-//  Created by Zackary on 2023/11/25.
+//  Created by Zackary on 2023/12/4.
 //
 
 import UIKit
 
-class LargeButton: UIView {
+class LeftImageRightTextView: UIView {
     let imageView = UIImageView()
-    let label = UILabel()
+    let titleLabel = UILabel()
+    let spacing: CGFloat = 30.0
+    let imageSize: CGSize = CGSizeMake(80, 80)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         configUI()
-    }
-
-    convenience init(title: String, image: String) {
-        self.init(frame: CGRectZero)
-        imageView.image = UIImage(named: image)
-        label.text = title
     }
 
     @available(*, unavailable)
@@ -28,20 +24,20 @@ class LargeButton: UIView {
     }
 
     func configUI() {
-        layer.cornerRadius = 20
-        backgroundColor = UIColor(hex: 0x000000, alpha: 0.16)
+        layer.cornerRadius = 10
         addSubview(imageView)
+        addSubview(titleLabel)
         imageView.snp.makeConstraints { make in
-            make.width.height.equalTo(120)
-            make.centerX.equalTo(self)
-            make.centerY.equalTo(self).offset(-50)
+            make.size.equalTo(imageSize)
+            make.leading.top.bottom.equalTo(self).offset(30)
+            make.top.equalTo(self).offset(10)
+            make.bottom.equalTo(self).offset(-10)
         }
 
-        label.textAlignment = .center
-        addSubview(label)
-        label.snp.makeConstraints { make in
-            make.centerX.equalTo(self)
-            make.top.equalTo(imageView.snp.bottom).offset(30)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalTo(imageView.snp.trailing).offset(spacing)
+            make.centerY.equalTo(self)
+            make.trailing.equalTo(self).offset(-30)
         }
     }
 
@@ -58,13 +54,13 @@ class LargeButton: UIView {
                 self.layer.shadowOffset = CGSizeMake(0, 10)
                 self.layer.shadowOpacity = 0.15
                 self.layer.shadowRadius = 16.0
-                self.backgroundColor = .biliBlue
+                self.backgroundColor = .biliPink
             }
         } else {
             coordinator.addCoordinatedAnimations {
                 self.transform = CGAffineTransformIdentity
                 self.layer.shadowOpacity = 0
-                self.backgroundColor = UIColor(hex: 0x000000, alpha: 0.16)
+                self.backgroundColor = .clear
                 self.layer.shadowOffset = CGSizeMake(0, 0)
             }
         }

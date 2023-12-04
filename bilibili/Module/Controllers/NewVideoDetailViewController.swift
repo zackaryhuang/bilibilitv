@@ -23,8 +23,9 @@ class NewVideoDetailViewController: UIViewController {
 
     let coverImageView = UIImageView()
     let contentScrollView = UIScrollView()
-    let uperAvatarView = UIImageView()
-    let uperNameLabel = UILabel()
+//    let uperAvatarView = UIImageView()
+//    let uperNameLabel = UILabel()
+    let uperProfileView = LeftImageRightTextView()
     let titleLabel = UILabel()
     let playButton = ProgressPlayButton()
     let tagLabel = UILabel()
@@ -86,24 +87,34 @@ class NewVideoDetailViewController: UIViewController {
             make.edges.equalTo(coverImageView)
         }
 
-        coverImageView.addSubview(uperAvatarView)
-        uperAvatarView.layer.cornerRadius = 40
-        uperAvatarView.layer.masksToBounds = true
-        uperAvatarView.snp.makeConstraints { make in
+        uperProfileView.imageView.layer.cornerRadius = 40
+        uperProfileView.imageView.layer.masksToBounds = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goUperSpace))
+        uperProfileView.addGestureRecognizer(tapGesture)
+        coverImageView.addSubview(uperProfileView)
+        uperProfileView.snp.makeConstraints { make in
             make.leading.equalTo(coverImageView).offset(80)
             make.bottom.equalTo(coverImageView).offset(-380)
-            make.width.height.equalTo(80)
         }
 
-        coverImageView.addSubview(uperNameLabel)
-        uperNameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(uperAvatarView.snp.trailing).offset(30)
-            make.centerY.equalTo(uperAvatarView)
-        }
+//        coverImageView.addSubview(uperAvatarView)
+//        uperAvatarView.layer.cornerRadius = 40
+//        uperAvatarView.layer.masksToBounds = true
+//        uperAvatarView.snp.makeConstraints { make in
+//            make.leading.equalTo(coverImageView).offset(80)
+//            make.bottom.equalTo(coverImageView).offset(-380)
+//            make.width.height.equalTo(80)
+//        }
+//
+//        coverImageView.addSubview(uperNameLabel)
+//        uperNameLabel.snp.makeConstraints { make in
+//            make.leading.equalTo(uperAvatarView.snp.trailing).offset(30)
+//            make.centerY.equalTo(uperAvatarView)
+//        }
 
         coverImageView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(uperAvatarView.snp.bottom).offset(30)
+            make.top.equalTo(uperProfileView.snp.bottom).offset(30)
             make.leading.equalTo(coverImageView).offset(80)
         }
 
@@ -111,7 +122,7 @@ class NewVideoDetailViewController: UIViewController {
         addTapAndLongPress(for: collectionButton)
         coverImageView.addSubview(collectionButton)
         collectionButton.snp.makeConstraints { make in
-            make.leading.equalTo(uperAvatarView)
+            make.leading.equalTo(uperProfileView)
             make.top.equalTo(titleLabel.snp.bottom).offset(30)
         }
 
@@ -142,7 +153,7 @@ class NewVideoDetailViewController: UIViewController {
         playButton.addTapGesture(target: self, action: #selector(play))
         coverImageView.addSubview(playButton)
         playButton.snp.makeConstraints { make in
-            make.leading.equalTo(uperAvatarView)
+            make.leading.equalTo(uperProfileView)
             make.top.equalTo(collectionButton.snp.bottom).offset(30)
             make.leading.equalTo(collectionButton)
             make.trailing.equalTo(dislikeButton)
@@ -275,7 +286,7 @@ class NewVideoDetailViewController: UIViewController {
                     hasLiked = true
                 }
             }
-            
+
             hasTripled = hasSentCoin && hasCollected && hasLiked
             update(with: data, info: playInfo)
         }
@@ -283,8 +294,8 @@ class NewVideoDetailViewController: UIViewController {
 
     private func update(with data: VideoDetail?, info: PlayerInfo?) {
         coverImageView.kf.setImage(with: data?.pic)
-        uperAvatarView.kf.setImage(with: data?.avatar)
-        uperNameLabel.text = data?.ownerName
+        uperProfileView.imageView.kf.setImage(with: data?.avatar)
+        uperProfileView.titleLabel.text = data?.ownerName
         titleLabel.text = data?.title
 
         let attributedString = NSMutableAttributedString()
@@ -478,6 +489,13 @@ class NewVideoDetailViewController: UIViewController {
     @objc func play() {
         let player = VideoPlayerViewController(playInfo: PlayInfo(aid: aid, cid: cid))
         present(player, animated: true)
+    }
+
+    @objc func goUperSpace() {
+        if let mid = data?.View.owner.mid {
+            let uperSpaceVC = UperSpaceViewController(mid: mid)
+            present(uperSpaceVC, animated: true)
+        }
     }
 }
 

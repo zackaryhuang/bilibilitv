@@ -232,7 +232,7 @@ class PersonalInfoCard: UIView {
                 self.layer.shadowOffset = CGSizeMake(0, 10)
                 self.layer.shadowOpacity = 0.15
                 self.layer.shadowRadius = 16.0
-                self.backgroundView.backgroundColor = .green
+                self.backgroundView.backgroundColor = .biliPink
             }
         } else {
             coordinator.addCoordinatedAnimations {

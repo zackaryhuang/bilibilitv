@@ -16,10 +16,10 @@ extension UIColor {
     }
 
     static var biliBlue: UIColor {
-        UIColor(hex: 0x00aeec)
+        UIColor(hex: 0x00AEEC)
     }
 
     static var biliPink: UIColor {
-        UIColor(hex: 0xff6699)
+        UIColor(hex: 0xFF6699)
     }
 }

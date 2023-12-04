@@ -63,7 +63,7 @@ class NormalButton: UIView {
                 self.layer.shadowOffset = CGSizeMake(0, 10)
                 self.layer.shadowOpacity = 0.15
                 self.layer.shadowRadius = 16.0
-                self.backgroundColor = .green
+                self.backgroundColor = .biliBlue
             }
         } else {
             coordinator.addCoordinatedAnimations {
