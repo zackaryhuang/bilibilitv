@@ -10,7 +10,7 @@ import UIKit
 class LeftImageRightTextView: UIView {
     let imageView = UIImageView()
     let titleLabel = UILabel()
-    let spacing: CGFloat = 30.0
+    let spacing: CGFloat = 20.0
     let imageSize: CGSize = CGSizeMake(80, 80)
 
     override init(frame: CGRect) {
@@ -24,21 +24,25 @@ class LeftImageRightTextView: UIView {
     }
 
     func configUI() {
-        layer.cornerRadius = 10
         addSubview(imageView)
         addSubview(titleLabel)
         imageView.snp.makeConstraints { make in
             make.size.equalTo(imageSize)
-            make.leading.top.bottom.equalTo(self).offset(30)
-            make.top.equalTo(self).offset(10)
-            make.bottom.equalTo(self).offset(-10)
+            make.leading.top.bottom.equalTo(self).offset(20)
+            make.top.equalTo(self).offset(20)
+            make.bottom.equalTo(self).offset(-20)
         }
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.trailing).offset(spacing)
             make.centerY.equalTo(self)
-            make.trailing.equalTo(self).offset(-30)
+            make.trailing.equalTo(self).offset(-20)
         }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = frame.size.height / 2.0
     }
 
     override var canBecomeFocused: Bool {

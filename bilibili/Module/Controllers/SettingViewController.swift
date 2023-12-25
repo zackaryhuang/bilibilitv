@@ -263,6 +263,21 @@ class SettingViewController: UIViewController {
         let contentMatch = CellModel(title: "匹配视频内容", options: [option_15, option_16])
         cellModels.append(contentMatch)
 
+        // 是否开启播放历史纪录同步 syncWatchHistory
+        let option_17 = SettingOptions(title: "开", checkSelected: {
+            Settings.syncWatchHistory == true
+        }) { [weak self] in
+            Settings.syncWatchHistory = true
+            self?.collectionView.reloadData()
+        }
+        let option_18 = SettingOptions(title: "关", checkSelected: {
+            Settings.syncWatchHistory == false
+        }) { [weak self] in
+            Settings.syncWatchHistory = false
+            self?.collectionView.reloadData()
+        }
+        let syncWatchHistory = CellModel(title: "同步播放记录", options: [option_17, option_18])
+        cellModels.append(syncWatchHistory)
         collectionView.reloadData()
     }
 }

@@ -103,9 +103,9 @@ enum WebRequest {
                     complete?(.failure(.statusFail(code: errorCode, message: message)))
                     return
                 }
-                let dataj = json[dataObj]
+                let data = json[dataObj]
                 print("\(url) response: \(json)")
-                complete?(.success(dataj))
+                complete?(.success(data))
             case let .failure(err):
                 complete?(.failure(err))
             }
@@ -194,10 +194,10 @@ extension WebRequest {
         }
     }
 
-    /// 请求前 10 条播放历史纪录
+    /// 请求前 20 条播放历史纪录
     /// - Parameter complete: 完成回调
     static func requestTopHistory(complete: (([HistoryData]) -> Void)?) {
-        request(url: WebRequest.EndPoint.History, parameters: ["pn": 1, "ps": 10]) {
+        request(url: WebRequest.EndPoint.History, parameters: ["pn": 1, "ps": 20]) {
             (result: Result<[HistoryData], RequestError>) in
             if let data = try? result.get() {
                 complete?(data)
@@ -240,10 +240,21 @@ extension WebRequest {
     }
 
     static func ReportWatchHistory(aid: Int, cid: Int, currentTime: Int) {
+        if !Settings.syncWatchHistory {
+            return
+        }
         requestJSON(method: .post,
                     url: EndPoint.ReportHistory,
-                    parameters: ["aid": aid, "cid": cid, "progress": currentTime],
-                    complete: nil)
+                    parameters: ["aid": aid, "cid": cid, "progress": currentTime]) { response in
+            switch response {
+            case .success:
+                if Settings.syncWatchHistory {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "BiliBiliWatchHistoryChangedNotification"), object: nil)
+                }
+            case .failure:
+                debugPrint("Warning: 上报观看历史失败")
+            }
+        }
     }
 
     static func RequestUPerSpaceVideos(mid: Int, page: Int, pageSize: Int = 50) async throws -> [UpSpaceReq.List.VListData] {

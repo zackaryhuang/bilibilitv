@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AVInfoPanelCollectionViewThumbnailCellHook.start()
         CookieHandler.shared.restoreCookies()
         BiliBiliUpnpDMR.shared.start()
-        URLSession.shared.configuration.headers.add(.userAgent("BiLiBiLi AppleTV Client/1.0.0 (github/yichengchen/ATV-Bilibili-live-demo)"))
         window = UIWindow()
         if ApiRequest.isLogin() {
             if let expireDate = ApiRequest.getToken()?.expireDate {
@@ -38,11 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func showLogin() {
+    func showLoginView() {
         window?.rootViewController = LoginViewController()
     }
 
-    func showTabBar() {
+    func showMainView() {
         window?.rootViewController = MainViewController()
     }
 

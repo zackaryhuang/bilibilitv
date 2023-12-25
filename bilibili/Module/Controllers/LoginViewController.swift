@@ -160,7 +160,7 @@ class LoginViewController: UIViewController {
     }
 
     func didValidationSuccess() {
-        AppDelegate.shared.showTabBar()
+        AppDelegate.shared.showMainView()
     }
 
     @objc func onRefreshButtonClick() {

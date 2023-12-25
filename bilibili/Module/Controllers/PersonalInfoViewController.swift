@@ -23,6 +23,7 @@ class PersonalInfoViewController: UIViewController {
     var watchLaterCollectionView: UICollectionView!
 
     override func viewDidLoad() {
+        registerNotification()
         configUI()
         Task {
             do {
@@ -47,6 +48,10 @@ class PersonalInfoViewController: UIViewController {
                 debugPrint(err)
             }
         }
+    }
+
+    func registerNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(watchingHistoryDidChanged), name: NSNotification.Name("BiliBiliWatchHistoryChangedNotification"), object: nil)
     }
 
     func configUI() {
@@ -176,6 +181,17 @@ class PersonalInfoViewController: UIViewController {
     @objc func onAboutClick() {}
 
     @objc func onExitClick() {}
+
+    @objc func watchingHistoryDidChanged() {
+        WebRequest.requestTopHistory { histories in
+            self.histories = histories
+            self.historyCollectionView.reloadData()
+        }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 extension PersonalInfoViewController: UICollectionViewDataSource, UICollectionViewDelegate {

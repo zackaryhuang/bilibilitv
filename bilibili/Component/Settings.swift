@@ -54,6 +54,9 @@ enum Settings {
     @UserDefault("Settings.contentMatch", defaultValue: true)
     static var contentMatch: Bool
 
+    @UserDefault("Settings.syncWatchHistory", defaultValue: true)
+    static var syncWatchHistory: Bool
+
     @UserDefault("Settings.continuePlay", defaultValue: true)
     static var continuePlay: Bool
 

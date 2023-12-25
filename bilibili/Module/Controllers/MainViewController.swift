@@ -52,7 +52,9 @@ class MainViewController: UIViewController {
     }
 
     private func configUI() {
+        view.backgroundColor = UIColor(hex: 0x17181A, alpha: 1)
         sidePanel = SidePanel()
+        sidePanel.backgroundColor = UIColor(hex: 0x1E2022)
         sidePanel.clipsToBounds = true
         sidePanel.delegate = self
         view.addSubview(sidePanel)
@@ -73,8 +75,9 @@ class MainViewController: UIViewController {
             rightContainerView.addSubview(collectionVC.view)
             if collectionVC is BaseCollectionViewController {
                 collectionVC.view.snp.makeConstraints { make in
-                    make.leading.top.bottom.equalTo(rightContainerView)
+                    make.top.bottom.equalTo(rightContainerView)
                     make.width.equalTo(4 * 420 + 3 * 20)
+                    make.leading.equalTo(rightContainerView).offset(40)
                 }
             } else {
                 collectionVC.view.snp.makeConstraints { make in

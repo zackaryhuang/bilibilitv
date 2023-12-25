@@ -97,7 +97,7 @@ enum ApiRequest {
                 if errorCode != 0 {
                     if errorCode == -101 {
                         UserDefaults.standard.removeObject(forKey: "token")
-                        AppDelegate.shared.showLogin()
+                        AppDelegate.shared.showLoginView()
                     }
                     let message = json["message"].stringValue
                     print(errorCode, message)
