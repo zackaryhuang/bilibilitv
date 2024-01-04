@@ -18,6 +18,8 @@ enum CurrentPageType: Int {
 }
 
 class MainViewController: UIViewController {
+    static let SidePanelMaxWidth = 260
+    static let SidePanelMinWidth = 110
     var sidePanel: SidePanel!
     var currentPageType = CurrentFocusType.recommend
 //    var subPanel: SubSidePanel!
@@ -61,7 +63,7 @@ class MainViewController: UIViewController {
         sidePanel.snp.makeConstraints { make in
             make.leading.equalTo(view)
             make.top.bottom.equalTo(view)
-            make.width.equalTo(100)
+            make.width.equalTo(Self.SidePanelMinWidth)
         }
 
         let rightContainerView = UIView()
@@ -99,7 +101,7 @@ extension MainViewController: SidePanelDelegate {
     func sidePanelDidBecomeFocused(sidePanel: SidePanel) {
         UIView.animate(withDuration: 0.3) {
             sidePanel.snp.updateConstraints { make in
-                make.width.equalTo(250)
+                make.width.equalTo(Self.SidePanelMaxWidth)
             }
             self.view.layoutIfNeeded()
         }
@@ -108,7 +110,7 @@ extension MainViewController: SidePanelDelegate {
     func sidePanelDidBecomeUnFocused(sidePanel: SidePanel) {
         UIView.animate(withDuration: 0.3) {
             sidePanel.snp.updateConstraints { make in
-                make.width.equalTo(100)
+                make.width.equalTo(Self.SidePanelMinWidth)
             }
             self.view.layoutIfNeeded()
         }

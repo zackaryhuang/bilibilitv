@@ -73,6 +73,7 @@ class NewVideoDetailViewController: UIViewController {
         }
 
         coverImageView.contentMode = .scaleAspectFill
+        coverImageView.clipsToBounds = true
         coverImageView.isUserInteractionEnabled = true
         contentScrollView.addSubview(coverImageView)
         coverImageView.snp.makeConstraints { make in

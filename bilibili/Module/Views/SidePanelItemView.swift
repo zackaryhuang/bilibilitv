@@ -50,9 +50,9 @@ class SidePanelItemView: UITableViewCell {
         label.text = title
         contentView.addSubview(label)
         label.snp.makeConstraints { make in
-            make.leading.equalTo(iconView.snp.trailing).offset(30)
+            make.leading.equalTo(contentView).offset(90)
             make.centerY.equalTo(iconView)
-            make.trailing.equalTo(contentView)
+            make.trailing.lessThanOrEqualTo(contentView)
         }
     }
 

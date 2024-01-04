@@ -81,7 +81,7 @@ class SidePanel: UIView {
         tableView.remembersLastFocusedIndexPath = true
         addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(self).inset(UIEdgeInsets(top: 60, left: 10, bottom: 0, right: 0))
+            make.edges.equalTo(self).inset(UIEdgeInsets(top: 60, left: 20, bottom: 0, right: 20))
         }
     }
 
