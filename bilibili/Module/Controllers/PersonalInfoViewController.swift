@@ -111,8 +111,8 @@ class PersonalInfoViewController: UIViewController {
             make.width.equalTo(aboutButton)
         }
 
-        let tapForExit = UITapGestureRecognizer(target: self, action: #selector(onExitClick))
-        logoutButton.addGestureRecognizer(tapForExit)
+        let tapForLogout = UITapGestureRecognizer(target: self, action: #selector(onLogoutClick))
+        logoutButton.addGestureRecognizer(tapForLogout)
 
         let recentLabel = UILabel()
         recentLabel.text = "最近播放"
@@ -178,9 +178,21 @@ class PersonalInfoViewController: UIViewController {
         present(follow, animated: true)
     }
 
-    @objc func onAboutClick() {}
+    @objc func onLogoutClick() {
+        let alert = UIAlertController(title: "确定登出？", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "确定", style: .default) {
+            _ in
+            ApiRequest.logout {
+                WebRequest.logout {
+                    AppDelegate.shared.showLoginView()
+                }
+            }
+        })
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
+        present(alert, animated: true)
+    }
 
-    @objc func onExitClick() {}
+    @objc func onAboutClick() {}
 
     @objc func watchingHistoryDidChanged() {
         WebRequest.requestTopHistory { histories in

@@ -23,7 +23,7 @@ enum CurrentFocusType: Int {
     case hot
     case rank
     case follow
-    case setting
+    case search
 }
 
 class SidePanelItem {

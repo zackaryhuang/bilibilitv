@@ -35,7 +35,7 @@ enum WebRequest {
         static let PGCPlayUrl = Domain + "pgc/player/web/playurl"
         static let AddCollection = Domain + "x/v3/fav/resource/deal" // 添加收藏
         static let CollectionStatus = Domain + "x/v2/fav/video/favoured" // 收藏状态
-        static let Triple = Domain + "x/web-interface/archive/like/triple" // 一键三连
+        static let Triple = Domain + "x/v2/view/like/triple" // 一键三连
         static let History = Domain + "x/v2/history" // 播放记录
         static let VideoDetail = Domain + "x/web-interface/view/detail" // 视频详情
         static let UPerSpaceVide = AppDomain + "x/v2/space/archive/cursor" // 获取 UP 主的视频
@@ -173,6 +173,11 @@ enum WebRequest {
 // MARK: - Video
 
 extension WebRequest {
+    static func requestFollowedBangumi(pageSize: Int, pageNum: Int) async throws -> BangumiInfo {
+        let info: BangumiInfo = try await request(url: "http://api.bilibili.com/pgc/app/follow/v2/bangumi", parameters: ["ps": pageSize, "pn": pageNum, "status": 2], dataObj: "result")
+        return info
+    }
+
     static func requestSessionInfo(epid: Int) async throws -> BangumiInfo {
         let info: BangumiInfo = try await request(url: "http://api.bilibili.com/pgc/view/web/season", parameters: ["ep_id": epid], dataObj: "result")
         return info
@@ -310,12 +315,14 @@ extension WebRequest {
     ///   - aid: 视频 aid
     ///   - completion: 完成回调
     static func RequestTriple(aid: Int, completion: ((Bool) -> Void)?) {
-        requestJSON(url: EndPoint.Triple, parameters: ["aid": aid]) {
+        requestJSON(method: .post, url: EndPoint.Triple, parameters: ["aid": aid], headers: ["content-type": "application/x-www-form-urlencoded"]) {
             response in
             switch response {
             case let .success(data):
-                completion?(data.intValue == 1)
+                debugPrint("一键三连成功😄")
+                completion?(data["like"].boolValue && data["coin"].boolValue && data["fav"].boolValue)
             case .failure:
+                debugPrint("一键三连失败😭")
                 completion?(false)
             }
         }
