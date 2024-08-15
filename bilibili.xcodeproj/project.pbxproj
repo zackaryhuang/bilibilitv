@@ -36,6 +36,7 @@
 		307C09092B13024800A8F6E6 /* NewVideoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C09082B13024800A8F6E6 /* NewVideoDetailViewController.swift */; };
 		307C090B2B131CBC00A8F6E6 /* NormalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C090A2B131CBC00A8F6E6 /* NormalButton.swift */; };
 		307C090D2B13208E00A8F6E6 /* ProgressPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C090C2B13208E00A8F6E6 /* ProgressPlayButton.swift */; };
+		30B1E6602C6E490500A530C1 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B1E65F2C6E490500A530C1 /* Model.swift */; };
 		30B4A8E02B13430500DA0645 /* UperSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4A8DF2B13430500DA0645 /* UperSpaceViewController.swift */; };
 		30B4A8E22B13983200DA0645 /* UperSpaceSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4A8E12B13983200DA0645 /* UperSpaceSectionHeader.swift */; };
 		30BD34BF2B11FB3800FF19DB /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD34BE2B11FB3800FF19DB /* LargeButton.swift */; };
@@ -168,6 +169,7 @@
 		307C09082B13024800A8F6E6 /* NewVideoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVideoDetailViewController.swift; sourceTree = "<group>"; };
 		307C090A2B131CBC00A8F6E6 /* NormalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalButton.swift; sourceTree = "<group>"; };
 		307C090C2B13208E00A8F6E6 /* ProgressPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressPlayButton.swift; sourceTree = "<group>"; };
+		30B1E65F2C6E490500A530C1 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		30B4A8DF2B13430500DA0645 /* UperSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UperSpaceViewController.swift; sourceTree = "<group>"; };
 		30B4A8E12B13983200DA0645 /* UperSpaceSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UperSpaceSectionHeader.swift; sourceTree = "<group>"; };
 		30BD34BE2B11FB3800FF19DB /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				49D39F27263AD40000F14497 /* WebRequest.swift */,
 				F9D382B326359EF90070508F /* ApiRequest.swift */,
 				F927ED8F2610A5E900EAB8E3 /* CookieManager.swift */,
+				30B1E65F2C6E490500A530C1 /* Model.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -773,6 +776,7 @@
 				F927ED8826103CFB00EAB8E3 /* DanmakuTextCell.swift in Sources */,
 				307C090B2B131CBC00A8F6E6 /* NormalButton.swift in Sources */,
 				F9171D6429010DF1002868C7 /* FeedCollectionViewCell.swift in Sources */,
+				30B1E6602C6E490500A530C1 /* Model.swift in Sources */,
 				3006A95D2AE7FFD200DB0EE5 /* Tools.swift in Sources */,
 				F927ED902610A5E900EAB8E3 /* CookieManager.swift in Sources */,
 				F927ED792610395400EAB8E3 /* DanmakuCellModel.swift in Sources */,
@@ -924,7 +928,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V75YC5AZ2H;
+				DEVELOPMENT_TEAM = G6QQ7H57P6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/bilibili/Vendor",
@@ -941,7 +945,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/bilibili/Vendor",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = club.thatisawesome.bilibili;
+				PRODUCT_BUNDLE_IDENTIFIER = club.thatisawesome.bilibili2;
 				PRODUCT_MODULE_NAME = bilibili;
 				PRODUCT_NAME = bilibili;
 				SWIFT_OBJC_BRIDGING_HEADER = "bilibili/Supporting Files/bilibili-Bridging-Header.h";
@@ -959,7 +963,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V75YC5AZ2H;
+				DEVELOPMENT_TEAM = G6QQ7H57P6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/bilibili/Vendor",
@@ -976,7 +980,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/bilibili/Vendor",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = club.thatisawesome.bilibili;
+				PRODUCT_BUNDLE_IDENTIFIER = club.thatisawesome.bilibili2;
 				PRODUCT_MODULE_NAME = bilibili;
 				PRODUCT_NAME = bilibili;
 				SWIFT_OBJC_BRIDGING_HEADER = "bilibili/Supporting Files/bilibili-Bridging-Header.h";

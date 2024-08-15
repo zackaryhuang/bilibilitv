@@ -18,7 +18,7 @@ class LivesCollectionViewController: BaseCollectionViewController {
         }
     }
 
-    var dataArray = [AnyDispplayData]()
+    var dataArray = [AnyDisplayableData]()
     var categoryCollectionView: UICollectionView!
     var isLoading = false
     var page = 1
@@ -80,9 +80,9 @@ class LivesCollectionViewController: BaseCollectionViewController {
                 page = 1
                 isLoading = true
                 let res = try await WebRequest.requestLiveRoom(page: page)
-                var temp = [AnyDispplayData]()
+                var temp = [AnyDisplayableData]()
                 res.forEach { liveRoom in
-                    temp.append(AnyDispplayData(data: liveRoom))
+                    temp.append(AnyDisplayableData(data: liveRoom))
                 }
                 dataArray = temp
                 isLoading = false
@@ -101,9 +101,9 @@ class LivesCollectionViewController: BaseCollectionViewController {
                 page = 1
                 isLoading = true
                 let res = try await request(page: page)
-                var temp = [AnyDispplayData]()
+                var temp = [AnyDisplayableData]()
                 res.forEach { areaLiveRoom in
-                    temp.append(AnyDispplayData(data: areaLiveRoom))
+                    temp.append(AnyDisplayableData(data: areaLiveRoom))
                 }
                 dataArray = temp
                 isLoading = false
@@ -133,7 +133,7 @@ class LivesCollectionViewController: BaseCollectionViewController {
                 isLoading = true
                 let res = try await WebRequest.requestLiveRoom(page: page)
                 res.forEach { liveRoom in
-                    dataArray.append(AnyDispplayData(data: liveRoom))
+                    dataArray.append(AnyDisplayableData(data: liveRoom))
                 }
                 page += 1
                 isLoading = false
@@ -150,7 +150,7 @@ class LivesCollectionViewController: BaseCollectionViewController {
                 isLoading = true
                 let res = try await request(page: page)
                 res.forEach { areaLiveRoom in
-                    dataArray.append(AnyDispplayData(data: areaLiveRoom))
+                    dataArray.append(AnyDisplayableData(data: areaLiveRoom))
                 }
                 page += 1
                 hasMore = res.count > 0

@@ -10,7 +10,7 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class RanksCollectionViewController: BaseCollectionViewController {
-    var dataArray = [AnyDispplayData]()
+    var dataArray = [AnyDisplayableData]()
 
     var categoryCollectionView: UICollectionView!
     var currentRankCategory: RankCategoryInfo = RankCategoryInfo.all.first! {
@@ -65,9 +65,9 @@ class RanksCollectionViewController: BaseCollectionViewController {
             do {
                 isLoading = true
                 let res = try await WebRequest.requestSeasonRank(for: currentRankCategory.rid)
-                var temp = [AnyDispplayData]()
+                var temp = [AnyDisplayableData]()
                 res.forEach { liveRoom in
-                    temp.append(AnyDispplayData(data: liveRoom))
+                    temp.append(AnyDisplayableData(data: liveRoom))
                 }
                 dataArray = temp
                 isLoading = false
@@ -82,9 +82,9 @@ class RanksCollectionViewController: BaseCollectionViewController {
             do {
                 isLoading = true
                 let res = try await WebRequest.requestRank(for: currentRankCategory.rid)
-                var temp = [AnyDispplayData]()
+                var temp = [AnyDisplayableData]()
                 res.forEach { info in
-                    temp.append(AnyDispplayData(data: info))
+                    temp.append(AnyDisplayableData(data: info))
                 }
                 dataArray = temp
                 isLoading = false

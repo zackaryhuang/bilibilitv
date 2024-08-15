@@ -140,7 +140,28 @@ class VideoCell: UICollectionViewCell {
         }
     }
 
-    func update(with display: AnyDispplayData) {
+    func install(with display: any DisplayData) {
+        coverImageView.kf.setImage(with: display.pic)
+        titleLabel.text = display.title
+        uperNameLabel.text = display.ownerName
+        uperIcon.clipsToBounds = true
+        uperIcon.layer.cornerRadius = 17.5
+        uperIcon.contentMode = .scaleAspectFill
+        uperIcon.kf.setImage(with: display.avatar)
+        uperIcon.snp.makeConstraints { make in
+            make.width.height.equalTo(35)
+        }
+
+        if let playCount = (display as? DynamicFeedData)?.modules.module_dynamic.major?.archive?.stat?.play {
+            playCountLabel.text = playCount
+        }
+
+        if let danmakuCount = (display as? DynamicFeedData)?.modules.module_dynamic.major?.archive?.stat?.danmaku {
+            danmakuCountLabel.text = danmakuCount
+        }
+    }
+
+    func update(with display: AnyDisplayableData) {
         if let areaLiveRoom = display.data as? AreaLiveRoom {
             coverImageView.kf.setImage(with: areaLiveRoom.pic)
             titleLabel.text = areaLiveRoom.title

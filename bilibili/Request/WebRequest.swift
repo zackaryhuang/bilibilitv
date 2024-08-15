@@ -99,12 +99,12 @@ enum WebRequest {
                 let errorCode = json["code"].intValue
                 if errorCode != 0 {
                     let message = json["message"].stringValue
-                    print(errorCode, message)
+                    print("😭\(errorCode), \(message)")
                     complete?(.failure(.statusFail(code: errorCode, message: message)))
                     return
                 }
                 let data = json[dataObj]
-                print("\(url) response: \(json)")
+                print("😄\(url) response: \(json)")
                 complete?(.success(data))
             case let .failure(err):
                 complete?(.failure(err))
@@ -434,6 +434,18 @@ extension WebRequest {
         let res = try await requestJSON(url: "https://api.bilibili.com/x/player/pagelist?aid=\(aid)&jsonp=jsonp")
         let cid = res[0]["cid"].intValue
         return cid
+    }
+
+    static func requestFollowsFeed(offset: String, page: Int) async throws -> DynamicFeedInfo {
+        var param: [String: Any] = ["type": "all", "timezone_offset": "-480", "page": page]
+        if let offsetNum = Int(offset) {
+            param["offset"] = offsetNum
+        }
+        let res: DynamicFeedInfo = try await request(url: "https://api.bilibili.com/x/polymer/web-dynamic/v1/feed/all", parameters: param)
+        if res.videoFeeds.isEmpty, res.has_more {
+            return try await requestFollowsFeed(offset: res.offset, page: page)
+        }
+        return res
     }
 }
 
