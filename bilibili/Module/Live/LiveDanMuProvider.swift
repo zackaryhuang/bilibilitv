@@ -126,6 +126,10 @@ extension LiveDanMuProvider {
 // MARK: WebSocketDelegate
 
 extension LiveDanMuProvider: WebSocketDelegate {
+    func didReceive(event: Starscream.WebSocketEvent, client: any Starscream.WebSocketClient) {
+        //
+    }
+
     func didReceive(event: WebSocketEvent, client: WebSocket) {
         print(event)
         switch event {
