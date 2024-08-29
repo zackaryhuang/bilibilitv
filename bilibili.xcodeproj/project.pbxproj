@@ -117,9 +117,7 @@
 		F9B57356260F5F7400771ED5 /* LivePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B57355260F5F7400771ED5 /* LivePlayerViewController.swift */; };
 		F9B5735B260F5F7600771ED5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B5735A260F5F7600771ED5 /* Assets.xcassets */; };
 		F9B5735E260F5F7600771ED5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9B5735C260F5F7600771ED5 /* LaunchScreen.storyboard */; };
-		F9B5736E260F652C00771ED5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F9B5736D260F652C00771ED5 /* Alamofire */; };
 		F9B57373260F6B8E00771ED5 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = F9B57372260F6B8E00771ED5 /* Starscream */; };
-		F9B57378260F6BB400771ED5 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F9B57377260F6BB400771ED5 /* SwiftyJSON */; };
 		F9B9EAE7261AC6F80045C2C6 /* BLTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B9EAE6261AC6F80045C2C6 /* BLTabBarViewController.swift */; };
 		F9B9EAEA261B15020045C2C6 /* FeedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B9EAE9261B15020045C2C6 /* FeedCollectionViewController.swift */; };
 		F9B9EAED261B25E40045C2C6 /* ToViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B9EAEC261B25E40045C2C6 /* ToViewViewController.swift */; };
@@ -255,8 +253,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9B57378260F6BB400771ED5 /* SwiftyJSON in Frameworks */,
-				F9B5736E260F652C00771ED5 /* Alamofire in Frameworks */,
 				49078E47291BEA2400F556BD /* PocketSVG in Frameworks */,
 				499C76162931A7AE003160FB /* SwiftyXMLParser in Frameworks */,
 				49508E112943420100D26812 /* CocoaLumberjackSwift in Frameworks */,
@@ -575,9 +571,7 @@
 			);
 			name = bilibili;
 			packageProductDependencies = (
-				F9B5736D260F652C00771ED5 /* Alamofire */,
 				F9B57372260F6B8E00771ED5 /* Starscream */,
-				F9B57377260F6BB400771ED5 /* SwiftyJSON */,
 				F927ED64260F917D00EAB8E3 /* Gzip */,
 				F927ED9E2610B5C300EAB8E3 /* Kingfisher */,
 				F9171D5E2900FCFB002868C7 /* SnapKit */,
@@ -621,9 +615,7 @@
 			);
 			mainGroup = F9B57347260F5F7400771ED5;
 			packageReferences = (
-				F9B5736C260F652C00771ED5 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				F9B57371260F6B8E00771ED5 /* XCRemoteSwiftPackageReference "Starscream" */,
-				F9B57376260F6BB400771ED5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				F927ED63260F917D00EAB8E3 /* XCRemoteSwiftPackageReference "GzipSwift" */,
 				F927ED9D2610B5C300EAB8E3 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				F9171D5D2900FCFB002868C7 /* XCRemoteSwiftPackageReference "SnapKit" */,
@@ -635,6 +627,8 @@
 				499C76142931A7AE003160FB /* XCRemoteSwiftPackageReference "SwiftyXMLParser" */,
 				49508E0D2943420100D26812 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 				3006A9612AE8093600DB0EE5 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				302150452C8053B4005A24CC /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				302150462C8053E9005A24CC /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = F9B57351260F5F7400771ED5 /* Products */;
 			projectDirPath = "";
@@ -1022,20 +1016,36 @@
 				minimumVersion = 4.3.3;
 			};
 		};
+		302150452C8053B4005A24CC /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
+		302150462C8053E9005A24CC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 		49078E45291BEA2400F556BD /* XCRemoteSwiftPackageReference "PocketSVG" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pocketsvg/PocketSVG.git";
 			requirement = {
-				kind = exactVersion;
-				version = 1.0.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 		494741C129016CCE005D6885 /* XCRemoteSwiftPackageReference "MarqueeLabel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cbpowell/MarqueeLabel";
 			requirement = {
-				kind = exactVersion;
-				version = 1.0.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 		49508E0D2943420100D26812 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
@@ -1066,8 +1076,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yichengchen/swifter.git";
 			requirement = {
-				branch = stable;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 		499C76142931A7AE003160FB /* XCRemoteSwiftPackageReference "SwiftyXMLParser" */ = {
@@ -1082,48 +1092,32 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
-				kind = exactVersion;
-				version = 5.0.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
 			};
 		};
 		F927ED63260F917D00EAB8E3 /* XCRemoteSwiftPackageReference "GzipSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/1024jp/GzipSwift";
 			requirement = {
-				kind = exactVersion;
-				version = 5.1.1;
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
 			};
 		};
 		F927ED9D2610B5C300EAB8E3 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
-				kind = exactVersion;
-				version = 6.2.1;
-			};
-		};
-		F9B5736C260F652C00771ED5 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = exactVersion;
-				version = 5.4.1;
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.2.1;
 			};
 		};
 		F9B57371260F6B8E00771ED5 /* XCRemoteSwiftPackageReference "Starscream" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/daltoniam/Starscream.git";
 			requirement = {
-				kind = exactVersion;
-				version = 4.0.4;
-			};
-		};
-		F9B57376260F6BB400771ED5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
-			requirement = {
-				kind = exactVersion;
-				version = 5.0.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1189,20 +1183,10 @@
 			package = F927ED9D2610B5C300EAB8E3 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		F9B5736D260F652C00771ED5 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F9B5736C260F652C00771ED5 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
 		F9B57372260F6B8E00771ED5 /* Starscream */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F9B57371260F6B8E00771ED5 /* XCRemoteSwiftPackageReference "Starscream" */;
 			productName = Starscream;
-		};
-		F9B57377260F6BB400771ED5 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F9B57376260F6BB400771ED5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
