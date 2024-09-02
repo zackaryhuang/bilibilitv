@@ -161,6 +161,14 @@ class VideoCell: UICollectionViewCell {
         }
     }
 
+    func update(with data: DisplayableData) {
+        coverImageView.kf.setImage(with: URL(string: data.cover))
+        titleLabel.text = data.title
+        uperNameLabel.text = data.ownerName
+        playCountLabel.text = data.viewCount
+        danmakuCountLabel.text = data.danmakuCount
+    }
+
     func update(with display: AnyDisplayableData) {
         if let areaLiveRoom = display.data as? AreaLiveRoom {
             coverImageView.kf.setImage(with: areaLiveRoom.pic)

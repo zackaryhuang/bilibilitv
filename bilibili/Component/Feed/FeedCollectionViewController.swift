@@ -9,6 +9,18 @@ import SnapKit
 import TVUIKit
 import UIKit
 
+protocol DisplayableData {
+    var cover: String { get }
+    var title: String { get }
+    var ownerName: String { get }
+    var ownerFace: String { get }
+}
+
+extension DisplayableData {
+    var viewCount: String? { return nil }
+    var danmakuCount: String? { return nil }
+}
+
 protocol DisplayData: Hashable {
     var title: String { get }
     var ownerName: String { get }

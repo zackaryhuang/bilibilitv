@@ -10,13 +10,9 @@ import UIKit
 
 class NewVideoDetailViewController: UIViewController {
     static var CollectionViewInset = 20.0
-
-    private var aid = 0
-    private var cid = 0
+    private var playInfo: PlayInfo
     private var data: VideoDetail?
-    private var seasonId = 0
     private var isSession = false
-    private var epid = 0
     private var pages = [VideoPage]()
     private var episodes = [Episode]()
     var episodesCollectionView: UICollectionView!
@@ -47,19 +43,25 @@ class NewVideoDetailViewController: UIViewController {
     }
 
     convenience init(aid: Int = 0, cid: Int = 0) {
-        self.init()
-        self.aid = aid
-        self.cid = cid
+        self.init(playInfo: PlayInfo(aid: aid, cid: cid))
+    }
+
+    init(playInfo: PlayInfo) {
+        self.playInfo = playInfo
+        super.init(nibName: nil, bundle: nil)
     }
 
     convenience init(seasonID: Int) {
-        self.init()
-        seasonId = seasonID
+        self.init(playInfo: PlayInfo(seasonID: seasonID))
     }
 
     convenience init(episodeID: Int) {
-        self.init()
-        epid = episodeID
+        self.init(playInfo: PlayInfo(episodeID: episodeID))
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     private func configUI() {
@@ -98,21 +100,6 @@ class NewVideoDetailViewController: UIViewController {
             make.leading.equalTo(coverImageView).offset(80)
             make.bottom.equalTo(coverImageView).offset(-380)
         }
-
-//        coverImageView.addSubview(uperAvatarView)
-//        uperAvatarView.layer.cornerRadius = 40
-//        uperAvatarView.layer.masksToBounds = true
-//        uperAvatarView.snp.makeConstraints { make in
-//            make.leading.equalTo(coverImageView).offset(80)
-//            make.bottom.equalTo(coverImageView).offset(-380)
-//            make.width.height.equalTo(80)
-//        }
-//
-//        coverImageView.addSubview(uperNameLabel)
-//        uperNameLabel.snp.makeConstraints { make in
-//            make.leading.equalTo(uperAvatarView.snp.trailing).offset(30)
-//            make.centerY.equalTo(uperAvatarView)
-//        }
 
         coverImageView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
@@ -221,49 +208,55 @@ class NewVideoDetailViewController: UIViewController {
 
     func loadData() {
         Task {
-            if seasonId > 0 {
+            if let seasonID = self.playInfo.seasonID, seasonID > 0 {
                 isSession = true
-                let info = try await WebRequest.requestSessionInfo(seasonID: seasonId)
+                let info = try await WebRequest.requestSessionInfo(seasonID: seasonID)
                 if let epi = info.main_section?.episodes.last ?? info.section.last?.episodes.last {
-                    aid = epi.aid
-                    cid = epi.cid
+                    playInfo = PlayInfo(aid: epi.aid, cid: epi.cid, seasonID: seasonID, episodeID: epi.id)
                 }
 
                 if let epi = info.main_section?.episodes.last {
-                    aid = epi.aid
-                    cid = epi.cid
+                    playInfo = PlayInfo(aid: epi.aid, cid: epi.cid, seasonID: seasonID, episodeID: epi.id)
                     episodes = info.main_section?.episodes.reversed() ?? [Episode]()
                 } else if let epi = info.section.last?.episodes.last {
-                    aid = epi.aid
-                    cid = epi.cid
+                    playInfo = PlayInfo(aid: epi.aid, cid: epi.cid, seasonID: seasonID, episodeID: epi.id)
                     episodes = info.section.last?.episodes.reversed() ?? [Episode]()
                     assert(info.section.count > 1, "应该是有多个 Season")
                 }
 
                 pages = info.main_section?.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title) }) ?? [VideoPage]()
-            } else if epid > 0 {
+            } else if let epid = playInfo.episodeID, epid > 0 {
                 isSession = true
                 let info = try await WebRequest.requestSessionInfo(epid: epid)
                 if let epi = info.episodes.last(where: { $0.id == epid }) ?? info.episodes.last {
-                    aid = epi.aid
-                    cid = epi.cid
+                    playInfo = PlayInfo(aid: epi.aid, cid: epi.cid)
                 } else {
                     throw NSError(domain: "get epi fail", code: -1)
                 }
                 episodes = info.episodes.reversed()
                 pages = info.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title) })
             }
-            let data = try await WebRequest.requestDetailVideo(aid: aid)
-            self.data = data
 
-            if let redirect = data.View.redirect_url?.lastPathComponent, redirect.starts(with: "ep"), let id = Int(redirect.dropFirst(2)), !isSession {
+            if let bvid = self.playInfo.bvid {
+                let data = try await WebRequest.requestDetailVideo(bvid: bvid)
+                self.data = data
+            } else if playInfo.isAidValid {
+                let data = try await WebRequest.requestDetailVideo(aid: playInfo.aid)
+                self.data = data
+            } else {
+                assertionFailure("缺少视频唯一标识")
+            }
+
+            if let redirect = data?.View.redirect_url?.lastPathComponent, redirect.starts(with: "ep"), let id = Int(redirect.dropFirst(2)), !isSession, let epid = playInfo.episodeID {
                 isSession = true
-                epid = id
                 let info = try await WebRequest.requestSessionInfo(epid: epid)
                 pages = info.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title + " " + $0.long_title) })
                 episodes = info.episodes.reversed()
             }
-            let cid = UserDefaults.standard.integer(forKey: "\(aid)")
+
+            guard let aid = data?.View.aid, let cid = data?.View.cid else {
+                throw NSError(domain: "未获取到视频 aid & cid", code: -1)
+            }
             let playInfo = try? await WebRequest.requestPlayerInfo(aid: aid, cid: cid)
 
             var hasSentCoin = false
@@ -448,9 +441,9 @@ class NewVideoDetailViewController: UIViewController {
             view.bringSubviewToFront(lottieView)
             isTripleCanceled = false
             lottieView.play { completed in
-                if !self.isTripleCanceled {
+                if !self.isTripleCanceled, let aid = self.data?.View.aid {
                     debugPrint("一键三连")
-                    WebRequest.RequestTriple(aid: self.aid) { succeed in
+                    WebRequest.RequestTriple(aid: aid) { succeed in
                         if succeed {
                             self.collectionButton.imageView.image = UIImage(named: "icon_collect")
                             self.thumbUpButton.imageView.image = UIImage(named: "icon_thumb_up")
@@ -489,6 +482,9 @@ class NewVideoDetailViewController: UIViewController {
     }
 
     @objc func play() {
+        guard let aid = data?.View.aid, let cid = data?.View.cid else {
+            return
+        }
         let player = VideoPlayerViewController(playInfo: PlayInfo(aid: aid, cid: cid))
         present(player, animated: true)
     }

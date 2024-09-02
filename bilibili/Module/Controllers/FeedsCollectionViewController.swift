@@ -10,7 +10,7 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class FeedsCollectionViewController: BaseCollectionViewController {
-    var items = [ApiRequest.FeedResp.Items]()
+    var items = [VideoInfo]()
 
     var isLoading = false
 
@@ -53,14 +53,11 @@ class FeedsCollectionViewController: BaseCollectionViewController {
         }
     }
 
-    private func request(page: Int) async throws -> [ApiRequest.FeedResp.Items] {
-        if page == 1 {
-            return try await ApiRequest.getFeeds()
-        } else if let last = (items.last)?.idx {
-            return try await ApiRequest.getFeeds(lastIdx: last)
-        } else {
+    private func request(page: Int) async throws -> [VideoInfo] {
+        guard let videos = try await WebRequest.requestFeedRecommendation() else {
             throw NSError(domain: "", code: -1)
         }
+        return videos
     }
 }
 
@@ -81,12 +78,16 @@ extension FeedsCollectionViewController: UICollectionViewDelegate, UICollectionV
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = items[indexPath.row]
-        if Settings.playVideoDirectly {
-            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: item.aid, cid: item.cid))
-            present(player, animated: true)
-        } else {
-            let detailVC = NewVideoDetailViewController(aid: item.aid, cid: item.cid)
-            present(detailVC, animated: true)
+        Task {
+            let cid = try await WebRequest.RequestCid(bvid: item.bvid)
+
+            if Settings.playVideoDirectly {
+                let player = VideoPlayerViewController(playInfo: PlayInfo(bvid: item.bvid, cid: item.cid))
+                present(player, animated: true)
+            } else {
+                let detailVC = NewVideoDetailViewController(playInfo: PlayInfo(bvid: item.bvid, cid: item.cid))
+                present(detailVC, animated: true)
+            }
         }
     }
 

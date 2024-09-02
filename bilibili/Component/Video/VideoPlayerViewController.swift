@@ -14,12 +14,18 @@ import SwiftyXMLParser
 import UIKit
 
 struct PlayInfo {
-    let aid: Int
+    var aid: Int = 0
+    var bvid: String?
     var cid: Int? = 0
     var isSession: Bool = false
-
-    var isCidVaild: Bool {
+    var seasonID: Int?
+    var episodeID: Int?
+    var isCidValid: Bool {
         return cid ?? 0 > 0
+    }
+
+    var isAidValid: Bool {
+        return aid > 0
     }
 }
 
@@ -85,7 +91,7 @@ class VideoPlayerViewController: CommonPlayerViewController {
     }
 
     private func initPlayer() async {
-        if !playInfo.isCidVaild {
+        if !playInfo.isCidValid {
             do {
                 playInfo.cid = try await WebRequest.RequestCid(aid: playInfo.aid)
             } catch let err {
@@ -216,7 +222,7 @@ class VideoPlayerViewController: CommonPlayerViewController {
 
 extension VideoPlayerViewController {
     func fetchVideoData() async {
-        assert(playInfo.isCidVaild)
+        assert(playInfo.isCidValid)
         let aid = playInfo.aid
         let cid = playInfo.cid!
 

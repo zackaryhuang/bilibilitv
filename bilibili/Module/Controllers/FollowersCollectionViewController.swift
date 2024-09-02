@@ -73,6 +73,9 @@ extension FollowersCollectionViewController: UICollectionViewDelegate, UICollect
         if let episodeID = feed.modules.module_dynamic.major?.pgc?.epid {
             let detailVC = NewVideoDetailViewController(episodeID: episodeID)
             present(detailVC, animated: true)
+        } else if let aid = feed.modules.module_dynamic.major?.archive?.aid, let aid = Int(aid) {
+            let detailVC = NewVideoDetailViewController(playInfo: PlayInfo(aid: aid))
+            present(detailVC, animated: true)
         }
     }
 

@@ -39,6 +39,7 @@ enum WebRequest {
         static let History = Domain + "x/v2/history" // 播放记录
         static let VideoDetail = Domain + "x/web-interface/view/detail" // 视频详情
         static let UPerSpaceVide = AppDomain + "x/v2/space/archive/cursor" // 获取 UP 主的视频
+        static let FeedRecommendation = Domain + "x/web-interface/wbi/index/top/feed/rcmd" // 推荐视频
     }
 
     static func requestData(method: HTTPMethod = .get,
@@ -173,6 +174,11 @@ enum WebRequest {
 // MARK: - Video
 
 extension WebRequest {
+    static func requestFeedRecommendation(pageSize: Int = 12) async throws -> [VideoInfo]? {
+        let response: RecommendationResponse = try await request(url: EndPoint.FeedRecommendation, parameters: ["refresh_type": 3, "version": 1, "ps": pageSize, "refresh_idx": 1, "fresh_idx_1h": 1], dataObj: "data")
+        return response.items
+    }
+
     static func requestFollowedBangumi(pageSize: Int, pageNum: Int) async throws -> BangumiInfo {
         let info: BangumiInfo = try await request(url: "http://api.bilibili.com/pgc/app/follow/v2/bangumi", parameters: ["ps": pageSize, "pn": pageNum, "status": 2], dataObj: "result")
         return info
@@ -224,7 +230,11 @@ extension WebRequest {
     }
 
     static func requestDetailVideo(aid: Int) async throws -> VideoDetail {
-        try await request(url: EndPoint.VideoDetail, parameters: ["aid": aid])
+        return try await request(url: EndPoint.VideoDetail, parameters: ["aid": aid])
+    }
+
+    static func requestDetailVideo(bvid: String) async throws -> VideoDetail {
+        return try await request(url: EndPoint.VideoDetail, parameters: ["bvid": bvid])
     }
 
     static func requestFavVideosList() async throws -> [FavListData] {
@@ -432,6 +442,12 @@ extension WebRequest {
 
     static func RequestCid(aid: Int) async throws -> Int {
         let res = try await requestJSON(url: "https://api.bilibili.com/x/player/pagelist?aid=\(aid)&jsonp=jsonp")
+        let cid = res[0]["cid"].intValue
+        return cid
+    }
+
+    static func RequestCid(bvid: String) async throws -> Int {
+        let res = try await requestJSON(url: "https://api.bilibili.com/x/player/pagelist?bvid=\(bvid)&jsonp=jsonp")
         let cid = res[0]["cid"].intValue
         return cid
     }
