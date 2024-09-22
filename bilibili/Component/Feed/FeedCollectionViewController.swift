@@ -14,6 +14,8 @@ protocol DisplayableData {
     var title: String { get }
     var ownerName: String { get }
     var ownerFace: String { get }
+    var viewCount: String? { get }
+    var danmakuCount: String? { get }
 }
 
 extension DisplayableData {

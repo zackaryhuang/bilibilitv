@@ -27,8 +27,8 @@ struct VideoInfo: Codable, DisplayableData {
     var cover: String { return pic }
     var ownerName: String { return owner.name }
     var ownerFace: String { return owner.face }
-    var viewCount: String { return stat.viewCount.numberString() }
-    var danmakuCount: String { return stat.danmakuCount.numberString() }
+    var viewCount: String? { return stat.viewCount.numberString() }
+    var danmakuCount: String? { return stat.danmakuCount.numberString() }
 
     let id: Int
     let bvid: String
