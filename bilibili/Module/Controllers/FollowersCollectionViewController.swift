@@ -28,6 +28,8 @@ class FollowersCollectionViewController: BaseCollectionViewController {
         do {
             lastOffset = ""
             let res = try await WebRequest.requestFollowsFeed(offset: lastOffset, page: page)
+            lastOffset = res.offset
+            page += 1
             items = res.videoFeeds
             collectionView.reloadData()
         } catch let err {
@@ -39,8 +41,8 @@ class FollowersCollectionViewController: BaseCollectionViewController {
 
     private func loadMore() async {
         do {
-            let res = try await WebRequest.requestFollowsFeed(offset: lastOffset, page: page + 1)
-            page = page + 1
+            let res = try await WebRequest.requestFollowsFeed(offset: lastOffset, page: page)
+            page += 1
             lastOffset = res.offset
             items += res.videoFeeds
             collectionView.reloadData()
