@@ -42,6 +42,16 @@ class NewVideoDetailViewController: UIViewController {
         loadData()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let aid = data?.View.aid, let cid = data?.View.cid {
+            Task {
+                let playInfo = try? await WebRequest.requestPlayerInfo(aid: aid, cid: cid)
+                update(with: data, info: playInfo)
+            }
+        }
+    }
+
     convenience init(aid: Int = 0, cid: Int = 0) {
         self.init(playInfo: PlayInfo(aid: aid, cid: cid))
     }
@@ -247,7 +257,11 @@ class NewVideoDetailViewController: UIViewController {
                 assertionFailure("缺少视频唯一标识")
             }
 
-            if let redirect = data?.View.redirect_url?.lastPathComponent, redirect.starts(with: "ep"), let id = Int(redirect.dropFirst(2)), !isSession, let epid = playInfo.episodeID {
+            if let redirect = data?.View.redirect_url?.lastPathComponent, redirect.starts(with: "ep"),
+               let id = Int(redirect.dropFirst(2)),
+               !isSession,
+               let epid = playInfo.episodeID
+            {
                 isSession = true
                 let info = try await WebRequest.requestSessionInfo(epid: epid)
                 pages = info.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, from: "", part: $0.title + " " + $0.long_title) })
@@ -371,8 +385,13 @@ class NewVideoDetailViewController: UIViewController {
            playTimeInSecond > 0,
            let duration = data?.View.duration
         {
-            playButton.progress = Double(playTimeInSecond) / Double(duration)
-            playButton.label.text = "继续播放\(playTimeInSecond.standardDurationString)"
+            let progress = Double(playTimeInSecond) / Double(duration)
+            playButton.progress = progress
+            if progress > 0.95 {
+                playButton.label.text = "已看完"
+            } else {
+                playButton.label.text = "继续播放\(playTimeInSecond.standardDurationString)"
+            }
         }
 
         if episodes.count > 0 {
